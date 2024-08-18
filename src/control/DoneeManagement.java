@@ -94,32 +94,33 @@ public class DoneeManagement {
             do {
                 choice = doneeUI.getUpdateDoneeChoice();
                 switch (choice) {
-                    case 1:
+                    case 1 -> {
                         String newName = doneeUI.inputDoneeName();
                         oldDonee.setDoneeName(newName);
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         String newIdentity = doneeUI.inputDoneeIdentity();
                         oldDonee.setDoneeIdentity(newIdentity);
-                        break;
-                    case 3:
+                    }
+                    case 3 -> {
                         String newContactNo = doneeUI.inputDoneeContactNo();
                         oldDonee.setDoneeContactNo(newContactNo);
-                        break;
-                    case 4:
+                    }
+                    case 4 -> {
                         String newEmail = doneeUI.inputDoneeEmail();
                         oldDonee.setDoneeEmail(newEmail);
-                        break;
-                    case 5:
+                    }
+                    case 5 -> {
                         doneeList.put(oldDonee.getDoneeId(), oldDonee);
                         doneeDAO.saveToFile(doneeList);
 
                         doneeUI.displaySuccessUpdateDoneeMessage();
                         doneeUI.printDoneeDetails(oldDonee);
-                    case 6:
+                    }
+                    case 6 -> {
                         return;
-                    default:
-                        doneeUI.displayInvalidMenuMessage();
+                    }
+                    default -> doneeUI.displayInvalidMenuMessage();
                 }
             } while (choice != 6);
         }
@@ -145,10 +146,11 @@ public class DoneeManagement {
     }
 
     public void listDonee(String doneeIdentity) {
+        doneeUI.getListDoneeHeader();
         for (MapEntryInterface<String, Donee> entry : doneeList.entrySet()) {
-            if (entry.getValue().getDoneeIdentity().equals(doneeIdentity)) {
+            if (entry.getValue().getDoneeIdentity().equals(doneeIdentity)) { // for filter identity
                 doneeUI.printAllDonee(entry.getValue());
-            } else if (doneeIdentity.equals("")) {
+            } else if (doneeIdentity.equals("")) { // for filter ascending and descending 
                 doneeUI.printAllDonee(entry.getValue());
             }
         }
@@ -160,13 +162,11 @@ public class DoneeManagement {
             choice = doneeUI.getDoneeFilterChoice();
             switch (choice) {
                 case 1 -> {
-                    doneeUI.getListDoneeHeader();
                     doneeList.sortByAscending();
                     listDonee("");
                 }
 
                 case 2 -> {
-                    doneeUI.getListDoneeHeader();
                     doneeList.sortByDescending();
                     listDonee("");
                 }
