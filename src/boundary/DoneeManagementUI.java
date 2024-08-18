@@ -16,7 +16,7 @@ public class DoneeManagementUI {
     Scanner sc = new Scanner(System.in);
 
     public String inputDoneeID() {
-        System.out.print("Enter donee id (eg: DE0001) : ");
+        System.out.print("Enter donee id (eg: DEXXXX) : ");
         String doneeId = sc.nextLine().toUpperCase();
         return doneeId;
     }
@@ -46,7 +46,7 @@ public class DoneeManagementUI {
     }
 
     public void getDoneeLogo() {
-        System.out.println("    _____                        ");
+        System.out.println("     _____                        ");
         System.out.println("    |  __ \\                       ");
         System.out.println("    | |  | | ___  _ __   ___  ___ ");
         System.out.println("    | |  | |/ _ \\| '_ \\ / _ \\/ _ \\");

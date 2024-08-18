@@ -33,18 +33,26 @@ public class DoneeManagement {
             }
             choice = doneeUI.getDoneeMenuChoice();
             switch (choice) {
-                case 1 -> addDonee();
-                case 2 -> removeDonee();
-                case 3 -> updateDonee();
-                case 4 -> searchDonee();
-                case 5 -> listDoneeDonation();
-                case 6 -> filterDonee();
-                case 7 -> generateReport();
+                case 1 ->
+                    addDonee();
+                case 2 ->
+                    removeDonee();
+                case 3 ->
+                    updateDonee();
+                case 4 ->
+                    searchDonee();
+                case 5 ->
+                    listDoneeDonation();
+                case 6 ->
+                    filterDonee();
+                case 7 ->
+                    generateReport();
                 case 8 -> {
                     MessageUI.displayExitSubSystemMessage();
                     System.exit(0);
                 }
-                default -> doneeUI.displayInvalidMenuMessage();
+                default ->
+                    doneeUI.displayInvalidMenuMessage();
             }
         } while (choice != 8);
     }
@@ -62,7 +70,7 @@ public class DoneeManagement {
     public void removeDonee() {
         String removeDoneeID = doneeUI.inputDoneeID();
 
-        boolean validRemove = doneeDAO.removeFromFile(removeDoneeID);
+        boolean validRemove = removeFromFile(removeDoneeID);
 
         if (!validRemove) {
             doneeUI.displayInvalidIDMessgae();
@@ -140,7 +148,7 @@ public class DoneeManagement {
         for (MapEntryInterface<String, Donee> entry : doneeList.entrySet()) {
             if (entry.getValue().getDoneeIdentity().equals(doneeIdentity)) {
                 doneeUI.printAllDonee(entry.getValue());
-            } else if (doneeIdentity.equals("")){
+            } else if (doneeIdentity.equals("")) {
                 doneeUI.printAllDonee(entry.getValue());
             }
         }
@@ -172,7 +180,8 @@ public class DoneeManagement {
                     return;
                 }
 
-                default -> doneeUI.displayInvalidMenuMessage();
+                default ->
+                    doneeUI.displayInvalidMenuMessage();
             }
         } while (choice != 3);
     }
@@ -192,10 +201,10 @@ public class DoneeManagement {
                 case 2 -> {
                     String startDate = doneeUI.inputStartDate();
                     String endDate = doneeUI.inputEndDate();
-                    
+
                     doneeUI.getActivityReportHeader(startDate, endDate);
                     dateComparison(startDate, endDate);
-                    
+
                     doneeUI.displayActivityReport(donee);
                     donee.resetTotal();
                 }
@@ -204,7 +213,8 @@ public class DoneeManagement {
                     return;
                 }
 
-                default -> doneeUI.displayInvalidMenuMessage();
+                default ->
+                    doneeUI.displayInvalidMenuMessage();
             }
         } while (choice != 3);
     }
@@ -212,9 +222,12 @@ public class DoneeManagement {
     public void increaseTotal() {
         for (MapEntryInterface<String, Donee> entry : doneeList.entrySet()) {
             switch (entry.getValue().getDoneeIdentity()) {
-                case "individual" -> donee.increaseTotalIndividual();
-                case "family" -> donee.increaseTotalFamily();
-                default -> donee.increaseTotalOrganisation();
+                case "individual" ->
+                    donee.increaseTotalIndividual();
+                case "family" ->
+                    donee.increaseTotalFamily();
+                default ->
+                    donee.increaseTotalOrganisation();
             }
         }
     }
@@ -237,6 +250,14 @@ public class DoneeManagement {
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public boolean removeFromFile(String id) {
+        boolean isRemoved = doneeList.remove(id);
+        if (isRemoved) {
+            doneeDAO.saveToFile(doneeList);
+        }
+        return isRemoved;
     }
 
     public static void main(String[] args) {

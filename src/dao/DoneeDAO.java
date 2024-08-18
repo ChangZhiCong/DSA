@@ -54,13 +54,4 @@ public class DoneeDAO {
             return doneeList;
         }
     }
-
-    public boolean removeFromFile(String id) {
-        MapInterface<String, Donee> doneeList = retrieveFromFile();
-        boolean isRemoved = doneeList.remove(id);
-        if (isRemoved) {
-            saveToFile(doneeList);
-        }
-        return isRemoved;
-    }
 }
