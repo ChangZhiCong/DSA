@@ -1,0 +1,9 @@
+DE4967,Wai Xian,011-23828858,waixian,organisation,12/08/2024
+DE3618,chang,011-23828858,changzhicong006@gmail.com,family,12/08/2024
+DE3470,Chang,017-3787234,changzhicong006@gmail.com,individual,12/08/2024
+DE6802,Chang,011-23828885,changzhicong006@gmail.com,family,12/08/2024
+DE4606,chang,011-12345678,chang12@gmail.com,individual,12/08/2024
+DE7456,chang,60345678920,zahin12@gmail.com,individual,12/08/2024
+DE5192,Jason,011-2345678,jason123@gmail.com,family,15/08/2024
+DE7511,Wen Hao,011-23828858,wenhao12@gmail.com,organisation,15/08/2024
+DE7463,Chang,011-123456789,abc123@gmail.com,family,17/08/2024
