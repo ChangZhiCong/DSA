@@ -241,10 +241,10 @@ public class DoneeManagement {
             for (MapEntryInterface<String, Donee> entry : doneeList.entrySet()) {
                 Date originalDate = entry.getValue().getDoneeRegDate();
 
-                // compare the original Donee date with the new input date 
+                // compare the original Donee date with the new input date & display
                 if (originalDate.compareTo(formattedStartDate) >= 0 && originalDate.compareTo(formattedEndDate) <= 0) {
                     doneeUI.printAllDonee(entry.getValue());
-                    donee.increaseTotalDonee();
+                    donee.increaseTotalDonee(); 
                 }
             }
         } catch (ParseException ex) {
