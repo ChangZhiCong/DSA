@@ -28,9 +28,7 @@ public class DoneeManagement {
         int choice;
         do {
             doneeUI.getDoneeLogo();
-            if (doneeDAO.retrieveFromFile() != null) {
-                doneeList = doneeDAO.retrieveFromFile();
-            }
+            doneeList = doneeDAO.retrieveFromFile();
             choice = doneeUI.getDoneeMenuChoice();
             switch (choice) {
                 case 1 ->
