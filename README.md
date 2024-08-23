@@ -3,7 +3,7 @@ Welcome to our Java Data Structure & Algorithm Assignment! This file contains br
 
 Basically, our assignment is to create a charity centre management system which includes Donor, Donee and Donation Management Subsystem. 
 
-How to run our assignment ?
+**How to run our assignment ?**
 1. When you download our project, you can open the downloaded project in any version netbean (suggested netbean 18 since no need to resolve the jdk version).
 
 2. When u successfully open the project, navigate to the control package.
