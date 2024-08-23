@@ -1,4 +1,4 @@
-# DSA
+# DSA Assignment Description
 Welcome to our Java Data Structure & Algorithm Project! This file contains brief description of our project and way to run our project. 👍
 
 Basically, our project is creating a charity centre management system which includes Donor, Donee and Donation Management Subsystem. 
