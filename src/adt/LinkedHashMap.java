@@ -66,10 +66,10 @@ public class LinkedHashMap<K, V> implements MapInterface<K, V> {
             size++;
         } else {
             while (existing != null) {
-                if (existing.key.equals(key)) {
-                    existing.value = value; // Update the value if the key exists
-                    return;
-                }
+//              if (existing.key.equals(key)) {
+//                  existing.value = value; // Update the value if the key exists
+//                  return;
+//              }
                 if (existing.next == null) {
                     Entry<K, V> newEntry = new Entry<>(key, value);
                     existing.next = newEntry;
