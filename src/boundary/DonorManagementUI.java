@@ -4,6 +4,7 @@
  */
 package boundary;
 
+import entity.Donor;
 import java.util.Scanner;
 
 /**
@@ -12,8 +13,10 @@ import java.util.Scanner;
  */
 public class DonorManagementUI {
 
+    //Scanner
     Scanner sc = new Scanner(System.in);
     
+    //Display Donor logo
     public void getDonorLogo(){
         System.out.println("                                                                      ");
         System.out.println("                  ,----..             ,--.     ,----..                ");
@@ -32,5 +35,198 @@ public class DonorManagementUI {
         System.out.println("'---'                        '---'                        `---'     ");
         System.out.println("                                                                        ");
         System.out.println("========================================================================");
+    }
+    
+    //Display Donor menu
+    public int getDonorMenu(){
+        System.out.println("                Menu");
+        System.out.println("========================================");
+        System.out.println("1. Add new donor");
+        System.out.println("2. Remove donor");
+        System.out.println("3. Update donor");
+        System.out.println("4. Search donor");
+        System.out.println("5. List donor with all donations made");
+        System.out.println("6. Filter donor");
+        System.out.println("7. Categorise donors");
+        System.out.println("8. Generate donor report");
+        System.out.println("========================================");
+        System.out.println("Default. Back");
+        System.out.println("========================================");
+        System.out.print("\nSelect an option: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        return choice;
+    }
+    
+    //1. Add a new donor
+    public String inputDonorName() {
+        System.out.print("(1/5) Enter donor name : ");
+        String donorName = sc.nextLine();
+        return donorName;
+    }
+
+    public String inputDonorContactNo() {
+        System.out.print("(2/5) Enter donor phone number (eg: 011-23828858) : ");
+        String donorContactNo = sc.nextLine();
+        return donorContactNo;
+    }
+    
+    public String inputDonorEmail() {
+        System.out.print("(3/5) Enter donor email : ");
+        String donorEmail = sc.nextLine();
+        return donorEmail;
+    }
+
+    public String selectDonorIdentity() {
+        String donorIdentity;
+        System.out.print("(4/5) Select donor identity (Default = Individual, 1 = Organisation) : ");
+        int choice = sc.nextInt();
+        if(choice == 1)
+            donorIdentity = "Organisation";
+        else
+            donorIdentity = "Individual";
+        return donorIdentity;
+    }
+    
+    public String selectDonorType() {
+        String donorType;
+        System.out.print("(5/5) Select donor identity (Default = Private, 1 = Public, 2 = Government) : ");
+        int choice = sc.nextInt();
+        if(choice == 1)
+            donorType = "Public";
+        else if (choice == 2)
+            donorType = "Government";
+        else
+            donorType = "Private";
+        return donorType;
+    }
+    
+    public Donor inputDonorDetails() {
+        String donorName = inputDonorName();
+        String donorContactNo = inputDonorContactNo();
+        String donorEmail = inputDonorEmail();
+        String donorIdentity = selectDonorIdentity();
+        String donorType = selectDonorType();
+        System.out.println();
+        return new Donor(donorName, donorContactNo, donorEmail, donorIdentity, donorType);
+    }
+        
+    //Enter donorID
+    public String inputDonorID() {
+        System.out.print("Enter a donor ID (eg: DRXXXX) : ");
+        String donorId = sc.nextLine().toUpperCase();
+        return donorId;
+    }
+    
+    //Display donor details
+    public void printDonorDetails(Donor donor) {
+        System.out.println("\nDonor Details");
+        System.out.println("=================");
+        System.out.println(donor);
+    }
+    
+    
+    //3. Update donors details
+    public int getUpdateDonorChoice() {
+        System.out.println("");
+        System.out.println("                Menu");
+        System.out.println("========================================");
+        System.out.println("1. Update donor name");
+        System.out.println("2. Update donor contact number");
+        System.out.println("3. Update donor email");
+        System.out.println("4. Change donor identity");   
+        System.out.println("5. Change donor type");
+        System.out.println("========================================");
+        System.out.println("Default. Save and exit.");
+        System.out.println("========================================");
+        System.out.print("\nSelect an option: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        System.out.println();
+        return choice;
+    }
+    
+    //5. List donors with all the donations made
+    public void getListDonorDonationHeader() {
+        System.out.println("                                                                 Donor List with All Donations Made ");
+        System.out.println("===================================================================================================================================================================================");
+        System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s %-20s %-20s\n", "ID", "Name", "Identity", "Type", "Contact Number", "Email", "Registered Date", "Donation Category", "Donation Type");
+    }
+    
+    public void printAllDoneeWithDonation(Donor donor) {
+        System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s %-20s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorIdentity(), donor.getDonorType(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate(), "Health", "Food");
+    }
+    
+    //6. Filter donor based on criteria
+    public int getDonorFilterChoice() {
+        System.out.println("                Menu");
+        System.out.println("========================================");
+        System.out.println("1. Filter by donorID in ascending order");
+        System.out.println("2. Filter by donorID in descending order");
+        System.out.println("3. Filter by identity");
+        System.out.println("========================================");
+        System.out.println("Default. Exit the function");
+        System.out.println("========================================");
+        System.out.print("\nSelect an option: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        System.out.println();
+        return choice;
+    }
+    
+    public void getListDonorHeader() {
+        System.out.println("                                                Donor List ");
+        System.out.println("===========================================================================================================================================");
+        System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Identity", "Type", "Contact Number", "Email", "Registered Date");
+    }
+    
+    public void printAllDonor(Donor donor) {
+        System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorIdentity(), donor.getDonorType(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
+    }
+    
+    //7. Categorise donors (type: government, private, public)
+    
+    //8. Generate summary reports
+    public String inputStartDate() {
+        System.out.print("Enter the start date (eg. 14/08/2024) : ");
+        String str = sc.nextLine();
+        return str;
+    }
+
+    public String inputEndDate() {
+        System.out.print("Enter the end date (eg. 14/08/2024) : ");
+        String str = sc.nextLine();
+        return str;
+    }
+    
+    public void getActivityReportHeader(String startDate, String endDate) {
+        System.out.printf("\n\n                                New Donors Report from %s to %s\n", startDate, endDate);
+        System.out.println("===========================================================================================================================================");
+        System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Identity", "Type", "Contact Number", "Email", "Registered Date");
+    }
+        
+    //Common Messages
+    public void displaySucessAddDonorMessage() {
+        System.out.println("You have added a new donor successfully !\n");
+    }
+
+    public void displaySucessRemoveDonorMessage() {
+        System.out.println("You have removed a donor successfully!\n");
+    }
+
+    public void displaySuccessUpdateDonorMessage() {
+        System.out.println("You have updated this donor details successfully!\n");
+    }
+    
+    public void displayInvalidMenuMessage() {
+        System.out.println("\nYou can select the given menu option only!\n");
+    }
+    
+    public void displayInvalidIDMessgae() {
+        System.out.println("\nYou should enter a valid donor ID!\n");
+    }
+    
+    public void displayValidIDMessage() {
+        System.out.println("\nThe donor ID is found!\n");
     }
 }

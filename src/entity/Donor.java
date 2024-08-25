@@ -22,14 +22,24 @@ public class Donor {
     public Donor() {
     }
 
-    public Donor(String donorId, String donorName, String donorContactNo, String donorEmail, String donorIdentity, String donorType, Date donorRegDate) {
-        this.donorId = "DR" + String.format("%04d", (int) (System.currentTimeMillis() % 10000));
+    public Donor(String donorName, String donorContactNo, String donorEmail, String donorIdentity, String donorType) {
+        donorId = "DR" + String.format("%04d", (int) (System.currentTimeMillis() % 10000));
         this.donorName = donorName;
         this.donorContactNo = donorContactNo;
         this.donorEmail = donorEmail;
         this.donorIdentity = donorIdentity;
         this.donorType = donorType;
-        this.donorRegDate = donorRegDate;
+        donorRegDate = new Date();
+    }
+    
+    public Donor(String[] parts) throws Exception {
+        this.donorId = parts[0];
+        this.donorName = parts[1];
+        this.donorContactNo = parts[2];
+        this.donorEmail = parts[3];
+        this.donorIdentity = parts[4];
+        this.donorType = parts[5];
+        this.donorRegDate = formatter.parse(parts[6]);
     }
 
     //Getter
