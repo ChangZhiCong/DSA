@@ -17,31 +17,31 @@ public class DoneeManagementUI {
 
     public String inputDoneeID() {
         System.out.print("Enter donee id (eg: DEXXXX) : ");
-        String doneeId = sc.nextLine().toUpperCase();
+        String doneeId = sc.nextLine().toUpperCase().trim();
         return doneeId;
     }
 
     public String inputDoneeName() {
         System.out.print("Enter donee name : ");
-        String doneeName = sc.nextLine();
+        String doneeName = sc.nextLine().trim();
         return doneeName;
     }
 
     public String inputDoneeContactNo() {
         System.out.print("Enter donee phone number (eg: 011-23828858) : ");
-        String doneeContactNo = sc.nextLine();
+        String doneeContactNo = sc.nextLine().trim();
         return doneeContactNo;
     }
 
     public String inputDoneeIdentity() {
         System.out.print("Enter donee identity (organisation, individual, family) : ");
-        String doneeType = sc.nextLine();
+        String doneeType = sc.nextLine().trim();
         return doneeType;
     }
 
     public String inputDoneeEmail() {
         System.out.print("Enter donee email : ");
-        String doneeEmail = sc.nextLine();
+        String doneeEmail = sc.nextLine().trim();
         return doneeEmail;
     }
 

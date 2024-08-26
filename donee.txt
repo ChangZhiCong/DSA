@@ -7,3 +7,8 @@ DE7456,chang,60345678920,zahin12@gmail.com,individual,12/08/2024
 DE5192,Jason,011-2345678,jason123@gmail.com,family,15/08/2024
 DE7511,Wen Hao,011-23828858,wenhao12@gmail.com,organisation,15/08/2024
 DE7463,Chang,011-123456789,abc123@gmail.com,family,17/08/2024
+DE7410,Chang,011-23828858,changzhicong006@gmail.com,family,26/08/2024
+DE5804,Yang,011-23828845,yang123@gmail.com,family,26/08/2024
+DE1902,Ja,012-39234,chang12@gmail.com,family,26/08/2024
+DE7120,chang,011-23828858,chang12@gmail.com,family,26/08/2024
+DE9641,chang123,011-23828858,chang12@gmail.com,family,26/08/2024
