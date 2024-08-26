@@ -39,7 +39,7 @@ public class DoneeManagement {
                     addDonee();
                 case 2 ->
                     removeDonee();
-                case 3 ->
+                case 3 -> 
                     updateDonee();
                 case 4 ->
                     searchDonee();
@@ -158,6 +158,7 @@ public class DoneeManagement {
                 default ->
                     doneeUI.displayInvalidMenuMessage();
             }
+            MessageUI.systemPause();
         } while (choice != 3);
     }
 
@@ -232,7 +233,8 @@ public class DoneeManagement {
                 default ->
                     doneeUI.displayInvalidMenuMessage();
             }
-        } while (choice != 3);
+            MessageUI.systemPause();
+        } while (choice != 4);
     }
 
     public void generateReport() {
@@ -265,6 +267,7 @@ public class DoneeManagement {
                 default ->
                     doneeUI.displayInvalidMenuMessage();
             }
+            MessageUI.systemPause();
         } while (choice != 3);
     }
 
