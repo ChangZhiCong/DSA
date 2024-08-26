@@ -111,7 +111,7 @@ public class DoneeManagementUI {
         System.out.println();
         return choice;
     }
-    
+
     public int getListDoneeChoice() {
         System.out.println("");
         System.out.println("                Menu");
@@ -189,7 +189,7 @@ public class DoneeManagementUI {
         System.out.println("======================================================================================================================");
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Identity", "Contact Number", "Email", "Registered Date");
     }
-    
+
     public void getListIdentityDoneeHeader(String doneeIdentity) {
         System.out.printf("\n                                 Donee List of %s\n", doneeIdentity);
         System.out.println("=================================================================================================");
@@ -197,8 +197,8 @@ public class DoneeManagementUI {
     }
 
     public void printAllDoneeWithDonation(Donee donee, String category, String type, double cashAmount, int inKindAmount) {
-        System.out.printf("%s",donee);
-        System.out.printf("Donation Category : %s\n",category);
+        System.out.printf("%s", donee);
+        System.out.printf("Donation Category : %s\n", category);
         System.out.printf("Donation Type : %s\n", type);
         System.out.printf("Cash Amount (RM) : %.2f\n", cashAmount);
         System.out.printf("In-Kind Amount (Qty) : %d\n\n", inKindAmount);
@@ -208,7 +208,7 @@ public class DoneeManagementUI {
     public void printAllDonee(Donee donee) {
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donee.getDoneeId(), donee.getDoneeName(), donee.getDoneeIdentity(), donee.getDoneeContactNo(), donee.getDoneeEmail(), donee.getFormattedDoneeRegDate());
     }
-    
+
     public void printCertainIdentityDonee(Donee donee) {
         System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", donee.getDoneeId(), donee.getDoneeName(), donee.getDoneeContactNo(), donee.getDoneeEmail(), donee.getFormattedDoneeRegDate());
     }
@@ -224,15 +224,15 @@ public class DoneeManagementUI {
     public void displaySuccessUpdateDoneeMessage() {
         System.out.println("You have successfully update the donee !");
     }
-    
+
     public void displayInvalidMenuMessage() {
         System.out.println("\nYou only can select the given menu option !");
     }
-    
+
     public void displayInvalidIDMessgae() {
         System.out.println("\nYou should enter a valid ID !");
     }
-    
+
     public void displayValidIDMessage() {
         System.out.println("\nThe particular ID is found !");
     }

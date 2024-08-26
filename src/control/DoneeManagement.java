@@ -39,11 +39,11 @@ public class DoneeManagement {
                     addDonee();
                 case 2 ->
                     removeDonee();
-                case 3 -> 
+                case 3 ->
                     updateDonee();
                 case 4 ->
                     searchDonee();
-                case 5 -> 
+                case 5 ->
                     selectListDonee();
                 case 6 ->
                     filterDonee();

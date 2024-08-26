@@ -76,15 +76,15 @@ public class Donee {
         return totalOrganisation;
     }
 
-    public Date getDoneeRegDate(){
+    public Date getDoneeRegDate() {
         return doneeRegDate;
     }
-    
+
     // return data type is String as format the donee Reg date 
     public String getFormattedDoneeRegDate() {
         return formatter.format(doneeRegDate);
     }
-    
+
     // for update purpose 
     public void setDoneeId(String doneeId) {
         this.doneeId = doneeId;
