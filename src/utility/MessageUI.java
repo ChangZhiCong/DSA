@@ -16,4 +16,9 @@ public class MessageUI {
     public static void displayMainSystemMessage() {
         System.out.println("\nThank you for using the system , exiting the main system ...");
     }
+    
+    public static void systemPause() {
+        System.out.println("Press Any Key To Continue...");
+          new java.util.Scanner(System.in).nextLine();
+    }
 }

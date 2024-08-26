@@ -17,18 +17,27 @@ public class Donor {
     private Date donorRegDate;
     private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     //private static int totalDonor = 0, totalIndividual = 0, totalOrganisation = 0, totalGovernment = 0, totalPrivate = 0, totalPublic = 0;
-
+    private int totalDonor = 0;
+    
     //Constructor
     public Donor() {
     }
 
-    public Donor(String donorName, String donorContactNo, String donorEmail, String donorIdentity, String donorType) {
+    public Donor(String donorName, String donorContactNo, String donorEmail, int donorIdentityChoice, int donorTypeChoice) {
         donorId = "DR" + String.format("%04d", (int) (System.currentTimeMillis() % 10000));
         this.donorName = donorName;
         this.donorContactNo = donorContactNo;
         this.donorEmail = donorEmail;
-        this.donorIdentity = donorIdentity;
-        this.donorType = donorType;
+        if(donorIdentityChoice == 1)
+            donorIdentity = "Organisation";
+        else
+            donorIdentity = "Individual";
+        if(donorTypeChoice == 1)
+            donorType = "Public";
+        else if (donorTypeChoice == 2)
+            donorType = "Government";
+        else
+            donorType = "Private";
         donorRegDate = new Date();
     }
     
@@ -70,6 +79,10 @@ public class Donor {
     public Date getDonorRegDate() {
         return donorRegDate;
     }
+    
+    public int getTotalDonor() {
+        return totalDonor;
+    }
 
     //Setter
     public void setDonorName(String donorName) {
@@ -95,6 +108,16 @@ public class Donor {
 //Return data type is String as format the donorRegDate 
     public String getFormattedDonorRegDate() {
         return formatter.format(donorRegDate);
+    }
+    
+//Increment
+    public void increaseTotalDonor(){
+        totalDonor++;
+    }
+    
+//Reset
+    public void resetTotal() {
+        totalDonor = 0;
     }
 
 //toString

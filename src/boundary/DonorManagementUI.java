@@ -34,7 +34,7 @@ public class DonorManagementUI {
         System.out.println(" |   ,.'           `---`      ;   |.'           `---`      |   |.'     ");
         System.out.println("'---'                        '---'                        `---'     ");
         System.out.println("                                                                        ");
-        System.out.println("========================================================================");
+        System.out.println("========================================");
     }
     
     //Display Donor menu
@@ -50,7 +50,7 @@ public class DonorManagementUI {
         System.out.println("7. Categorise donors");
         System.out.println("8. Generate donor report");
         System.out.println("========================================");
-        System.out.println("Default. Back");
+        System.out.println("9. Back");
         System.out.println("========================================");
         System.out.print("\nSelect an option: ");
         int choice = sc.nextInt();
@@ -77,38 +77,26 @@ public class DonorManagementUI {
         return donorEmail;
     }
 
-    public String selectDonorIdentity() {
-        String donorIdentity;
+    public int selectDonorIdentity() {
         System.out.print("(4/5) Select donor identity (Default = Individual, 1 = Organisation) : ");
         int choice = sc.nextInt();
-        if(choice == 1)
-            donorIdentity = "Organisation";
-        else
-            donorIdentity = "Individual";
-        return donorIdentity;
+        return choice;
     }
     
-    public String selectDonorType() {
-        String donorType;
+    public int selectDonorType() {
         System.out.print("(5/5) Select donor identity (Default = Private, 1 = Public, 2 = Government) : ");
         int choice = sc.nextInt();
-        if(choice == 1)
-            donorType = "Public";
-        else if (choice == 2)
-            donorType = "Government";
-        else
-            donorType = "Private";
-        return donorType;
+        return choice;
     }
     
     public Donor inputDonorDetails() {
         String donorName = inputDonorName();
         String donorContactNo = inputDonorContactNo();
         String donorEmail = inputDonorEmail();
-        String donorIdentity = selectDonorIdentity();
-        String donorType = selectDonorType();
+        int donorIdentityChoice = selectDonorIdentity();
+        int donorTypeChoice = selectDonorType();
         System.out.println();
-        return new Donor(donorName, donorContactNo, donorEmail, donorIdentity, donorType);
+        return new Donor(donorName, donorContactNo, donorEmail, donorIdentityChoice, donorTypeChoice);
     }
         
     //Enter donorID
@@ -137,7 +125,7 @@ public class DonorManagementUI {
         System.out.println("4. Change donor identity");   
         System.out.println("5. Change donor type");
         System.out.println("========================================");
-        System.out.println("Default. Save and exit.");
+        System.out.println("6. Save and exit.");
         System.out.println("========================================");
         System.out.print("\nSelect an option: ");
         int choice = sc.nextInt();
@@ -187,6 +175,21 @@ public class DonorManagementUI {
     //7. Categorise donors (type: government, private, public)
     
     //8. Generate summary reports
+    public int getReportMenuChoice(){
+        System.out.println("                Menu");
+        System.out.println("========================================");
+        System.out.println("1. Donor Category Summary Report");
+        System.out.println("2. Donor Acitvity Report");
+        System.out.println("========================================");
+        System.out.println("3. Exit the function");
+        System.out.println("========================================");
+        System.out.print("\nSelect an option : ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        System.out.println();
+        return choice;
+    }
+    
     public String inputStartDate() {
         System.out.print("Enter the start date (eg. 14/08/2024) : ");
         String str = sc.nextLine();
@@ -203,6 +206,10 @@ public class DonorManagementUI {
         System.out.printf("\n\n                                New Donors Report from %s to %s\n", startDate, endDate);
         System.out.println("===========================================================================================================================================");
         System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Identity", "Type", "Contact Number", "Email", "Registered Date");
+    }
+    
+    public void displayActivityReport(Donor donor) {
+        System.out.println("\nTotal number of donor(s) joined within the specific date : " + donor.getTotalDonor() + "\n");
     }
         
     //Common Messages
