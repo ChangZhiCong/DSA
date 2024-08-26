@@ -11,7 +11,6 @@ public class DonationManagementUI {
 
     public static int donationManagementMenu() {
 
-        getDonationLogo();
         System.out.println("\n=============================================");
         System.out.println("         Donation Management System");
         System.out.println("=============================================");
@@ -23,11 +22,19 @@ public class DonationManagementUI {
         System.out.println("6. Generate Reports");
         System.out.println("7. Exit");
         System.out.println("=============================================");
-        System.out.print("\nChoices (1-7): ");
+        System.out.print("Choices (1-7): ");
 
         int choice = sc.nextInt();
         sc.nextLine();
         return choice;
+    }
+    
+    public void getListDoneeDonationHeader() {
+        System.out.println("                                                  Donation List                                                             ");
+        System.out.println("============================================================================================================================");
+        System.out.println("ID       Name                          Donation     Cash Amount    No. of       Donation      Date of       Donor     Donee ");
+        System.out.println("                                         Type          (RM)        In-Kind      Category      Donation       ID        ID   ");
+        System.out.println("============================================================================================================================");
     }
 
     public static void getDonationLogo() {
@@ -42,13 +49,21 @@ public class DonationManagementUI {
                                                                         """);
     }
 
-    public static void getDonationList() {
-        System.out.println("                          Donation List");
-        System.out.println("=====================================================================================");
-        System.out.println("ID       Name        Donation       Amount         Date        Donor         Donee");
-        System.out.println("                       Type          (RM)");
-        System.out.println("======================================================================================");
-    }
+    public void printAllDonationList(Donation donation) {
+    System.out.printf(
+        "%-8s %-25s %10s %14.2f %10d %15s %15s %9s %9s\n", 
+        donation.getDonationId(),
+        donation.getDonationName(),
+        donation.getDonationType(),
+        donation.getCashAmount(),
+        donation.getInKindAmount(),
+        donation.getDonationCategory(),
+        donation.getDonationDate(),
+        donation.getDonorId(),
+        donation.getDoneeId()
+    );
+}
+
 
     public Donation inputDonationDetail() {
         String donationID = generateDonationID();

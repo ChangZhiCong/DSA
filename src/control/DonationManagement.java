@@ -1,17 +1,19 @@
 package control;
 
 import adt.LinkedHashMap;
+import adt.MapEntryInterface;
 import adt.MapInterface;
 import boundary.DonationManagementUI;
 import dao.DonationDAO;
 import entity.Donation;
 
 public class DonationManagement {
-    
+
     private MapInterface<String, Donation> donationList = new LinkedHashMap<>();
     private final DonationDAO donationDAO = new DonationDAO("donation.txt");
+    private final DonationManagementUI donationUI = new DonationManagementUI();
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         DonationManagement donation = new DonationManagement();
         donation.runDonationManagement();
     }
@@ -21,9 +23,9 @@ public class DonationManagement {
         int choice;
 
         while (cont) {
-            DonationManagementUI.getDonationLogo();
             donationList = donationDAO.retrieveFromFile();
-            System.out.println(donationList);
+            System.out.println(donationList); // Verify if can retrieve the data inside text file
+            DonationManagementUI.getDonationLogo();
             choice = DonationManagementUI.donationManagementMenu();
 
             switch (choice) {
@@ -48,16 +50,16 @@ public class DonationManagement {
             }
         }
     }
-    
+
     public void addDonation() {
         DonationManagementUI donationUI = new DonationManagementUI();
-        
+
         // Get donation details from the user
         Donation donation = donationUI.inputDonationDetail();
-        
+
         // Add donation to the donation list
         donationList.put(donation.getDonationId(), donation);
-        
+
         // Save the updated donation list to text file
         donationDAO.saveToFile(donationList);
 
@@ -65,24 +67,27 @@ public class DonationManagement {
         donationUI.displaySuccessAddDonationMessage();
         donationUI.printDonationDetails(donation);
     }
-    
-    public void removeDonation(){
-        
+
+    public void removeDonation() {
+
     }
-    
-    public void modifyDonation(){
-        
+
+    public void modifyDonation() {
+
     }
-    
-    public void searchDonations(){
-        
+
+    public void searchDonations() {
+
     }
-    
-    public void listAllDonations(){
-        
+
+    public void listAllDonations() {
+        donationUI.getListDoneeDonationHeader();
+        for (MapEntryInterface<String, Donation> entry : donationList.entrySet()) {
+            donationUI.printAllDonationList(entry.getValue());
+        }
     }
-    
-    public void generateReports(){
-        
+
+    public void generateReports() {
+
     }
 }
