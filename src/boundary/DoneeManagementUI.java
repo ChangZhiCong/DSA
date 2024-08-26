@@ -72,7 +72,7 @@ public class DoneeManagementUI {
         return choice;
     }
 
-    public int getDoneeFilterChoice() {
+    public int getFilterDoneeChoice() {
         System.out.println("                Menu");
         System.out.println("========================================");
         System.out.println("1. Filter by id in ascending order");
@@ -106,6 +106,20 @@ public class DoneeManagementUI {
         System.out.println("5. Save update");
         System.out.println("6. Exit the function");
         System.out.print("\nSelect an option (1 - 6) : ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        System.out.println();
+        return choice;
+    }
+    
+    public int getListDoneeChoice() {
+        System.out.println("");
+        System.out.println("                Menu");
+        System.out.println("========================================");
+        System.out.println("1. List All Donee");
+        System.out.println("2. List Donee with Donation Only");
+        System.out.println("3. Exit the function");
+        System.out.print("\nSelect an option (1 - 3) : ");
         int choice = sc.nextInt();
         sc.nextLine();
         System.out.println();
@@ -165,9 +179,9 @@ public class DoneeManagementUI {
     }
 
     public void getListDoneeDonationHeader() {
-        System.out.println("                                                                 Donee List with All Donations Made ");
-        System.out.println("==============================================================================================================================================================");
-        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s %-20s %-20s\n", "ID", "Name", "Identity", "Contact Number", "Email", "Registered Date", "Donation Category", "Donation Type");
+        System.out.println("\n                         Donee List with Donation Only ");
+        System.out.println("==========================================================================================");
+//        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s %-20s %-15s %15s %10s\n", "ID", "Name", "Identity", "Contact Number", "Email", "Registered Date", "Donation Category", "Donation Type", "Cash Amount(RM)", "In-Kind Amount");
     }
 
     public void getListDoneeHeader() {
@@ -175,13 +189,28 @@ public class DoneeManagementUI {
         System.out.println("======================================================================================================================");
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Identity", "Contact Number", "Email", "Registered Date");
     }
+    
+    public void getListIdentityDoneeHeader(String doneeIdentity) {
+        System.out.printf("\n                                 Donee List of %s\n", doneeIdentity);
+        System.out.println("=================================================================================================");
+        System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Email", "Registered Date");
+    }
 
-    public void printAllDoneeWithDonation(Donee donee) {
-        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s %-20s %-20s\n", donee.getDoneeId(), donee.getDoneeName(), donee.getDoneeIdentity(), donee.getDoneeContactNo(), donee.getDoneeEmail(), donee.getFormattedDoneeRegDate(), "Health", "Food");
+    public void printAllDoneeWithDonation(Donee donee, String category, String type, double cashAmount, int inKindAmount) {
+        System.out.printf("%s",donee);
+        System.out.printf("Donation Category : %s\n",category);
+        System.out.printf("Donation Type : %s\n", type);
+        System.out.printf("Cash Amount (RM) : %.2f\n", cashAmount);
+        System.out.printf("In-Kind Amount (Qty) : %d\n\n", inKindAmount);
+        System.out.println("==========================================================================================");
     }
 
     public void printAllDonee(Donee donee) {
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donee.getDoneeId(), donee.getDoneeName(), donee.getDoneeIdentity(), donee.getDoneeContactNo(), donee.getDoneeEmail(), donee.getFormattedDoneeRegDate());
+    }
+    
+    public void printCertainIdentityDonee(Donee donee) {
+        System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", donee.getDoneeId(), donee.getDoneeName(), donee.getDoneeContactNo(), donee.getDoneeEmail(), donee.getFormattedDoneeRegDate());
     }
 
     public void displaySucessAddDoneeMessage() {

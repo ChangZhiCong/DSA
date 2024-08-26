@@ -8,7 +8,7 @@ import entity.*;
 import boundary.*;
 import utility.*;
 import adt.*;
-import dao.DoneeDAO;
+import dao.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,9 +20,13 @@ import java.util.Date;
 public class DoneeManagement {
 
     private MapInterface<String, Donee> doneeList = new LinkedHashMap();
+    private MapInterface<String, Donation> donationList = new LinkedHashMap();
+
     private final DoneeDAO doneeDAO = new DoneeDAO("donee.txt");
-    private Donee donee = new Donee();
+    private final DonationDAO donationDAO = new DonationDAO("donation.txt");
+
     private final DoneeManagementUI doneeUI = new DoneeManagementUI();
+    private Donee donee = new Donee();
 
     public void runDoneeManagement() {
         int choice;
@@ -39,8 +43,8 @@ public class DoneeManagement {
                     updateDonee();
                 case 4 ->
                     searchDonee();
-                case 5 ->
-                    listDoneeDonation();
+                case 5 -> 
+                    selectListDonee();
                 case 6 ->
                     filterDonee();
                 case 7 ->
@@ -118,7 +122,8 @@ public class DoneeManagement {
                     case 6 -> {
                         return;
                     }
-                    default -> doneeUI.displayInvalidMenuMessage();
+                    default ->
+                        doneeUI.displayInvalidMenuMessage();
                 }
             } while (choice != 6);
         }
@@ -136,19 +141,62 @@ public class DoneeManagement {
         }
     }
 
+    public void selectListDonee() {
+        int choice;
+        do {
+            choice = doneeUI.getListDoneeChoice();
+            switch (choice) {
+                case 1 -> {
+                    doneeUI.getListDoneeHeader();
+                    listDonee("");
+                }
+                case 2 ->
+                    listDoneeDonation();
+                case 3 -> {
+                    return;
+                }
+                default ->
+                    doneeUI.displayInvalidMenuMessage();
+            }
+        } while (choice != 3);
+    }
+
     public void listDoneeDonation() {
+        // retrieve data from donation text file 
+        donationList = donationDAO.retrieveFromFile();
+
         doneeUI.getListDoneeDonationHeader();
-        for (MapEntryInterface<String, Donee> entry : doneeList.entrySet()) {
-            doneeUI.printAllDoneeWithDonation(entry.getValue());
+        for (MapEntryInterface<String, Donee> entryDonee : doneeList.entrySet()) {
+            boolean hasDonation = false;
+
+            StringBuilder donationCategory = new StringBuilder();
+            StringBuilder donationType = new StringBuilder();
+
+            double cashAmount = 0.0;
+            int inKindAmount = 0;
+
+            for (MapEntryInterface<String, Donation> entryDonation : donationList.entrySet()) {
+                // check if the donee receive any of the donation or not
+                if (entryDonee.getValue().getDoneeId().equals(entryDonation.getValue().getDoneeId())) {
+                    hasDonation = true;
+                    donationCategory.append(entryDonation.getValue().getDonationCategory()).append(" ");
+                    donationType.append(entryDonation.getValue().getDonationType()).append(" ");
+                    cashAmount += entryDonation.getValue().getCashAmount();
+                    inKindAmount += entryDonation.getValue().getInKindAmount();
+                }
+            }
+            // display when donee receive donation
+            if (hasDonation) {
+                doneeUI.printAllDoneeWithDonation(entryDonee.getValue(), donationCategory.toString(), donationType.toString(), cashAmount, inKindAmount);
+            }
         }
     }
 
     public void listDonee(String doneeIdentity) {
-        doneeUI.getListDoneeHeader();
         for (MapEntryInterface<String, Donee> entry : doneeList.entrySet()) {
             if (entry.getValue().getDoneeIdentity().equals(doneeIdentity)) { // for filter identity
-                doneeUI.printAllDonee(entry.getValue());
-            } else if (doneeIdentity.equals("")) { // for filter ascending and descending 
+                doneeUI.printCertainIdentityDonee(entry.getValue());
+            } else if (doneeIdentity.equals("")) { // for filter ascending and descending and normal display
                 doneeUI.printAllDonee(entry.getValue());
             }
         }
@@ -157,23 +205,26 @@ public class DoneeManagement {
     public void filterDonee() {
         int choice;
         do {
-            choice = doneeUI.getDoneeFilterChoice();
+            choice = doneeUI.getFilterDoneeChoice();
             switch (choice) {
                 case 1 -> {
+                    doneeUI.getListDoneeHeader();
                     doneeList.sortByAscending();
                     listDonee("");
                 }
 
                 case 2 -> {
+                    doneeUI.getListDoneeHeader();
                     doneeList.sortByDescending();
                     listDonee("");
                 }
 
                 case 3 -> {
                     String doneeIdentity = doneeUI.inputDoneeIdentity();
-                    doneeUI.getListDoneeHeader();
+                    doneeUI.getListIdentityDoneeHeader(doneeIdentity);
                     listDonee(doneeIdentity);
                 }
+
                 case 4 -> {
                     return;
                 }
@@ -242,7 +293,7 @@ public class DoneeManagement {
                 // compare the original Donee date with the new input date & display
                 if (originalDate.compareTo(formattedStartDate) >= 0 && originalDate.compareTo(formattedEndDate) <= 0) {
                     doneeUI.printAllDonee(entry.getValue());
-                    donee.increaseTotalDonee(); 
+                    donee.increaseTotalDonee();
                 }
             }
         } catch (ParseException ex) {
