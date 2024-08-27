@@ -60,31 +60,31 @@ public class DonorManagementUI {
 
     //1. Add a new donor
     public String inputDonorName() {
-        System.out.print("(1/5) Enter donor name : ");
+        System.out.print("Enter donor name : ");
         String donorName = sc.nextLine().trim();
         return donorName;
     }
 
     public String inputDonorContactNo() {
-        System.out.print("(2/5) Enter donor phone number (eg: 011-23828858) : ");
+        System.out.print("Enter donor phone number (eg: 011-23828858) : ");
         String donorContactNo = sc.nextLine().trim();
         return donorContactNo;
     }
 
     public String inputDonorEmail() {
-        System.out.print("(3/5) Enter donor email : ");
+        System.out.print("Enter donor email : ");
         String donorEmail = sc.nextLine().trim();
         return donorEmail;
     }
 
     public int selectDonorIdentity() {
-        System.out.print("(4/5) Select donor identity (Default = Individual, 1 = Organisation) : ");
+        System.out.print("Select donor identity (Default = Individual, 1 = Organisation) : ");
         int choice = sc.nextInt();
         return choice;
     }
 
     public int selectDonorType() {
-        System.out.print("(5/5) Select donor identity (Default = Private, 1 = Public, 2 = Government) : ");
+        System.out.print("Select donor identity (Default = Private, 1 = Public, 2 = Government) : ");
         int choice = sc.nextInt();
         return choice;
     }
@@ -145,13 +145,13 @@ public class DonorManagementUI {
 
     //6. Filter donor based on criteria
     public int getDonorFilterChoice() {
-        System.out.println("                Menu");
+        System.out.println("          Donor Filter Menu");
         System.out.println("========================================");
-        System.out.println("1. Filter by donorID in ascending order");
-        System.out.println("2. Filter by donorID in descending order");
-        System.out.println("3. Filter by identity");
+        System.out.println("1. Filter by donor's name");
+        System.out.println("2. Filter by donor's identity");
+        System.out.println("3. Filter by donor's identity and type");
         System.out.println("========================================");
-        System.out.println("Default. Exit the function");
+        System.out.println("4. Exit the function");
         System.out.println("========================================");
         System.out.print("\nSelect an option: ");
         int choice = sc.nextInt();
@@ -163,17 +163,61 @@ public class DonorManagementUI {
     public void getListDonorHeader() {
         System.out.println("                                                Donor List ");
         System.out.println("===========================================================================================================================================");
-        System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Identity", "Type", "Contact Number", "Email", "Registered Date");
+        System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Donor Identity", "Donor Type", "Contact Number", "Email", "Registered Date");
     }
 
     public void printAllDonor(Donor donor) {
         System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorIdentity(), donor.getDonorType(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
     }
+    
+    public void getListNameContainsHeader(String name) {
+        System.out.printf("\n                                 Donor List of Names that Contains \"%s\"\n", name);
+        System.out.println("===========================================================================================================================================");
+        System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Donor Identity", "Donor Type", "Contact Number", "Email", "Registered Date");
+    }
+    
+    public void getListIdentityDonorHeader(String donorIdentity) {
+        System.out.printf("\n                                 Donor List of %s\n", donorIdentity);
+        System.out.println("=========================================================================================================================");
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Donor Type", "Email", "Registered Date");
+    }
+    
+    public void getListIdentityTypeDonorHeader(String donorIdentityType) {
+        System.out.printf("\n                                 Donor List of %s\n", donorIdentityType);
+        System.out.println("==================================================================================================");
+        System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Email", "Registered Date");
+    }
+    
+    public void printCertainIdentityDonor (Donor donor) {
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorContactNo(), donor.getDonorType(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
+    }
+    
+    public void printCertainIdentityTypeDonor (Donor donor) {
+        System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
+    }
 
     //7. Categorise donors (type: government, private, public)
+    public int getCategoriseMenuChoice() {
+        System.out.println("         Categorise Donors Menu");
+        System.out.println("========================================");
+        System.out.println("1. Government Donors");
+        System.out.println("2. Private Donors");
+        System.out.println("3. Public Donors");
+        System.out.println("========================================");
+        System.out.println("4. Exit the function");
+        System.out.println("========================================");
+        System.out.print("\nSelect an option : ");
+        System.out.println("\nSelect the donor category/type you wish to view (Can be more than one).");
+        System.out.println("Example: 1 - To view government donors only, 32 - To view public and private donors only.");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        System.out.println();
+        return choice;
+    }
+    
     //8. Generate summary reports
     public int getReportMenuChoice() {
-        System.out.println("                Menu");
+        System.out.println("              Report Menu");
         System.out.println("========================================");
         System.out.println("1. Donor Category Summary Report");
         System.out.println("2. Donor Acitvity Report");

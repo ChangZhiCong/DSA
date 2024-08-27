@@ -46,6 +46,10 @@ public class DonorManagement {
                     updateDonor();
                 case 4 ->
                     searchDonor();
+                case 6 ->
+                    filterDonor();
+                case 7 ->
+                    categoriseDonor();
                 case 8 ->
                     generateDonorReport();
                 default -> {
@@ -56,6 +60,7 @@ public class DonorManagement {
         } while (choice != 9);
     }
 
+    //1. Add a new donor
     public void addDonor() {
         donor = inputDonorDetails();
         donorList.put(donor.getDonorId(), donor);
@@ -98,6 +103,7 @@ public class DonorManagement {
         };
     }
 
+    //2. Remove a donor
     public void removeDonor() {
         String removeDonorID = donorUI.inputDonorID();
         boolean validRemove = removeFromFile(removeDonorID);
@@ -110,21 +116,7 @@ public class DonorManagement {
         }
     }
 
-    public void searchDonor() {
-        String searchDonorID = donorUI.inputDonorID();
-        boolean validSearchDonor = donorList.containsKey(searchDonorID);
-
-        if (!validSearchDonor) {
-            donorUI.displayInvalidIDMessgae();
-            MessageUI.systemPause();
-
-        } else {
-            donorUI.displayValidIDMessage();
-            donorUI.printDonorDetails(donorList.get(searchDonorID));
-            MessageUI.systemPause();
-        }
-    }
-
+    //3. Update donors details
     public void updateDonor() {
         int choice;
         String updateDonorID = donorUI.inputDonorID();
@@ -172,13 +164,17 @@ public class DonorManagement {
                     case 5 -> {
                         String newDonorType;
                         int donorTypeChoice = donorUI.selectDonorType();
-                        if (donorTypeChoice == 1) {
+                    switch (donorTypeChoice) {
+                        case 1:
                             newDonorType = "Public";
-                        } else if (donorTypeChoice == 2) {
+                            break;
+                        case 2:
                             newDonorType = "Government";
-                        } else {
+                            break;
+                        default:
                             newDonorType = "Private";
-                        }
+                            break;
+                    }
                         oldDonorData.setDonorType(newDonorType);
                         isChanged = true;
                     }
@@ -197,7 +193,168 @@ public class DonorManagement {
             } while (choice != 6);
         }
     }
+    
+    //4. Search donor details
+    public void searchDonor() {
+        String searchDonorID = donorUI.inputDonorID();
+        boolean validSearchDonor = donorList.containsKey(searchDonorID);
 
+        if (!validSearchDonor) {
+            donorUI.displayInvalidIDMessgae();
+            MessageUI.systemPause();
+
+        } else {
+            donorUI.displayValidIDMessage();
+            donorUI.printDonorDetails(donorList.get(searchDonorID));
+            MessageUI.systemPause();
+        }
+    }
+    
+    //5. List donors with all donations made
+    
+    
+    //6. Filter donor based on criteria
+    public void filterDonor() {
+        int choice;
+        do {
+            choice = donorUI.getDonorFilterChoice();
+            switch (choice) {
+                case 1 -> {
+                    String enteredName = donorUI.inputDonorName();
+                    donorUI.getListNameContainsHeader(enteredName);
+                    listDonor(enteredName);
+                }
+
+                case 2 -> {
+                    int donorIdentityChoice = donorUI.selectDonorIdentity();
+                    String donorIdentity;
+                        if (donorIdentityChoice == 1) {
+                            donorIdentity = "Organisation";
+                        } else {
+                            donorIdentity = "Individual";
+                        }
+                    donorUI.getListIdentityDonorHeader(donorIdentity);
+                    listDonor(donorIdentity);
+                }
+
+                case 3 -> {
+                    int donorIdentityChoice = donorUI.selectDonorIdentity();
+                    String donorIdentity;
+                        if (donorIdentityChoice == 1) {
+                            donorIdentity = "Organisation";
+                        } else {
+                            donorIdentity = "Individual";
+                        }
+                    int donorTypeChoice = donorUI.selectDonorType();
+                    String donorType;
+                    switch (donorTypeChoice) {
+                        case 1:
+                            donorType = "Public";
+                            break;
+                        case 2:
+                            donorType = "Government";
+                            break;
+                        default:
+                            donorType = "Private";
+                            break;
+                    }
+                    String donorIdentityType = donorIdentity + " Identity and " + donorType + " Type";
+                    donorUI.getListIdentityTypeDonorHeader(donorIdentityType);
+                    listDonor(donorIdentityType);
+                }
+
+                case 4 -> {
+                    return;
+                }
+
+                default ->
+                    donorUI.displayInvalidMenuMessage();
+            }
+            MessageUI.systemPause();
+        } while (choice != 4);
+    }
+    
+    public void listDonor(String donorData) {
+        for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
+            String donorIdentityType = entry.getValue().getDonorIdentity() + " Identity and " + entry.getValue().getDonorType() + " Type";
+            if(donorIdentityType.equals(donorData)) {
+                donorUI.printCertainIdentityTypeDonor(entry.getValue());
+            }
+            else if (entry.getValue().getDonorIdentity().equals(donorData)) { // for filter identity
+                donorUI.printCertainIdentityDonor(entry.getValue());
+            } else if (stringContains(entry.getValue().getDonorName(), donorData)){ //For filter donor names
+                donorUI.printAllDonor(entry.getValue());
+            } 
+        }
+    }
+    
+    public boolean stringContains(String container, String contained) {
+        // Edge case handling
+        if (contained == null || container == null) {
+            return false;
+        }
+        if (contained.isEmpty()) {
+            return true;
+        }
+        
+        // Create arrays to count occurrences of each character
+        int[] containerCharCount = new int[256];
+        int[] containedCharCount = new int[256];
+
+        // Count frequency of each character in the container string
+        for (int i = 0; i < container.length(); i++) {
+            containerCharCount[container.charAt(i)]++;
+        }
+
+        // Count frequency of each character in the contained string
+        for (int i = 0; i < contained.length(); i++) {
+            containedCharCount[contained.charAt(i)]++;
+        }
+
+        // Check if container has all characters of contained with sufficient frequency
+        for (int i = 0; i < 256; i++) {
+            if (containedCharCount[i] > containerCharCount[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    //7. Categorise donors (type: government, private, public)
+    public void categoriseDonor() {
+        int choice;
+        do {
+            choice = donorUI.getCategoriseMenuChoice();
+            switch (choice) {
+                case 1 -> {
+                    
+                }
+                case 2 -> {
+//                    String startDate = donorUI.inputStartDate();
+//                    String endDate = donorUI.inputEndDate();
+//
+//                    donorUI.getActivityReportHeader(startDate, endDate);
+//                    dateComparison(startDate, endDate);
+//
+//                    donorUI.displayActivityReport(donor);
+//                    Donor.resetTotal();
+
+                    MessageUI.systemPause();
+                }
+
+                case 3 -> {
+                    
+                }
+                case 4 -> {
+                    return;
+                }
+                default ->
+                    donorUI.displayInvalidMenuMessage();
+            }
+        } while (choice != 4);
+    }
+
+    //8. Generate summary reports
     public void generateDonorReport() {
         int choice;
         do {

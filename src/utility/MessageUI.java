@@ -18,7 +18,7 @@ public class MessageUI {
     }
     
     public static void systemPause() {
-        System.out.println("Press Any Key To Continue...");
+        System.out.println("\nPress Any Key To Continue...");
           new java.util.Scanner(System.in).nextLine();
     }
 }

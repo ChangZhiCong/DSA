@@ -191,7 +191,7 @@ public class DoneeManagementUI {
     }
 
     public void getListIdentityDoneeHeader(String doneeIdentity) {
-        System.out.printf("\n                                 Donee List of %s\n", doneeIdentity);
+        System.out.printf("\n                                 Donee List of %s Identity\n", doneeIdentity);
         System.out.println("=================================================================================================");
         System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Email", "Registered Date");
     }
