@@ -66,10 +66,10 @@ public class LinkedHashMap<K, V> implements MapInterface<K, V> {
             size++;
         } else {
             while (existing != null) {
-                if (existing.key.equals(key)) {
-                    existing.value = value; // Update the value if the key exists
-                    return;
-                }
+              if (existing.key.equals(key)) {
+                  existing.value = value; // Update the value if the key exists
+                  return;
+              }
                 if (existing.next == null) {
                     Entry<K, V> newEntry = new Entry<>(key, value);
                     existing.next = newEntry;
@@ -100,11 +100,11 @@ public class LinkedHashMap<K, V> implements MapInterface<K, V> {
         int bucketIndex = getBucketIndex(key);
         Entry<K, V> current = buckets[bucketIndex];
         Entry<K, V> previous = null;
-
+        
         // Shift Forward after removing the entity
         while (current != null) {
             if (current.key.equals(key)) {
-
+                
                 // If the remove element is the first element inside the bucket
                 if (previous == null) {
                     buckets[bucketIndex] = current.next;
