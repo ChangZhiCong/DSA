@@ -100,9 +100,12 @@ public class LinkedHashMap<K, V> implements MapInterface<K, V> {
         int bucketIndex = getBucketIndex(key);
         Entry<K, V> current = buckets[bucketIndex];
         Entry<K, V> previous = null;
-
+        
+        // Shift Forward after removing the entity
         while (current != null) {
             if (current.key.equals(key)) {
+                
+                // If the remove element is the first element inside the bucket
                 if (previous == null) {
                     buckets[bucketIndex] = current.next;
                 } else {

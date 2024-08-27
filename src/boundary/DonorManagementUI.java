@@ -61,19 +61,19 @@ public class DonorManagementUI {
     //1. Add a new donor
     public String inputDonorName() {
         System.out.print("(1/5) Enter donor name : ");
-        String donorName = sc.nextLine();
+        String donorName = sc.nextLine().trim();
         return donorName;
     }
 
     public String inputDonorContactNo() {
         System.out.print("(2/5) Enter donor phone number (eg: 011-23828858) : ");
-        String donorContactNo = sc.nextLine();
+        String donorContactNo = sc.nextLine().trim();
         return donorContactNo;
     }
     
     public String inputDonorEmail() {
         System.out.print("(3/5) Enter donor email : ");
-        String donorEmail = sc.nextLine();
+        String donorEmail = sc.nextLine().trim();
         return donorEmail;
     }
 
@@ -102,7 +102,7 @@ public class DonorManagementUI {
     //Enter donorID
     public String inputDonorID() {
         System.out.print("Enter a donor ID (eg: DRXXXX) : ");
-        String donorId = sc.nextLine().toUpperCase();
+        String donorId = sc.nextLine().toUpperCase().trim();
         return donorId;
     }
     
@@ -192,13 +192,13 @@ public class DonorManagementUI {
     
     public String inputStartDate() {
         System.out.print("Enter the start date (eg. 14/08/2024) : ");
-        String str = sc.nextLine();
+        String str = sc.nextLine().trim();
         return str;
     }
 
     public String inputEndDate() {
         System.out.print("Enter the end date (eg. 14/08/2024) : ");
-        String str = sc.nextLine();
+        String str = sc.nextLine().trim();
         return str;
     }
     
