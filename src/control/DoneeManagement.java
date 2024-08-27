@@ -33,6 +33,8 @@ public class DoneeManagement {
         do {
             doneeUI.getDoneeLogo();
             doneeList = doneeDAO.retrieveFromFile();
+            donationList = donationDAO.retrieveFromFile(); // for remove and list donee's donation purpose
+
             choice = doneeUI.getDoneeMenuChoice();
             switch (choice) {
                 case 1 ->
@@ -72,12 +74,26 @@ public class DoneeManagement {
     public void removeDonee() {
         String removeDoneeID = doneeUI.inputDoneeID();
 
-        boolean validRemove = removeFromFile(removeDoneeID);
+        boolean validRemove = doneeList.remove(removeDoneeID);
 
         if (!validRemove) {
             doneeUI.displayInvalidIDMessgae();
         } else {
+            // cascade deletion 
+            removeDonation(removeDoneeID);
+
+            doneeDAO.saveToFile(doneeList);
+            donationDAO.saveToFile(donationList);
+
             doneeUI.displaySucessRemoveDoneeMessage();
+        }
+    }
+
+    public void removeDonation(String removeDoneeID) {
+        for (MapEntryInterface<String, Donation> entry : donationList.entrySet()) {
+            if (entry.getValue().getDoneeId().equals(removeDoneeID)) {
+                donationList.remove(entry.getKey());
+            }
         }
     }
 
@@ -138,6 +154,7 @@ public class DoneeManagement {
         } else {
             doneeUI.displayValidIDMessage();
             doneeUI.printDoneeDetails(doneeList.get(searchDoneeID));
+            MessageUI.systemPause();
         }
     }
 
@@ -163,9 +180,6 @@ public class DoneeManagement {
     }
 
     public void listDoneeDonation() {
-        // retrieve data from donation text file 
-        donationList = donationDAO.retrieveFromFile();
-
         doneeUI.getListDoneeDonationHeader();
         for (MapEntryInterface<String, Donee> entryDonee : doneeList.entrySet()) {
             boolean hasDonation = false;
@@ -302,14 +316,6 @@ public class DoneeManagement {
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public boolean removeFromFile(String id) {
-        boolean isRemoved = doneeList.remove(id);
-        if (isRemoved) {
-            doneeDAO.saveToFile(doneeList);
-        }
-        return isRemoved;
     }
 
     public static void main(String[] args) {
