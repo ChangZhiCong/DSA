@@ -206,7 +206,7 @@ public class DonorManagement {
                 case 1 -> {
                     increaseTotal();
                     donorUI.getCategoryReport(donor);
-                    donor.resetTotal();
+                    Donor.resetTotal();
 
                     MessageUI.systemPause();
                 }
@@ -218,7 +218,7 @@ public class DonorManagement {
                     dateComparison(startDate, endDate);
 
                     donorUI.displayActivityReport(donor);
-                    donor.resetTotal();
+                    Donor.resetTotal();
 
                     MessageUI.systemPause();
                 }
@@ -243,25 +243,25 @@ public class DonorManagement {
 
     public void increaseTotal() {
         for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
-            donor.increaseTotalDonor();
+            Donor.increaseTotalDonor();
             switch (entry.getValue().getDonorIdentity() + entry.getValue().getDonorType()) {
                 case "IndividualGovernment" -> {
-                    donor.increaseTotalIndividualGovernment();
+                    Donor.increaseTotalIndividualGovernment();
                 }
                 case "IndividualPrivate" -> {
-                    donor.increaseTotalIndividualPrivate();
+                    Donor.increaseTotalIndividualPrivate();
                 }
                 case "IndividualPublic" -> {
-                    donor.increaseTotalIndividualPublic();
+                    Donor.increaseTotalIndividualPublic();
                 }
                 case "OrganisationGovernment" -> {
-                    donor.increaseTotalOrganisationGovernment();
+                    Donor.increaseTotalOrganisationGovernment();
                 }
                 case "OrganisationPrivate" -> {
-                    donor.increaseTotalOrganisationPrivate();
+                    Donor.increaseTotalOrganisationPrivate();
                 }
                 default -> {
-                    donor.increaseTotalOrganisationPublic();
+                    Donor.increaseTotalOrganisationPublic();
                 }
             }
         }
@@ -279,7 +279,7 @@ public class DonorManagement {
                 // compare the original Donor date with the new input date & display
                 if (originalDate.compareTo(formattedStartDate) >= 0 && originalDate.compareTo(formattedEndDate) <= 0) {
                     donorUI.printAllDonor(entry.getValue());
-                    donor.increaseTotalDonor();
+                    Donor.increaseTotalDonor();
                 }
             }
         } catch (ParseException ex) {

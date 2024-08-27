@@ -72,31 +72,31 @@ public class Donor {
         return donorRegDate;
     }
 
-    public int getTotalDonor() {
+    public static int getTotalDonor() {
         return totalDonor;
     }
 
-    public int getTotalIndividualGovernment() {
+    public static int getTotalIndividualGovernment() {
         return totalIndividualGovernment;
     }
 
-    public int getTotalIndividualPrivate() {
+    public static int getTotalIndividualPrivate() {
         return totalIndividualPrivate;
     }
 
-    public int getTotalIndividualPublic() {
+    public static int getTotalIndividualPublic() {
         return totalIndividualPublic;
     }
 
-    public int getTotalOrganisationGovernment() {
+    public static int getTotalOrganisationGovernment() {
         return totalOrganisationGovernment;
     }
 
-    public int getTotalOrganisationPrivate() {
+    public static int getTotalOrganisationPrivate() {
         return totalOrganisationPrivate;
     }
 
-    public int getTotalOrganisationPublic() {
+    public static int getTotalOrganisationPublic() {
         return totalOrganisationPublic;
     }
 
@@ -127,36 +127,36 @@ public class Donor {
     }
 
 //Increment
-    public void increaseTotalDonor() {
+    public static void increaseTotalDonor() {
         totalDonor++;
     }
 
-    public void increaseTotalIndividualGovernment() {
+    public static void increaseTotalIndividualGovernment() {
         totalIndividualGovernment++;
     }
 
-    public void increaseTotalIndividualPrivate() {
+    public static void increaseTotalIndividualPrivate() {
         totalIndividualPrivate++;
     }
 
-    public void increaseTotalIndividualPublic() {
+    public static void increaseTotalIndividualPublic() {
         totalIndividualPublic++;
     }
 
-    public void increaseTotalOrganisationGovernment() {
+    public static void increaseTotalOrganisationGovernment() {
         totalOrganisationGovernment++;
     }
 
-    public void increaseTotalOrganisationPrivate() {
+    public static void increaseTotalOrganisationPrivate() {
         totalOrganisationPrivate++;
     }
 
-    public void increaseTotalOrganisationPublic() {
+    public static void increaseTotalOrganisationPublic() {
         totalOrganisationPublic++;
     }
 
 //Reset
-    public void resetTotal() {
+    public static void resetTotal() {
         totalDonor = 0;
         totalIndividualGovernment = 0;
         totalIndividualPrivate = 0;

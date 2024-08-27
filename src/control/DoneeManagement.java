@@ -255,7 +255,7 @@ public class DoneeManagement {
         int choice;
         do {
             choice = doneeUI.getReportMenuChoice();
-            donee.resetTotal();
+            Donee.resetTotal();
             switch (choice) {
                 case 1 -> {
                     doneeUI.getCategoryReportHeader();
@@ -287,11 +287,11 @@ public class DoneeManagement {
         for (MapEntryInterface<String, Donee> entry : doneeList.entrySet()) {
             switch (entry.getValue().getDoneeIdentity()) {
                 case "individual" ->
-                    donee.increaseTotalIndividual();
+                    Donee.increaseTotalIndividual();
                 case "family" ->
-                    donee.increaseTotalFamily();
+                    Donee.increaseTotalFamily();
                 default ->
-                    donee.increaseTotalOrganisation();
+                    Donee.increaseTotalOrganisation();
             }
         }
     }
@@ -308,7 +308,7 @@ public class DoneeManagement {
                 // compare the original Donee date with the new input date & display
                 if (originalDate.compareTo(formattedStartDate) >= 0 && originalDate.compareTo(formattedEndDate) <= 0) {
                     doneeUI.printAllDonee(entry.getValue());
-                    donee.increaseTotalDonee();
+                    Donee.increaseTotalDonee();
                 }
             }
         } catch (ParseException ex) {

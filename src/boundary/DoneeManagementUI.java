@@ -151,13 +151,13 @@ public class DoneeManagementUI {
     }
 
     public void displayCategoryReport(Donee donee) {
-        System.out.println("Total number of individual   : " + donee.getTotalIndividual());
-        System.out.println("Total number of family       : " + donee.getTotalFamily());
-        System.out.println("Total number of organisation : " + donee.getTotalOrganisation() + "\n");
+        System.out.println("Total number of individual   : " + Donee.getTotalIndividual());
+        System.out.println("Total number of family       : " + Donee.getTotalFamily());
+        System.out.println("Total number of organisation : " + Donee.getTotalOrganisation() + "\n");
     }
 
     public void displayActivityReport(Donee donee) {
-        System.out.println("\nTotal number of donee within the specific date : " + donee.getTotalDonee() + "\n");
+        System.out.println("\nTotal number of donee within the specific date : " + Donee.getTotalDonee() + "\n");
     }
 
     public String inputStartDate() {

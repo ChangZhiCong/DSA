@@ -195,10 +195,10 @@ public class DonorManagementUI {
         System.out.println("============================================================");
         System.out.println("| Identity \\\\ Type | Private | Public | Government | Total |");
         System.out.println("============================================================");
-        System.out.printf("|    Individual    |  %4d   |  %4d  |    %4d    |  %4d |\n", donor.getTotalIndividualPrivate(), donor.getTotalIndividualPublic(), donor.getTotalIndividualGovernment(), donor.getTotalIndividualPrivate() + donor.getTotalIndividualPublic() + donor.getTotalIndividualGovernment());
-        System.out.printf("|   Organisation   |  %4d   |  %4d  |    %4d    |  %4d |\n", donor.getTotalOrganisationPrivate(), donor.getTotalOrganisationPublic(), donor.getTotalOrganisationGovernment(), donor.getTotalOrganisationPrivate() + donor.getTotalOrganisationPublic() + donor.getTotalOrganisationGovernment());
+        System.out.printf("|    Individual    |  %4d   |  %4d  |    %4d    |  %4d |\n", Donor.getTotalIndividualPrivate(), Donor.getTotalIndividualPublic(), Donor.getTotalIndividualGovernment(), Donor.getTotalIndividualPrivate() + Donor.getTotalIndividualPublic() + Donor.getTotalIndividualGovernment());
+        System.out.printf("|   Organisation   |  %4d   |  %4d  |    %4d    |  %4d |\n", Donor.getTotalOrganisationPrivate(), Donor.getTotalOrganisationPublic(), Donor.getTotalOrganisationGovernment(), Donor.getTotalOrganisationPrivate() + Donor.getTotalOrganisationPublic() + Donor.getTotalOrganisationGovernment());
         System.out.println("============================================================");
-        System.out.printf("|      Total       |  %4d   |  %4d  |    %4d    |  %4d |\n", donor.getTotalIndividualPrivate() + donor.getTotalOrganisationPrivate(), donor.getTotalIndividualPublic() + donor.getTotalOrganisationPublic(), donor.getTotalIndividualGovernment() + donor.getTotalOrganisationGovernment(), donor.getTotalDonor());
+        System.out.printf("|      Total       |  %4d   |  %4d  |    %4d    |  %4d |\n", Donor.getTotalIndividualPrivate() + Donor.getTotalOrganisationPrivate(), Donor.getTotalIndividualPublic() + Donor.getTotalOrganisationPublic(), Donor.getTotalIndividualGovernment() + Donor.getTotalOrganisationGovernment(), Donor.getTotalDonor());
         System.out.println("============================================================");
     }
     
@@ -221,7 +221,7 @@ public class DonorManagementUI {
     }
     
     public void displayActivityReport(Donor donor) {
-        System.out.println("\nTotal number of donor(s) joined within the specific date : " + donor.getTotalDonor() + "\n");
+        System.out.println("\nTotal number of donor(s) joined within the specific date : " + Donor.getTotalDonor() + "\n");
     }
         
     //Common Messages

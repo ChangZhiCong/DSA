@@ -60,19 +60,19 @@ public class Donee {
         return doneeIdentity;
     }
 
-    public int getTotalDonee() {
+    public static int getTotalDonee() {
         return totalDonee;
     }
 
-    public int getTotalIndividual() {
+    public static int getTotalIndividual() {
         return totalIndividual;
     }
 
-    public int getTotalFamily() {
+    public static int getTotalFamily() {
         return totalFamily;
     }
 
-    public int getTotalOrganisation() {
+    public static int getTotalOrganisation() {
         return totalOrganisation;
     }
 
@@ -106,23 +106,24 @@ public class Donee {
         this.doneeIdentity = doneeIdentity;
     }
 
-    public void increaseTotalDonee() {
+    // static method
+    public static void increaseTotalDonee() {
         totalDonee++;
     }
 
-    public void increaseTotalIndividual() {
+    public static void increaseTotalIndividual() {
         totalIndividual++;
     }
 
-    public void increaseTotalFamily() {
+    public static void increaseTotalFamily() {
         totalFamily++;
     }
 
-    public void increaseTotalOrganisation() {
+    public static void increaseTotalOrganisation() {
         totalOrganisation++;
     }
 
-    public void resetTotal() {
+    public static void resetTotal() {
         totalDonee = 0;
         totalIndividual = 0;
         totalFamily = 0;
