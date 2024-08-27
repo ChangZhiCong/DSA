@@ -6,12 +6,14 @@ import adt.MapInterface;
 import boundary.DonationManagementUI;
 import dao.DonationDAO;
 import entity.Donation;
+import utility.MessageUI;
 
 public class DonationManagement {
 
     private MapInterface<String, Donation> donationList = new LinkedHashMap<>();
-    private final DonationDAO donationDAO = new DonationDAO("donation.txt");
     private final DonationManagementUI donationUI = new DonationManagementUI();
+    private Donation donation = new Donation();
+    private final DonationDAO donationDAO = new DonationDAO("donation.txt");
 
     public static void main(String[] args) {
         DonationManagement donation = new DonationManagement();
@@ -52,10 +54,9 @@ public class DonationManagement {
     }
 
     public void addDonation() {
-        DonationManagementUI donationUI = new DonationManagementUI();
 
         // Get donation details from the user
-        Donation donation = donationUI.inputDonationDetail();
+        donation = donationUI.inputDonationDetail();
 
         // Add donation to the donation list
         donationList.put(donation.getDonationId(), donation);
@@ -69,7 +70,16 @@ public class DonationManagement {
     }
 
     public void removeDonation() {
+        String searchDonationId = donationUI.inputDonationId();
+        boolean found = donationList.containsKey(searchDonationId);
 
+        if (found) {
+            removeDonationFromFile(searchDonationId);
+            donationUI.displaySuccessRemoveDonationMessage();
+        } else {
+            donationUI.displayErrorDonationIdMessage();
+        }
+        MessageUI.systemPause();
     }
 
     public void modifyDonation() {
@@ -77,6 +87,16 @@ public class DonationManagement {
     }
 
     public void searchDonations() {
+        String searchDonationId = donationUI.inputDonationId();
+        boolean found = donationList.containsKey(searchDonationId);
+
+        if (found) {
+            donationUI.printDonationDetails(donationList.get(searchDonationId));
+
+        } else {
+            donationUI.displayErrorDonationIdMessage();
+            MessageUI.systemPause();
+        }
 
     }
 
@@ -89,5 +109,12 @@ public class DonationManagement {
 
     public void generateReports() {
 
+    }
+
+    public void removeDonationFromFile(String donationId) {
+        boolean isRemoved = donationList.remove(donationId);
+        if (isRemoved) {
+            donationDAO.saveToFile(donationList);
+        }
     }
 }
