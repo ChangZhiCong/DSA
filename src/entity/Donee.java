@@ -16,7 +16,7 @@ public class Donee {
     private String doneeId, doneeName, doneeContactNo, doneeEmail, doneeIdentity;
     private Date doneeRegDate;
     private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); // use to format date 
-    private int totalDonee = 0, totalIndividual = 0, totalFamily = 0, totalOrganisation = 0;
+    private static int totalDonee = 0, totalIndividual = 0, totalFamily = 0, totalOrganisation = 0;
 
     public Donee() {
     }

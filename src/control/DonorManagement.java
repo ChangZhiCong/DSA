@@ -57,14 +57,47 @@ public class DonorManagement {
     }
 
     public void addDonor() {
-        donor = donorUI.inputDonorDetails();
+        donor = inputDonorDetails();
         donorList.put(donor.getDonorId(), donor);
         donorDAO.saveToFile(donorList);
         donorUI.displaySucessAddDonorMessage();
         donorUI.printDonorDetails(donor);
         MessageUI.systemPause();
     }
-    
+
+    public Donor inputDonorDetails() {
+        String donorName = donorUI.inputDonorName();
+        String donorContactNo = donorUI.inputDonorContactNo();
+        String donorEmail = donorUI.inputDonorEmail();
+        int donorIdentityChoice = donorUI.selectDonorIdentity();
+        int donorTypeChoice = donorUI.selectDonorType();
+        System.out.println();
+        
+        String donorIdentity = validateDonorIdentity(donorIdentityChoice);
+        String donorType = validateDonorIdentity(donorTypeChoice);
+
+        return new Donor(donorName, donorContactNo, donorEmail, donorIdentity, donorType);
+    }
+
+    public String validateDonorIdentity(int donorIdentityChoice) {
+        if (donorIdentityChoice == 1) {
+            return "Organisation";
+        } else {
+            return "Individual";
+        }
+    }
+
+    public String validateDonorType(int donorTypeChoice) {
+        return switch (donorTypeChoice) {
+            case 1 ->
+                "Public";
+            case 2 ->
+                "Government";
+            default ->
+                "Private";
+        };
+    }
+
     public void removeDonor() {
         String removeDonorID = donorUI.inputDonorID();
         boolean validRemove = removeFromFile(removeDonorID);
@@ -91,26 +124,25 @@ public class DonorManagement {
             MessageUI.systemPause();
         }
     }
-    
+
     public void updateDonor() {
         int choice;
         String updateDonorID = donorUI.inputDonorID();
         boolean validUpdateDonor = donorList.containsKey(updateDonorID);
-        
-        if(!validUpdateDonor){
+
+        if (!validUpdateDonor) {
             donorUI.displayInvalidIDMessgae();
-        }
-        else{
+        } else {
             boolean isChanged = false;
-            
+
             Donor oldDonorData = donorList.get(updateDonorID);
             donorUI.displayValidIDMessage();
             donorUI.printDonorDetails(oldDonorData);
-            
+
             do {
                 choice = donorUI.getUpdateDonorChoice();
-                
-                switch(choice){
+
+                switch (choice) {
                     case 1 -> {
                         String newDonorName = donorUI.inputDonorName();
                         oldDonorData.setDonorName(newDonorName);
@@ -129,27 +161,29 @@ public class DonorManagement {
                     case 4 -> {
                         String newDonorIdentity;
                         int donorIdentityChoice = donorUI.selectDonorIdentity();
-                        if(donorIdentityChoice == 1)
+                        if (donorIdentityChoice == 1) {
                             newDonorIdentity = "Organisation";
-                        else
+                        } else {
                             newDonorIdentity = "Individual";
+                        }
                         oldDonorData.setDonorIdentity(newDonorIdentity);
                         isChanged = true;
                     }
                     case 5 -> {
                         String newDonorType;
                         int donorTypeChoice = donorUI.selectDonorType();
-                        if(donorTypeChoice == 1)
+                        if (donorTypeChoice == 1) {
                             newDonorType = "Public";
-                        else if (donorTypeChoice == 2)
+                        } else if (donorTypeChoice == 2) {
                             newDonorType = "Government";
-                        else
+                        } else {
                             newDonorType = "Private";
+                        }
                         oldDonorData.setDonorType(newDonorType);
                         isChanged = true;
                     }
                     case 6 -> {
-                        if(isChanged){
+                        if (isChanged) {
                             donorList.put(oldDonorData.getDonorId(), oldDonorData);
                             donorDAO.saveToFile(donorList);
                             donorUI.displaySuccessUpdateDonorMessage();
@@ -159,12 +193,12 @@ public class DonorManagement {
                     default ->
                         donorUI.displayInvalidMenuMessage();
                 }
-                
-            }while(choice != 6);
+
+            } while (choice != 6);
         }
     }
-    
-    public void generateDonorReport(){
+
+    public void generateDonorReport() {
         int choice;
         do {
             choice = donorUI.getReportMenuChoice();
@@ -173,7 +207,7 @@ public class DonorManagement {
                     increaseTotal();
                     donorUI.getCategoryReport(donor);
                     donor.resetTotal();
-                    
+
                     MessageUI.systemPause();
                 }
                 case 2 -> {
@@ -185,7 +219,7 @@ public class DonorManagement {
 
                     donorUI.displayActivityReport(donor);
                     donor.resetTotal();
-                    
+
                     MessageUI.systemPause();
                 }
 
@@ -198,7 +232,7 @@ public class DonorManagement {
             }
         } while (choice != 3);
     }
-    
+
     public boolean removeFromFile(String id) {
         boolean isRemoved = donorList.remove(id);
         if (isRemoved) {
@@ -206,7 +240,7 @@ public class DonorManagement {
         }
         return isRemoved;
     }
-    
+
     public void increaseTotal() {
         for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
             donor.increaseTotalDonor();
@@ -232,7 +266,7 @@ public class DonorManagement {
             }
         }
     }
-    
+
     public void dateComparison(String startDate, String endDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

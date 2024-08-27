@@ -16,30 +16,23 @@ public class Donor {
     private String donorId, donorName, donorContactNo, donorEmail, donorIdentity, donorType;
     private Date donorRegDate;
     private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-    private int totalDonor = 0, totalIndividualGovernment = 0, totalIndividualPrivate = 0, totalIndividualPublic = 0, totalOrganisationGovernment = 0, totalOrganisationPrivate = 0, totalOrganisationPublic = 0;
-    
+    private static int totalDonor = 0, totalIndividualGovernment = 0, totalIndividualPrivate = 0, totalIndividualPublic = 0, totalOrganisationGovernment = 0, totalOrganisationPrivate = 0, totalOrganisationPublic = 0;
+
     //Constructor
     public Donor() {
     }
 
-    public Donor(String donorName, String donorContactNo, String donorEmail, int donorIdentityChoice, int donorTypeChoice) {
+    public Donor(String donorName, String donorContactNo, String donorEmail, String donorIdentity, String donorType) {
         donorId = "DR" + String.format("%04d", (int) (System.currentTimeMillis() % 10000));
         this.donorName = donorName;
         this.donorContactNo = donorContactNo;
         this.donorEmail = donorEmail;
-        if(donorIdentityChoice == 1)
-            donorIdentity = "Organisation";
-        else
-            donorIdentity = "Individual";
-        if(donorTypeChoice == 1)
-            donorType = "Public";
-        else if (donorTypeChoice == 2)
-            donorType = "Government";
-        else
-            donorType = "Private";
+        this.donorIdentity = donorIdentity;
+        this.donorType = donorType;
+
         donorRegDate = new Date();
     }
-    
+
     public Donor(String[] parts) throws Exception {
         this.donorId = parts[0];
         this.donorName = parts[1];
@@ -78,7 +71,7 @@ public class Donor {
     public Date getDonorRegDate() {
         return donorRegDate;
     }
-    
+
     public int getTotalDonor() {
         return totalDonor;
     }
@@ -132,36 +125,36 @@ public class Donor {
     public String getFormattedDonorRegDate() {
         return formatter.format(donorRegDate);
     }
-    
+
 //Increment
-    public void increaseTotalDonor(){
+    public void increaseTotalDonor() {
         totalDonor++;
     }
-    
-    public void increaseTotalIndividualGovernment(){
+
+    public void increaseTotalIndividualGovernment() {
         totalIndividualGovernment++;
     }
-    
-    public void increaseTotalIndividualPrivate(){
+
+    public void increaseTotalIndividualPrivate() {
         totalIndividualPrivate++;
     }
-    
-    public void increaseTotalIndividualPublic(){
+
+    public void increaseTotalIndividualPublic() {
         totalIndividualPublic++;
     }
-    
-    public void increaseTotalOrganisationGovernment(){
+
+    public void increaseTotalOrganisationGovernment() {
         totalOrganisationGovernment++;
     }
-    
-    public void increaseTotalOrganisationPrivate(){
+
+    public void increaseTotalOrganisationPrivate() {
         totalOrganisationPrivate++;
     }
-    
-    public void increaseTotalOrganisationPublic(){
+
+    public void increaseTotalOrganisationPublic() {
         totalOrganisationPublic++;
     }
-    
+
 //Reset
     public void resetTotal() {
         totalDonor = 0;

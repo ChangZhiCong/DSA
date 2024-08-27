@@ -89,15 +89,15 @@ public class DonorManagementUI {
         return choice;
     }
     
-    public Donor inputDonorDetails() {
-        String donorName = inputDonorName();
-        String donorContactNo = inputDonorContactNo();
-        String donorEmail = inputDonorEmail();
-        int donorIdentityChoice = selectDonorIdentity();
-        int donorTypeChoice = selectDonorType();
-        System.out.println();
-        return new Donor(donorName, donorContactNo, donorEmail, donorIdentityChoice, donorTypeChoice);
-    }
+//    public Donor inputDonorDetails() {
+//        String donorName = inputDonorName();
+//        String donorContactNo = inputDonorContactNo();
+//        String donorEmail = inputDonorEmail();
+//        int donorIdentityChoice = selectDonorIdentity();
+//        int donorTypeChoice = selectDonorType();
+//        System.out.println();
+//        return new Donor(donorName, donorContactNo, donorEmail, donorIdentityChoice, donorTypeChoice);
+//    }
         
     //Enter donorID
     public String inputDonorID() {
