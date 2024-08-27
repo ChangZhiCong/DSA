@@ -72,11 +72,12 @@ public class DoneeManagement {
     public void removeDonee() {
         String removeDoneeID = doneeUI.inputDoneeID();
 
-        boolean validRemove = removeFromFile(removeDoneeID);
+        boolean validRemove = doneeList.remove(removeDoneeID);
 
         if (!validRemove) {
             doneeUI.displayInvalidIDMessgae();
         } else {
+            doneeDAO.saveToFile(doneeList);
             doneeUI.displaySucessRemoveDoneeMessage();
         }
     }
@@ -302,14 +303,6 @@ public class DoneeManagement {
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public boolean removeFromFile(String id) {
-        boolean isRemoved = doneeList.remove(id);
-        if (isRemoved) {
-            doneeDAO.saveToFile(doneeList);
-        }
-        return isRemoved;
     }
 
     public static void main(String[] args) {
