@@ -200,7 +200,7 @@ public class DoneeManagement {
                     inKindAmount += entryDonation.getValue().getInKindAmount();
                 }
             }
-            // display when donee receive donation
+            // display when the donee receive donation
             if (hasDonation) {
                 doneeUI.printAllDoneeWithDonation(entryDonee.getValue(), donationCategory.toString(), donationType.toString(), cashAmount, inKindAmount);
             }
@@ -255,13 +255,12 @@ public class DoneeManagement {
         int choice;
         do {
             choice = doneeUI.getReportMenuChoice();
+            donee.resetTotal();
             switch (choice) {
                 case 1 -> {
                     doneeUI.getCategoryReportHeader();
                     increaseTotal();
-
                     doneeUI.displayCategoryReport(donee);
-                    donee.resetTotal();
                 }
                 case 2 -> {
                     String startDate = doneeUI.inputStartDate();
@@ -271,7 +270,6 @@ public class DoneeManagement {
                     dateComparison(startDate, endDate);
 
                     doneeUI.displayActivityReport(donee);
-                    donee.resetTotal();
                 }
 
                 case 3 -> {
