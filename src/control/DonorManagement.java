@@ -170,11 +170,11 @@ public class DonorManagement {
             choice = donorUI.getReportMenuChoice();
             switch (choice) {
                 case 1 -> {
-//                    donorUI.getCategoryReportHeader();
-//                    increaseTotal();
-//
-//                    donorUI.displayCategoryReport(donor);
-//                    donor.resetTotal();
+                    increaseTotal();
+                    donorUI.getCategoryReport(donor);
+                    donor.resetTotal();
+                    
+                    MessageUI.systemPause();
                 }
                 case 2 -> {
                     String startDate = donorUI.inputStartDate();
@@ -185,6 +185,8 @@ public class DonorManagement {
 
                     donorUI.displayActivityReport(donor);
                     donor.resetTotal();
+                    
+                    MessageUI.systemPause();
                 }
 
                 case 3 -> {
@@ -205,6 +207,32 @@ public class DonorManagement {
         return isRemoved;
     }
     
+    public void increaseTotal() {
+        for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
+            donor.increaseTotalDonor();
+            switch (entry.getValue().getDonorIdentity() + entry.getValue().getDonorType()) {
+                case "IndividualGovernment" -> {
+                    donor.increaseTotalIndividualGovernment();
+                }
+                case "IndividualPrivate" -> {
+                    donor.increaseTotalIndividualPrivate();
+                }
+                case "IndividualPublic" -> {
+                    donor.increaseTotalIndividualPublic();
+                }
+                case "OrganisationGovernment" -> {
+                    donor.increaseTotalOrganisationGovernment();
+                }
+                case "OrganisationPrivate" -> {
+                    donor.increaseTotalOrganisationPrivate();
+                }
+                default -> {
+                    donor.increaseTotalOrganisationPublic();
+                }
+            }
+        }
+    }
+    
     public void dateComparison(String startDate, String endDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -214,7 +242,7 @@ public class DonorManagement {
             for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
                 Date originalDate = entry.getValue().getDonorRegDate();
 
-                // compare the original Donee date with the new input date & display
+                // compare the original Donor date with the new input date & display
                 if (originalDate.compareTo(formattedStartDate) >= 0 && originalDate.compareTo(formattedEndDate) <= 0) {
                     donorUI.printAllDonor(entry.getValue());
                     donor.increaseTotalDonor();

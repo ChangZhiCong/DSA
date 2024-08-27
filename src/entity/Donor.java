@@ -16,8 +16,7 @@ public class Donor {
     private String donorId, donorName, donorContactNo, donorEmail, donorIdentity, donorType;
     private Date donorRegDate;
     private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-    //private static int totalDonor = 0, totalIndividual = 0, totalOrganisation = 0, totalGovernment = 0, totalPrivate = 0, totalPublic = 0;
-    private int totalDonor = 0;
+    private int totalDonor = 0, totalIndividualGovernment = 0, totalIndividualPrivate = 0, totalIndividualPublic = 0, totalOrganisationGovernment = 0, totalOrganisationPrivate = 0, totalOrganisationPublic = 0;
     
     //Constructor
     public Donor() {
@@ -84,6 +83,30 @@ public class Donor {
         return totalDonor;
     }
 
+    public int getTotalIndividualGovernment() {
+        return totalIndividualGovernment;
+    }
+
+    public int getTotalIndividualPrivate() {
+        return totalIndividualPrivate;
+    }
+
+    public int getTotalIndividualPublic() {
+        return totalIndividualPublic;
+    }
+
+    public int getTotalOrganisationGovernment() {
+        return totalOrganisationGovernment;
+    }
+
+    public int getTotalOrganisationPrivate() {
+        return totalOrganisationPrivate;
+    }
+
+    public int getTotalOrganisationPublic() {
+        return totalOrganisationPublic;
+    }
+
     //Setter
     public void setDonorName(String donorName) {
         this.donorName = donorName;
@@ -115,9 +138,39 @@ public class Donor {
         totalDonor++;
     }
     
+    public void increaseTotalIndividualGovernment(){
+        totalIndividualGovernment++;
+    }
+    
+    public void increaseTotalIndividualPrivate(){
+        totalIndividualPrivate++;
+    }
+    
+    public void increaseTotalIndividualPublic(){
+        totalIndividualPublic++;
+    }
+    
+    public void increaseTotalOrganisationGovernment(){
+        totalOrganisationGovernment++;
+    }
+    
+    public void increaseTotalOrganisationPrivate(){
+        totalOrganisationPrivate++;
+    }
+    
+    public void increaseTotalOrganisationPublic(){
+        totalOrganisationPublic++;
+    }
+    
 //Reset
     public void resetTotal() {
         totalDonor = 0;
+        totalIndividualGovernment = 0;
+        totalIndividualPrivate = 0;
+        totalIndividualPublic = 0;
+        totalOrganisationGovernment = 0;
+        totalOrganisationPrivate = 0;
+        totalOrganisationPublic = 0;
     }
 
 //toString

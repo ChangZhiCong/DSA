@@ -190,6 +190,18 @@ public class DonorManagementUI {
         return choice;
     }
     
+    public void getCategoryReport(Donor donor) {
+        System.out.println("          Donor Category Summary Report");
+        System.out.println("============================================================");
+        System.out.println("| Identity \\\\ Type | Private | Public | Government | Total |");
+        System.out.println("============================================================");
+        System.out.printf("|    Individual    |  %4d   |  %4d  |    %4d    |  %4d |\n", donor.getTotalIndividualPrivate(), donor.getTotalIndividualPublic(), donor.getTotalIndividualGovernment(), donor.getTotalIndividualPrivate() + donor.getTotalIndividualPublic() + donor.getTotalIndividualGovernment());
+        System.out.printf("|   Organisation   |  %4d   |  %4d  |    %4d    |  %4d |\n", donor.getTotalOrganisationPrivate(), donor.getTotalOrganisationPublic(), donor.getTotalOrganisationGovernment(), donor.getTotalOrganisationPrivate() + donor.getTotalOrganisationPublic() + donor.getTotalOrganisationGovernment());
+        System.out.println("============================================================");
+        System.out.printf("|      Total       |  %4d   |  %4d  |    %4d    |  %4d |\n", donor.getTotalIndividualPrivate() + donor.getTotalOrganisationPrivate(), donor.getTotalIndividualPublic() + donor.getTotalOrganisationPublic(), donor.getTotalIndividualGovernment() + donor.getTotalOrganisationGovernment(), donor.getTotalDonor());
+        System.out.println("============================================================");
+    }
+    
     public String inputStartDate() {
         System.out.print("Enter the start date (eg. 14/08/2024) : ");
         String str = sc.nextLine().trim();
