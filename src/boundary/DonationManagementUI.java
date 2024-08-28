@@ -5,19 +5,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import entity.*;
 
+/**
+ *
+ * @author user : Cheong Wei Zhe
+ */
 public class DonationManagementUI {
 
     private static final Scanner sc = new Scanner(System.in);
 
     public static int donationManagementMenu() {
 
-        System.out.println("\n=============================================");
+        System.out.println("=============================================");
         System.out.println("         Donation Management System");
         System.out.println("=============================================");
-        System.out.println("1. Add Donation");
+        System.out.println("1. Add New Donation");
         System.out.println("2. Remove Donation");
-        System.out.println("3. Modify Donation Details");
-        System.out.println("4. Search Donations");
+        System.out.println("3. Modify Donation Detail");
+        System.out.println("4. Search Donation");
         System.out.println("5. List All Donations");
         System.out.println("6. Generate Reports");
         System.out.println("7. Exit");
@@ -118,11 +122,13 @@ public class DonationManagementUI {
         System.out.println("===========================");
         System.out.println("(1) Education");
         System.out.println("(2) Health");
+        System.out.println("(3) Disaster Relief");
+        System.out.println("(4) Animal Welfare");
         System.out.println("===========================");
         System.out.print("Your Selection > ");
         int input = sc.nextInt();
         sc.nextLine();
-        
+
         return input;
     }
 
@@ -173,7 +179,10 @@ public class DonationManagementUI {
     public void displayErrorInputMessage() {
         System.out.println("Invalid Input. Please try again!");
     }
-    
+
+    public void displaySuccessModifyDonationMessage() {
+        System.out.println("Donation details has been updated successfully!");
+    }
 
     public void printDonationDetails(Donation donation) {
         System.out.println("======================================");
@@ -190,4 +199,22 @@ public class DonationManagementUI {
         System.out.println("Donee ID      : " + donation.getDoneeId());
         System.out.println("======================================");
     }
+
+    public int displayModificationMenu() {
+        System.out.println("===================================");
+        System.out.println("Select the data you want to modify:");
+        System.out.println("===================================");
+        System.out.println("(1) Donation Name");
+        System.out.println("(2) Donation Type");
+        System.out.println("(3) Donation Category");
+        System.out.println("(4) Exit");
+        System.out.println("===================================");
+        System.out.print("Enter your choice > ");
+
+        int input = sc.nextInt();
+        sc.nextLine();
+
+        return input;
+    }
+
 }

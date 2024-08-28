@@ -2,7 +2,7 @@ package entity;
 
 /**
  *
- * @author ACER
+ * @author user : Cheong Wei Zhe
  */
 public class Donation {
 

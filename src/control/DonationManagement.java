@@ -6,6 +6,10 @@ import dao.*;
 import entity.*;
 import utility.MessageUI;
 
+/**
+ *
+ * @author user : Cheong Wei Zhe
+ */
 public class DonationManagement {
 
     private final DonationManagementUI donationUI = new DonationManagementUI();
@@ -60,6 +64,42 @@ public class DonationManagement {
         }
     }
 
+//    public void listDonationsByDonor() {
+//        // Initialize a LinkedHashMap to group donations by donor ID
+//        MapInterface<String, ListInterface<Donation>> donationsByDonor = new LinkedHashMap<>();
+//
+//        // Iterate over all donations in the donationList
+//        for (MapEntryInterface<String, Donation> entry : donationList.entrySet()) {
+//            Donation donation = entry.getValue();
+//            String donorId = donation.getDonorId();
+//
+//            // If the donorId is already in the map, add the donation to the list
+//            if (donationsByDonor.containsKey(donorId)) {
+//                donationsByDonor.get(donorId).add(donation);
+//            } else {
+//                // If the donorId is not in the map, create a new list and add the donation
+//                ListInterface<Donation> donorDonations = new ArrayList<>();
+//                donorDonations.add(donation);
+//                donationsByDonor.put(donorId, donorDonations);
+//            }
+//        }
+//
+//        // Display the grouped donations
+//        for (MapEntryInterface<String, ListInterface<Donation>> entry : donationsByDonor.entrySet()) {
+//            String donorId = entry.getKey();
+//            ListInterface<Donation> donorDonations = entry.getValue();
+//
+//            // Display donor details (you may want to fetch donor details from donorList)
+//            System.out.println("Donor ID: " + donorId);
+//            donationUI.getListDoneeDonationHeader();
+//
+//            // Display all donations for the current donor
+//            for (Donation donation : donorDonations) {
+//                donationUI.printAllDonationList(donation);
+//            }
+//            System.out.println(); // Print a newline for better readability
+//        }
+//    }
     public void addDonation() {
 
         // Get donation details from the user
@@ -74,6 +114,7 @@ public class DonationManagement {
         // Display success message and print donation details
         donationUI.displaySuccessAddDonationMessage();
         donationUI.printDonationDetails(donation);
+        MessageUI.systemPause();
     }
 
     public Donation inputDonationDetail() {
@@ -124,7 +165,49 @@ public class DonationManagement {
     }
 
     public void modifyDonation() {
+        String donationId = donationUI.inputDonationId();
+        boolean found = donationList.containsKey(donationId);
 
+        if (found) {
+            // Retrieve the existing donation
+            Donation existingDonation = donationList.get(donationId);
+
+            boolean continueModifying = true;
+            while (continueModifying) {
+                // Display modification menu
+                int choice = donationUI.displayModificationMenu();
+
+                switch (choice) {
+                    case 1 -> {
+                        String newDonationName = donationUI.inputDonationName();
+                        existingDonation.setDonationName(newDonationName);
+                    }
+                    case 2 -> {
+                        String newDonationType = isValidDonationType();
+                        existingDonation.setDonationType(newDonationType);
+                    }
+                    case 3 -> {
+                        String newDonationCategory = isValidDonationCategory();
+                        existingDonation.setDonationCategory(newDonationCategory);
+                    }
+                    case 4 ->
+                        continueModifying = false;
+                    default ->
+                        donationUI.displayErrorInputMessage();
+                }
+            }
+
+            // Save the updated donation list to the text file
+            donationList.put(donationId, existingDonation);
+            donationDAO.saveToFile(donationList);
+
+            // Display success message and print updated donation details
+            donationUI.displaySuccessModifyDonationMessage();
+            donationUI.printDonationDetails(existingDonation);
+        } else {
+            donationUI.displayErrorDonationIdMessage();
+        }
+        MessageUI.systemPause();
     }
 
     public void searchDonations() {
@@ -203,7 +286,12 @@ public class DonationManagement {
                 case 2 -> {
                     return "Health";
                 }
-
+                case 3 -> {
+                    return "Disaster Relief";
+                }
+                case 4 -> {
+                    return "Animal Welfare";
+                }
                 default -> {
                     donationUI.displayErrorInputMessage();
                 }
