@@ -149,9 +149,10 @@ public class DonorManagementUI {
         System.out.println("========================================");
         System.out.println("1. Filter by donor's name");
         System.out.println("2. Filter by donor's identity");
-        System.out.println("3. Filter by donor's identity and type");
+        System.out.println("3. Filter by donor's type");
+        System.out.println("4. Filter by donor's identity and type");
         System.out.println("========================================");
-        System.out.println("4. Exit the function");
+        System.out.println("5. Exit the function");
         System.out.println("========================================");
         System.out.print("\nSelect an option: ");
         int choice = sc.nextInt();
@@ -169,51 +170,67 @@ public class DonorManagementUI {
     public void printAllDonor(Donor donor) {
         System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorIdentity(), donor.getDonorType(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
     }
-    
+
     public void getListNameContainsHeader(String name) {
         System.out.printf("\n                                 Donor List of Names that Contains \"%s\"\n", name);
         System.out.println("===========================================================================================================================================");
         System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Donor Identity", "Donor Type", "Contact Number", "Email", "Registered Date");
     }
-    
+
     public void getListIdentityDonorHeader(String donorIdentity) {
-        System.out.printf("\n                                 Donor List of %s\n", donorIdentity);
+        System.out.printf("\n                                         Donor List of %s Identity\n", donorIdentity);
         System.out.println("=========================================================================================================================");
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Donor Type", "Email", "Registered Date");
     }
     
+    public void getListTypeDonorHeader(String donorType) {
+        System.out.printf("\n                                          Donor List of %s Type\n", donorType);
+        System.out.println("=========================================================================================================================");
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Donor Identity", "Email", "Registered Date");
+    }
+
     public void getListIdentityTypeDonorHeader(String donorIdentityType) {
-        System.out.printf("\n                                 Donor List of %s\n", donorIdentityType);
+        System.out.printf("\n                          Donor List of %s\n", donorIdentityType);
         System.out.println("==================================================================================================");
         System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Email", "Registered Date");
     }
-    
-    public void printCertainIdentityDonor (Donor donor) {
+
+    public void printCertainIdentityDonor(Donor donor) {
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorContactNo(), donor.getDonorType(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
     }
     
-    public void printCertainIdentityTypeDonor (Donor donor) {
+    public void printCertainTypeDonor(Donor donor) {
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorContactNo(), donor.getDonorIdentity(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
+    }
+
+    public void printCertainIdentityTypeDonor(Donor donor) {
         System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
     }
 
     //7. Categorise donors (type: government, private, public)
-    public String getCategoriseMenuChoice() {
-        System.out.println("         Categorise Donors Menu");
-        System.out.println("========================================");
-        System.out.println("1. Government Donors");
-        System.out.println("2. Private Donors");
-        System.out.println("3. Public Donors");
-        System.out.println("========================================");
-        System.out.println("4. Exit the function");
-        System.out.println("========================================");
-        System.out.println("\nSelect the donor category/type you wish to view (Can be more than one).");
-        System.out.println("Example: 1 - To view government donors only, 32 - To view public and private donors only.");
-        System.out.print("\nEnter here : ");
-        String choice = sc.nextLine().trim();
-        System.out.println();
-        return choice;
+    public void getListCategorisedDonorHeader() {
+        System.out.println("\n                                Categorised Donor List Based on Donor Type");
+        System.out.println("=========================================================================================================================");    
     }
     
+    public void getGovernmentTypeHeader(){
+        System.out.println("\nGOVERNMENT");
+        System.out.println("==========\n");
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Donor Identity", "Email", "Registered Date");
+    }
+    
+    public void getPrivateTypeHeader(){
+        System.out.println("\nPRIVATE");
+        System.out.println("=======\n");
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Donor Identity", "Email", "Registered Date");
+    }
+    
+    public void getPublicTypeHeader(){
+        System.out.println("\nPUBLIC");
+        System.out.println("======\n");
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Donor Identity", "Email", "Registered Date");
+    }
+
     //8. Generate summary reports
     public int getReportMenuChoice() {
         System.out.println("              Report Menu");

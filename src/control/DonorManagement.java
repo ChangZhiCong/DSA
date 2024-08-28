@@ -77,9 +77,9 @@ public class DonorManagement {
         int donorIdentityChoice = donorUI.selectDonorIdentity();
         int donorTypeChoice = donorUI.selectDonorType();
         System.out.println();
-        
+
         String donorIdentity = validateDonorIdentity(donorIdentityChoice);
-        String donorType = validateDonorIdentity(donorTypeChoice);
+        String donorType = validateDonorType(donorTypeChoice);
 
         return new Donor(donorName, donorContactNo, donorEmail, donorIdentity, donorType);
     }
@@ -164,17 +164,17 @@ public class DonorManagement {
                     case 5 -> {
                         String newDonorType;
                         int donorTypeChoice = donorUI.selectDonorType();
-                    switch (donorTypeChoice) {
-                        case 1:
-                            newDonorType = "Public";
-                            break;
-                        case 2:
-                            newDonorType = "Government";
-                            break;
-                        default:
-                            newDonorType = "Private";
-                            break;
-                    }
+                        switch (donorTypeChoice) {
+                            case 1:
+                                newDonorType = "Public";
+                                break;
+                            case 2:
+                                newDonorType = "Government";
+                                break;
+                            default:
+                                newDonorType = "Private";
+                                break;
+                        }
                         oldDonorData.setDonorType(newDonorType);
                         isChanged = true;
                     }
@@ -184,6 +184,7 @@ public class DonorManagement {
                             donorDAO.saveToFile(donorList);
                             donorUI.displaySuccessUpdateDonorMessage();
                             donorUI.printDonorDetails(oldDonorData);
+                            MessageUI.systemPause();
                         }
                     }
                     default ->
@@ -193,7 +194,7 @@ public class DonorManagement {
             } while (choice != 6);
         }
     }
-    
+
     //4. Search donor details
     public void searchDonor() {
         String searchDonorID = donorUI.inputDonorID();
@@ -209,10 +210,8 @@ public class DonorManagement {
             MessageUI.systemPause();
         }
     }
-    
+
     //5. List donors with all donations made
-    
-    
     //6. Filter donor based on criteria
     public void filterDonor() {
         int choice;
@@ -228,23 +227,41 @@ public class DonorManagement {
                 case 2 -> {
                     int donorIdentityChoice = donorUI.selectDonorIdentity();
                     String donorIdentity;
-                        if (donorIdentityChoice == 1) {
-                            donorIdentity = "Organisation";
-                        } else {
-                            donorIdentity = "Individual";
-                        }
+                    if (donorIdentityChoice == 1) {
+                        donorIdentity = "Organisation";
+                    } else {
+                        donorIdentity = "Individual";
+                    }
                     donorUI.getListIdentityDonorHeader(donorIdentity);
                     listDonor(donorIdentity);
                 }
-
+                
                 case 3 -> {
+                    int donorTypeChoice = donorUI.selectDonorType();
+                    String donorType;
+                    switch (donorTypeChoice) {
+                        case 1:
+                            donorType = "Public";
+                            break;
+                        case 2:
+                            donorType = "Government";
+                            break;
+                        default:
+                            donorType = "Private";
+                            break;
+                    }
+                    donorUI.getListTypeDonorHeader(donorType);
+                    listDonor(donorType);
+                }
+
+                case 4 -> {
                     int donorIdentityChoice = donorUI.selectDonorIdentity();
                     String donorIdentity;
-                        if (donorIdentityChoice == 1) {
-                            donorIdentity = "Organisation";
-                        } else {
-                            donorIdentity = "Individual";
-                        }
+                    if (donorIdentityChoice == 1) {
+                        donorIdentity = "Organisation";
+                    } else {
+                        donorIdentity = "Individual";
+                    }
                     int donorTypeChoice = donorUI.selectDonorType();
                     String donorType;
                     switch (donorTypeChoice) {
@@ -263,7 +280,7 @@ public class DonorManagement {
                     listDonor(donorIdentityType);
                 }
 
-                case 4 -> {
+                case 5 -> {
                     return;
                 }
 
@@ -271,23 +288,24 @@ public class DonorManagement {
                     donorUI.displayInvalidMenuMessage();
             }
             MessageUI.systemPause();
-        } while (choice != 4);
+        } while (choice != 5);
     }
-    
+
     public void listDonor(String donorData) {
         for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
             String donorIdentityType = entry.getValue().getDonorIdentity() + " Identity and " + entry.getValue().getDonorType() + " Type";
-            if(donorIdentityType.equals(donorData)) {
+            if (donorIdentityType.equals(donorData)) {
                 donorUI.printCertainIdentityTypeDonor(entry.getValue());
-            }
-            else if (entry.getValue().getDonorIdentity().equals(donorData)) { // for filter identity
+            } else if (entry.getValue().getDonorIdentity().equals(donorData)) { // for filter identity
                 donorUI.printCertainIdentityDonor(entry.getValue());
-            } else if (stringContains(entry.getValue().getDonorName(), donorData)){ //For filter donor names
+            } else if (entry.getValue().getDonorType().equals(donorData)) { // for filter type
+                donorUI.printCertainTypeDonor(entry.getValue());
+            } else if (stringContains(entry.getValue().getDonorName(), donorData)) { //For filter donor names
                 donorUI.printAllDonor(entry.getValue());
-            } 
+            }
         }
     }
-    
+
     public boolean stringContains(String container, String contained) {
         // Edge case handling
         if (contained == null || container == null) {
@@ -296,7 +314,7 @@ public class DonorManagement {
         if (contained.isEmpty()) {
             return true;
         }
-        
+
         // Create arrays to count occurrences of each character
         int[] containerCharCount = new int[256];
         int[] containedCharCount = new int[256];
@@ -319,46 +337,32 @@ public class DonorManagement {
         }
         return true;
     }
-    
+
     //7. Categorise donors (type: government, private, public)
     public void categoriseDonor() {
         String choice;
-        do {
-            choice = donorUI.getCategoriseMenuChoice();
-            
-            if(!choice.equals("4")) {
-                donorUI.getListDonorHeader();
-                boolean isListed1 = false, isListed2 = false, isListed3 = false;
-            
-            for (int i = 0; i < choice.length() && i < 3; i++) {
-                if(choice.charAt(i) == '1' && isListed1 == false){
-                    isListed1 = true;
-                    for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
-                        if (entry.getValue().getDonorType().equals("Government")) { // for filter identity
-                            donorUI.printAllDonor(entry.getValue());
-                        }
-                    }
-                } else if(choice.charAt(i) == '2' && isListed2 == false){
-                    isListed2 = true;
-                    for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
-                        if (entry.getValue().getDonorType().equals("Private")) { // for filter identity
-                            donorUI.printAllDonor(entry.getValue());
-                        }
-                    }
-                } else if(choice.charAt(i) == '3' && isListed3 == false){
-                    isListed3 = true;
-                    for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
-                        if (entry.getValue().getDonorType().equals("Public")) { // for filter identity
-                            donorUI.printAllDonor(entry.getValue());
-                        }
-                    }
-                }
-            }   //For loop
-            
-            MessageUI.systemPause();
+        donorUI.getListCategorisedDonorHeader();
+        donorUI.getGovernmentTypeHeader();
+        for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
+            if (entry.getValue().getDonorType().equals("Government")) { 
+                donorUI.printCertainTypeDonor(entry.getValue());
             }
-            
-        } while (!choice.equals("4"));
+        }
+        donorUI.getPrivateTypeHeader();
+        for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
+            if (entry.getValue().getDonorType().equals("Private")) { 
+                donorUI.printCertainTypeDonor(entry.getValue());
+            }
+        }
+        donorUI.getPublicTypeHeader();
+        for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
+            if (entry.getValue().getDonorType().equals("Public")) { 
+                donorUI.printCertainTypeDonor(entry.getValue());
+            }
+        }
+
+        MessageUI.systemPause();
+        
     }
 
     //8. Generate summary reports
