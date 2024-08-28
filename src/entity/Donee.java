@@ -22,7 +22,6 @@ public class Donee {
     }
 
     public Donee(String doneeName, String doneeContactNo, String doneeEmail, String doneeIdentity) {
-        this.doneeId = "DE" + String.format("%04d", (int) (System.currentTimeMillis() % 10000));
         this.doneeName = doneeName;
         this.doneeContactNo = doneeContactNo;
         this.doneeEmail = doneeEmail;

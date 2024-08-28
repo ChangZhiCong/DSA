@@ -75,9 +75,9 @@ public class DoneeManagementUI {
     public int getFilterDoneeChoice() {
         System.out.println("                Menu");
         System.out.println("========================================");
-        System.out.println("1. Filter by id in ascending order");
-        System.out.println("2. Filter by id in descending order");
-        System.out.println("3. Filter by identity");
+        System.out.println("1. Filter by individual identity");
+        System.out.println("2. Filter by family identity ");
+        System.out.println("3. Filter by organisation identity");
         System.out.println("4. Exit the function");
         System.out.print("\nSelect an option (1 - 4) : ");
         int choice = sc.nextInt();
@@ -145,21 +145,23 @@ public class DoneeManagementUI {
     }
 
     public void getActivityReportHeader(String startDate, String endDate) {
-        System.out.printf("\n\n                                Donee Activity Report from %s to %s\n", startDate, endDate);
-        System.out.println("======================================================================================================================");
-        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Identity", "Contact Number", "Email", "Registered Date");
+        System.out.printf("\n\n                                                   Donee Activity Report from %s to %s\n", startDate, endDate);
+        System.out.println("=============================================================================================================================================================");
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %26s %19s\n", "ID", "Name", "Identity", "Contact Number", "Email", 
+                "Cash Amount Received(RM)", "In-Kind Amount Received(Qty)");
     }
 
     public void displayCategoryReport(Donee donee) {
         System.out.println("Total number of individual   : " + Donee.getTotalIndividual());
         System.out.println("Total number of family       : " + Donee.getTotalFamily());
         System.out.println("Total number of organisation : " + Donee.getTotalOrganisation() + "\n");
+        System.out.println("Total number of donee      : " + Donee.getTotalDonee());
     }
 
     public void displayActivityReport(Donee donee) {
-        System.out.println("\nTotal number of donee within the specific date : " + Donee.getTotalDonee() + "\n");
+        System.out.println("\nTotal number of registered donee : " + Donee.getTotalDonee() + "\n");
     }
-
+    
     public String inputStartDate() {
         System.out.print("Enter the start date (eg. 14/08/2024) : ");
         String str = sc.nextLine();
@@ -181,7 +183,6 @@ public class DoneeManagementUI {
     public void getListDoneeDonationHeader() {
         System.out.println("\n                         Donee List with Donation Only ");
         System.out.println("==========================================================================================");
-//        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s %-20s %-15s %15s %10s\n", "ID", "Name", "Identity", "Contact Number", "Email", "Registered Date", "Donation Category", "Donation Type", "Cash Amount(RM)", "In-Kind Amount");
     }
 
     public void getListDoneeHeader() {
@@ -190,27 +191,24 @@ public class DoneeManagementUI {
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Identity", "Contact Number", "Email", "Registered Date");
     }
 
-    public void getListIdentityDoneeHeader(String doneeIdentity) {
-        System.out.printf("\n                                 Donee List of %s Identity\n", doneeIdentity);
-        System.out.println("=================================================================================================");
-        System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Email", "Registered Date");
-    }
-
     public void printAllDoneeWithDonation(Donee donee, String category, String type, double cashAmount, int inKindAmount) {
         System.out.printf("%s", donee);
         System.out.printf("Donation Category : %s\n", category);
         System.out.printf("Donation Type : %s\n", type);
-        System.out.printf("Cash Amount (RM) : %.2f\n", cashAmount);
-        System.out.printf("In-Kind Amount (Qty) : %d\n\n", inKindAmount);
+        System.out.printf("Cash Amount Received(RM) : %.2f\n", cashAmount);
+        System.out.printf("In-Kind Amount Received(Qty) : %d\n\n", inKindAmount);
         System.out.println("==========================================================================================");
     }
 
     public void printAllDonee(Donee donee) {
-        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donee.getDoneeId(), donee.getDoneeName(), donee.getDoneeIdentity(), donee.getDoneeContactNo(), donee.getDoneeEmail(), donee.getFormattedDoneeRegDate());
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donee.getDoneeId(), donee.getDoneeName(), 
+                donee.getDoneeIdentity(), donee.getDoneeContactNo(), donee.getDoneeEmail(), donee.getFormattedDoneeRegDate());
     }
-
-    public void printCertainIdentityDonee(Donee donee) {
-        System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", donee.getDoneeId(), donee.getDoneeName(), donee.getDoneeContactNo(), donee.getDoneeEmail(), donee.getFormattedDoneeRegDate());
+    
+    public void printAllDoneeWithDonationQty(Donee donee, double cashAmount, double inKindAmount) {
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %25.2f %28d\n", donee.getDoneeId(), 
+                donee.getDoneeName(), donee.getDoneeIdentity(), donee.getDoneeContactNo(), 
+                donee.getDoneeEmail(), cashAmount, (int) inKindAmount);
     }
 
     public void displaySucessAddDoneeMessage() {

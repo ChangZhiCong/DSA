@@ -205,21 +205,21 @@ public class LinkedHashMap<K, V> implements MapInterface<K, V> {
         return sb.toString();
     }
 
-    @Override
-    public void sortByAscending() {
-        if (head != null) {
-            head = mergeSort(head, Comparator.comparing(entry -> entry.key.toString()));
-            updateTail();
-        }
-    }
-
-    @Override
-    public void sortByDescending() {
-        if (head != null) {
-            head = mergeSort(head, Comparator.comparing(entry -> entry.key.toString(), Comparator.reverseOrder()));
-            updateTail();
-        }
-    }
+//    @Override
+//    public void sortByAscending() {
+//        if (head != null) {
+//            head = mergeSort(head, Comparator.comparing(entry -> entry.key.toString()));
+//            updateTail();
+//        }
+//    }
+//
+//    @Override
+//    public void sortByDescending() {
+//        if (head != null) {
+//            head = mergeSort(head, Comparator.comparing(entry -> entry.key.toString(), Comparator.reverseOrder()));
+//            updateTail();
+//        }
+//    }
 
     private void addEntryToOrderList(Entry<K, V> newEntry) {
         if (head == null) {
@@ -263,66 +263,66 @@ public class LinkedHashMap<K, V> implements MapInterface<K, V> {
         }
     }
 
-    private Entry<K, V> mergeSort(Entry<K, V> head, Comparator<Entry<K, V>> comparator) {
-        if (head == null || head.nextOrder == null) {
-            return head;
-        }
-
-        Entry<K, V> middle = getMiddle(head);
-        Entry<K, V> nextOfMiddle = middle.nextOrder;
-
-        middle.nextOrder = null;
-
-        Entry<K, V> left = mergeSort(head, comparator);
-        Entry<K, V> right = mergeSort(nextOfMiddle, comparator);
-
-        return sortedMerge(left, right, comparator);
-    }
-
-    private Entry<K, V> sortedMerge(Entry<K, V> left, Entry<K, V> right, Comparator<Entry<K, V>> comparator) {
-        if (left == null) {
-            return right;
-        }
-        if (right == null) {
-            return left;
-        }
-
-        Entry<K, V> result;
-        if (comparator.compare(left, right) <= 0) {
-            result = left;
-            result.nextOrder = sortedMerge(left.nextOrder, right, comparator);
-            if (result.nextOrder != null) {
-                result.nextOrder.prev = result;
-            }
-        } else {
-            result = right;
-            result.nextOrder = sortedMerge(left, right.nextOrder, comparator);
-            if (result.nextOrder != null) {
-                result.nextOrder.prev = result;
-            }
-        }
-        return result;
-    }
-
-    private Entry<K, V> getMiddle(Entry<K, V> head) {
-        if (head == null) {
-            return head;
-        }
-
-        Entry<K, V> slow = head, fast = head.nextOrder;
-        while (fast != null && fast.nextOrder != null) {
-            slow = slow.nextOrder;
-            fast = fast.nextOrder.nextOrder;
-        }
-        return slow;
-    }
-
-    private void updateTail() {
-        tail = head;
-        while (tail != null && tail.nextOrder != null) {
-            tail = tail.nextOrder;
-        }
-    }
+//    private Entry<K, V> mergeSort(Entry<K, V> head, Comparator<Entry<K, V>> comparator) {
+//        if (head == null || head.nextOrder == null) {
+//            return head;
+//        }
+//
+//        Entry<K, V> middle = getMiddle(head);
+//        Entry<K, V> nextOfMiddle = middle.nextOrder;
+//
+//        middle.nextOrder = null;
+//
+//        Entry<K, V> left = mergeSort(head, comparator);
+//        Entry<K, V> right = mergeSort(nextOfMiddle, comparator);
+//
+//        return sortedMerge(left, right, comparator);
+//    }
+//
+//    private Entry<K, V> sortedMerge(Entry<K, V> left, Entry<K, V> right, Comparator<Entry<K, V>> comparator) {
+//        if (left == null) {
+//            return right;
+//        }
+//        if (right == null) {
+//            return left;
+//        }
+//
+//        Entry<K, V> result;
+//        if (comparator.compare(left, right) <= 0) {
+//            result = left;
+//            result.nextOrder = sortedMerge(left.nextOrder, right, comparator);
+//            if (result.nextOrder != null) {
+//                result.nextOrder.prev = result;
+//            }
+//        } else {
+//            result = right;
+//            result.nextOrder = sortedMerge(left, right.nextOrder, comparator);
+//            if (result.nextOrder != null) {
+//                result.nextOrder.prev = result;
+//            }
+//        }
+//        return result;
+//    }
+//
+//    private Entry<K, V> getMiddle(Entry<K, V> head) {
+//        if (head == null) {
+//            return head;
+//        }
+//
+//        Entry<K, V> slow = head, fast = head.nextOrder;
+//        while (fast != null && fast.nextOrder != null) {
+//            slow = slow.nextOrder;
+//            fast = fast.nextOrder.nextOrder;
+//        }
+//        return slow;
+//    }
+//
+//    private void updateTail() {
+//        tail = head;
+//        while (tail != null && tail.nextOrder != null) {
+//            tail = tail.nextOrder;
+//        }
+//    }
 
     private class LinkedHashMapIterator implements Iterator<MapEntryInterface<K, V>> {
 

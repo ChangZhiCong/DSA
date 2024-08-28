@@ -33,7 +33,7 @@ public class DoneeManagement {
         do {
             doneeUI.getDoneeLogo();
             doneeList = doneeDAO.retrieveFromFile();
-            donationList = donationDAO.retrieveFromFile(); // for remove and list donee's donation purpose
+            donationList = donationDAO.retrieveFromFile();
 
             choice = doneeUI.getDoneeMenuChoice();
             switch (choice) {
@@ -58,13 +58,15 @@ public class DoneeManagement {
                 default ->
                     doneeUI.displayInvalidMenuMessage();
             }
+            MessageUI.systemPause();
         } while (choice != 8);
     }
 
     public void addDonee() {
         donee = doneeUI.inputDoneeDetails();
-        doneeList.put(donee.getDoneeId(), donee);
+        donee.setDoneeId(generateDoneeID());
 
+        doneeList.put(donee.getDoneeId(), donee);
         doneeDAO.saveToFile(doneeList);
 
         doneeUI.displaySucessAddDoneeMessage();
@@ -154,7 +156,6 @@ public class DoneeManagement {
         } else {
             doneeUI.displayValidIDMessage();
             doneeUI.printDoneeDetails(doneeList.get(searchDoneeID));
-            MessageUI.systemPause();
         }
     }
 
@@ -164,7 +165,6 @@ public class DoneeManagement {
             choice = doneeUI.getListDoneeChoice();
             switch (choice) {
                 case 1 -> {
-                    doneeUI.getListDoneeHeader();
                     listDonee("");
                 }
                 case 2 ->
@@ -191,7 +191,6 @@ public class DoneeManagement {
             int inKindAmount = 0;
 
             for (MapEntryInterface<String, Donation> entryDonation : donationList.entrySet()) {
-                // check if the donee receive any of the donation or not
                 if (entryDonee.getValue().getDoneeId().equals(entryDonation.getValue().getDoneeId())) {
                     hasDonation = true;
                     donationCategory.append(entryDonation.getValue().getDonationCategory()).append(" ");
@@ -200,7 +199,7 @@ public class DoneeManagement {
                     inKindAmount += entryDonation.getValue().getInKindAmount();
                 }
             }
-            // display when the donee receive donation
+
             if (hasDonation) {
                 doneeUI.printAllDoneeWithDonation(entryDonee.getValue(), donationCategory.toString(), donationType.toString(), cashAmount, inKindAmount);
             }
@@ -208,10 +207,9 @@ public class DoneeManagement {
     }
 
     public void listDonee(String doneeIdentity) {
+        doneeUI.getListDoneeHeader();
         for (MapEntryInterface<String, Donee> entry : doneeList.entrySet()) {
-            if (entry.getValue().getDoneeIdentity().equals(doneeIdentity)) { // for filter identity
-                doneeUI.printCertainIdentityDonee(entry.getValue());
-            } else if (doneeIdentity.equals("")) { // for filter ascending and descending and normal display
+            if (entry.getValue().getDoneeIdentity().equals(doneeIdentity) || doneeIdentity.equals("")) {
                 doneeUI.printAllDonee(entry.getValue());
             }
         }
@@ -222,23 +220,14 @@ public class DoneeManagement {
         do {
             choice = doneeUI.getFilterDoneeChoice();
             switch (choice) {
-                case 1 -> {
-                    doneeUI.getListDoneeHeader();
-                    doneeList.sortByAscending();
-                    listDonee("");
-                }
+                case 1 ->
+                    listDonee("individual");
 
-                case 2 -> {
-                    doneeUI.getListDoneeHeader();
-                    doneeList.sortByDescending();
-                    listDonee("");
-                }
+                case 2 ->
+                    listDonee("family");
 
-                case 3 -> {
-                    String doneeIdentity = doneeUI.inputDoneeIdentity();
-                    doneeUI.getListIdentityDoneeHeader(doneeIdentity);
-                    listDonee(doneeIdentity);
-                }
+                case 3 ->
+                    listDonee("organisation");
 
                 case 4 -> {
                     return;
@@ -259,7 +248,7 @@ public class DoneeManagement {
             switch (choice) {
                 case 1 -> {
                     doneeUI.getCategoryReportHeader();
-                    increaseTotal();
+                    increaseTotalByIdentity();
                     doneeUI.displayCategoryReport(donee);
                 }
                 case 2 -> {
@@ -283,8 +272,9 @@ public class DoneeManagement {
         } while (choice != 3);
     }
 
-    public void increaseTotal() {
+    public void increaseTotalByIdentity() {
         for (MapEntryInterface<String, Donee> entry : doneeList.entrySet()) {
+            Donee.increaseTotalDonee();
             switch (entry.getValue().getDoneeIdentity()) {
                 case "individual" ->
                     Donee.increaseTotalIndividual();
@@ -305,15 +295,42 @@ public class DoneeManagement {
             for (MapEntryInterface<String, Donee> entry : doneeList.entrySet()) {
                 Date originalDate = entry.getValue().getDoneeRegDate();
 
-                // compare the original Donee date with the new input date & display
                 if (originalDate.compareTo(formattedStartDate) >= 0 && originalDate.compareTo(formattedEndDate) <= 0) {
-                    doneeUI.printAllDonee(entry.getValue());
+                    double[] donationAmount = calcDonationAmount(entry.getValue().getDoneeId());
+                    doneeUI.printAllDoneeWithDonationQty(entry.getValue(), donationAmount[0], donationAmount[1]);
                     Donee.increaseTotalDonee();
                 }
             }
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public double[] calcDonationAmount(String doneeId) {
+        double[] donationAmount = new double[2];
+        donationAmount[0] = 0.0;
+        donationAmount[1] = 0.0;
+
+        for (MapEntryInterface<String, Donation> entryDonation : donationList.entrySet()) {
+
+            if (entryDonation.getValue().getDoneeId().equals(doneeId)) {
+                donationAmount[0] += entryDonation.getValue().getCashAmount();
+                donationAmount[1] += entryDonation.getValue().getInKindAmount();
+            }
+        }
+        return donationAmount;
+    }
+
+    public String generateDoneeID() {
+        String prefix = "DE";
+        String newDoneeId;
+
+        do {
+            int randomNumber = (int) (Math.random() * 9000) + 1000;
+            newDoneeId = prefix + randomNumber;
+        } while (doneeList.containsKey(newDoneeId));
+
+        return newDoneeId;
     }
 
     public static void main(String[] args) {

@@ -28,9 +28,9 @@ public interface MapInterface<K, V>{
     
     V[] values();
         
-    void sortByAscending();
-
-    void sortByDescending();
+//    void sortByAscending();
+//
+//    void sortByDescending();
     
     void clear();
     
