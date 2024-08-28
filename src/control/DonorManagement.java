@@ -322,36 +322,43 @@ public class DonorManagement {
     
     //7. Categorise donors (type: government, private, public)
     public void categoriseDonor() {
-        int choice;
+        String choice;
         do {
             choice = donorUI.getCategoriseMenuChoice();
-            switch (choice) {
-                case 1 -> {
-                    
+            
+            if(!choice.equals("4")) {
+                donorUI.getListDonorHeader();
+                boolean isListed1 = false, isListed2 = false, isListed3 = false;
+            
+            for (int i = 0; i < choice.length() && i < 3; i++) {
+                if(choice.charAt(i) == '1' && isListed1 == false){
+                    isListed1 = true;
+                    for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
+                        if (entry.getValue().getDonorType().equals("Government")) { // for filter identity
+                            donorUI.printAllDonor(entry.getValue());
+                        }
+                    }
+                } else if(choice.charAt(i) == '2' && isListed2 == false){
+                    isListed2 = true;
+                    for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
+                        if (entry.getValue().getDonorType().equals("Private")) { // for filter identity
+                            donorUI.printAllDonor(entry.getValue());
+                        }
+                    }
+                } else if(choice.charAt(i) == '3' && isListed3 == false){
+                    isListed3 = true;
+                    for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
+                        if (entry.getValue().getDonorType().equals("Public")) { // for filter identity
+                            donorUI.printAllDonor(entry.getValue());
+                        }
+                    }
                 }
-                case 2 -> {
-//                    String startDate = donorUI.inputStartDate();
-//                    String endDate = donorUI.inputEndDate();
-//
-//                    donorUI.getActivityReportHeader(startDate, endDate);
-//                    dateComparison(startDate, endDate);
-//
-//                    donorUI.displayActivityReport(donor);
-//                    Donor.resetTotal();
-
-                    MessageUI.systemPause();
-                }
-
-                case 3 -> {
-                    
-                }
-                case 4 -> {
-                    return;
-                }
-                default ->
-                    donorUI.displayInvalidMenuMessage();
+            }   //For loop
+            
+            MessageUI.systemPause();
             }
-        } while (choice != 4);
+            
+        } while (!choice.equals("4"));
     }
 
     //8. Generate summary reports

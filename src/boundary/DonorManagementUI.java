@@ -115,7 +115,7 @@ public class DonorManagementUI {
     //3. Update donors details
     public int getUpdateDonorChoice() {
         System.out.println("");
-        System.out.println("                Menu");
+        System.out.println("       Update Donor Details Menu");
         System.out.println("========================================");
         System.out.println("1. Update donor name");
         System.out.println("2. Update donor contact number");
@@ -197,7 +197,7 @@ public class DonorManagementUI {
     }
 
     //7. Categorise donors (type: government, private, public)
-    public int getCategoriseMenuChoice() {
+    public String getCategoriseMenuChoice() {
         System.out.println("         Categorise Donors Menu");
         System.out.println("========================================");
         System.out.println("1. Government Donors");
@@ -206,11 +206,10 @@ public class DonorManagementUI {
         System.out.println("========================================");
         System.out.println("4. Exit the function");
         System.out.println("========================================");
-        System.out.print("\nSelect an option : ");
         System.out.println("\nSelect the donor category/type you wish to view (Can be more than one).");
         System.out.println("Example: 1 - To view government donors only, 32 - To view public and private donors only.");
-        int choice = sc.nextInt();
-        sc.nextLine();
+        System.out.print("\nEnter here : ");
+        String choice = sc.nextLine().trim();
         System.out.println();
         return choice;
     }
@@ -232,7 +231,7 @@ public class DonorManagementUI {
     }
 
     public void getCategoryReport(Donor donor) {
-        System.out.println("          Donor Category Summary Report");
+        System.out.println("                 Donor Category Summary Report");
         System.out.println("============================================================");
         System.out.println("| Identity \\\\ Type | Private | Public | Government | Total |");
         System.out.println("============================================================");
