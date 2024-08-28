@@ -17,8 +17,7 @@ import java.util.Date;
  *
  * @author user : Chang Zhi Cong
  */
-public class DoneeManagement {
-
+public class DoneeManagement {                
     private MapInterface<String, Donee> doneeList = new LinkedHashMap();
     private MapInterface<String, Donation> donationList = new LinkedHashMap();
 
@@ -297,15 +296,16 @@ public class DoneeManagement {
 
                 if (originalDate.compareTo(formattedStartDate) >= 0 && originalDate.compareTo(formattedEndDate) <= 0) {
                     double[] donationAmount = calcDonationAmount(entry.getValue().getDoneeId());
-                    doneeUI.printAllDoneeWithDonationQty(entry.getValue(), donationAmount[0], donationAmount[1]);
+                    doneeUI.printAllDoneeWithDonationQty(entry.getValue(), donationAmount[0], (int) donationAmount[1]);
                     Donee.increaseTotalDonee();
                 }
             }
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
+     
     }
-
+    
     public double[] calcDonationAmount(String doneeId) {
         double[] donationAmount = new double[2];
         donationAmount[0] = 0.0;

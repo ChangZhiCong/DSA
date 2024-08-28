@@ -155,11 +155,11 @@ public class DoneeManagementUI {
         System.out.println("Total number of individual   : " + Donee.getTotalIndividual());
         System.out.println("Total number of family       : " + Donee.getTotalFamily());
         System.out.println("Total number of organisation : " + Donee.getTotalOrganisation() + "\n");
-        System.out.println("Total number of donee      : " + Donee.getTotalDonee());
+        System.out.println("Total number of donee        : " + Donee.getTotalDonee());
     }
 
     public void displayActivityReport(Donee donee) {
-        System.out.println("\nTotal number of registered donee : " + Donee.getTotalDonee() + "\n");
+        System.out.println("\nTotal number of donee : " + Donee.getTotalDonee() + "\n");
     }
     
     public String inputStartDate() {
@@ -205,10 +205,10 @@ public class DoneeManagementUI {
                 donee.getDoneeIdentity(), donee.getDoneeContactNo(), donee.getDoneeEmail(), donee.getFormattedDoneeRegDate());
     }
     
-    public void printAllDoneeWithDonationQty(Donee donee, double cashAmount, double inKindAmount) {
+    public void printAllDoneeWithDonationQty(Donee donee, double cashAmount, int inKindAmount) {
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %25.2f %28d\n", donee.getDoneeId(), 
                 donee.getDoneeName(), donee.getDoneeIdentity(), donee.getDoneeContactNo(), 
-                donee.getDoneeEmail(), cashAmount, (int) inKindAmount);
+                donee.getDoneeEmail(), cashAmount, inKindAmount);
     }
 
     public void displaySucessAddDoneeMessage() {
