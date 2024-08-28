@@ -254,10 +254,10 @@ public class DoneeManagement {
                     String startDate = doneeUI.inputStartDate();
                     String endDate = doneeUI.inputEndDate();
 
-                    doneeUI.getActivityReportHeader(startDate, endDate);
+                    doneeUI.getSummaryReportHeader(startDate, endDate);
                     dateComparison(startDate, endDate);
 
-                    doneeUI.displayActivityReport(donee);
+                    doneeUI.displaySummaryReport(donee);
                 }
 
                 case 3 -> {
@@ -295,32 +295,15 @@ public class DoneeManagement {
                 Date originalDate = entry.getValue().getDoneeRegDate();
 
                 if (originalDate.compareTo(formattedStartDate) >= 0 && originalDate.compareTo(formattedEndDate) <= 0) {
-                    double[] donationAmount = calcDonationAmount(entry.getValue().getDoneeId());
-                    doneeUI.printAllDoneeWithDonationQty(entry.getValue(), donationAmount[0], (int) donationAmount[1]);
+                    doneeUI.printAllDoneeWithoutDate(entry.getValue());
                     Donee.increaseTotalDonee();
                 }
             }
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
-     
     }
     
-    public double[] calcDonationAmount(String doneeId) {
-        double[] donationAmount = new double[2];
-        donationAmount[0] = 0.0;
-        donationAmount[1] = 0.0;
-
-        for (MapEntryInterface<String, Donation> entryDonation : donationList.entrySet()) {
-
-            if (entryDonation.getValue().getDoneeId().equals(doneeId)) {
-                donationAmount[0] += entryDonation.getValue().getCashAmount();
-                donationAmount[1] += entryDonation.getValue().getInKindAmount();
-            }
-        }
-        return donationAmount;
-    }
-
     public String generateDoneeID() {
         String prefix = "DE";
         String newDoneeId;

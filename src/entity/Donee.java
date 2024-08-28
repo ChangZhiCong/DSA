@@ -15,7 +15,7 @@ public class Donee {
 
     private String doneeId, doneeName, doneeContactNo, doneeEmail, doneeIdentity;
     private Date doneeRegDate;
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); // use to format date 
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private static int totalDonee = 0, totalIndividual = 0, totalFamily = 0, totalOrganisation = 0;
 
     public Donee() {
@@ -38,7 +38,6 @@ public class Donee {
         this.doneeRegDate = formatter.parse(parts[5]);
     }
 
-    // getter method
     public String getDoneeId() {
         return doneeId;
     }
@@ -79,12 +78,10 @@ public class Donee {
         return doneeRegDate;
     }
 
-    // return data type is String as format the donee Reg date 
     public String getFormattedDoneeRegDate() {
         return formatter.format(doneeRegDate);
     }
 
-    // for update purpose 
     public void setDoneeId(String doneeId) {
         this.doneeId = doneeId;
     }
@@ -105,7 +102,6 @@ public class Donee {
         this.doneeIdentity = doneeIdentity;
     }
 
-    // static method
     public static void increaseTotalDonee() {
         totalDonee++;
     }
@@ -121,7 +117,7 @@ public class Donee {
     public static void increaseTotalOrganisation() {
         totalOrganisation++;
     }
-
+    
     public static void resetTotal() {
         totalDonee = 0;
         totalIndividual = 0;

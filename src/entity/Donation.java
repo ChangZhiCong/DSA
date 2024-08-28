@@ -15,7 +15,7 @@ public class Donation {
     private String donationDate;
     private String donorId;
     private String doneeId;
-
+    
     public Donation() {
 
     }

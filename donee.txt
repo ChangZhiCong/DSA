@@ -1,13 +1,13 @@
-DE4967,Wai Xian,011-23828858,waixian,organisation,12/08/2024
-DE3618,chang,011-23828858,changzhicong006@gmail.com,family,12/08/2024
-DE3470,Chang,017-3787234,changzhicong006@gmail.com,individual,12/08/2024
-DE6802,Chang,011-23828885,changzhicong006@gmail.com,family,12/08/2024
-DE4606,chang,011-12345678,chang12@gmail.com,individual,12/08/2024
-DE7456,chang,60345678920,zahin12@gmail.com,individual,12/08/2024
-DE5192,Jason,011-2345678,jason123@gmail.com,family,15/08/2024
-DE7511,Wen Hao,011-23828858,wenhao12@gmail.com,organisation,15/08/2024
-DE7463,Chang,011-123456789,abc123@gmail.com,family,17/08/2024
-DE7410,Chang,011-23828858,changzhicong006@gmail.com,family,26/08/2024
-DE5804,Yang,011-23828845,yang123@gmail.com,family,26/08/2024
-DE1902,Ja,012-39234,chang12@gmail.com,family,26/08/2024
-DE8856,Chang,011-12345678,family123@gmail.com,family,28/08/2024
+DE4967,Green Tech,03-23828858,lee12@gmail.com,organisation,12/08/2024
+DE3618,Ming,011-24829858,ming006@gmail.com,family,12/08/2024
+DE3470,Ying,017-3787234,ying12@gmail.com,individual,12/08/2024
+DE6802,Fu Xin,011-2385385,fuXin334@gmail.com,family,12/08/2024
+DE4606,Heng,011-12342678,heng12@gmail.com,individual,12/08/2024
+DE7456,Lam,013-33456732,lam12@gmail.com,individual,12/08/2024
+DE5192,Yong,011-42345678,yong123@gmail.com,family,15/08/2024
+DE7511,Zahin,03-34528858,zahin12@gmail.com,organisation,15/08/2024
+DE7463,Zheng,011-16256789,zheng123@gmail.com,family,17/08/2024
+DE7410,Yang,011-23828858,yang007@gmail.com,family,26/08/2024
+DE5804,Xin,011-23828845,xin123@gmail.com,family,26/08/2024
+DE1902,Ja,012-3923454,ja12@gmail.com,family,26/08/2024
+DE8856,Chan,011-12345678,chan123@gmail.com,family,28/08/2024
