@@ -64,28 +64,27 @@ public class DonationManagementUI {
         );
     }
 
-    public Donation inputDonationDetail() {
-        String donationID = generateDonationID();
-        String donationName = inputDonationName();
-        String donationType = inputDonationType();
-        double cashAmount = inputCashAmount();
-        int inKindAmount = inputInKindAmount();
-        String donationCategory = inputDonationCategory();
-        String donorId = inputDonorDetail();
-        String doneeId = inputDoneeDetail();
-        String donationDate = getCurrentDate();
-        return new Donation(donationID,
-                donationName,
-                donationType,
-                cashAmount,
-                inKindAmount,
-                donationCategory,
-                donationDate,
-                donorId,
-                doneeId
-        );
-    }
-
+//    public Donation inputDonationDetail() {
+//        String donationID = generateDonationID();
+//        String donationName = inputDonationName();
+//        String donationType = inputDonationType();
+//        double cashAmount = inputCashAmount();
+//        int inKindAmount = inputInKindAmount();
+//        String donationCategory = inputDonationCategory();
+//        String donorId = inputDonorDetail();
+//        String doneeId = inputDoneeDetail();
+//        String donationDate = getCurrentDate();
+//        return new Donation(donationID,
+//                donationName,
+//                donationType,
+//                cashAmount,
+//                inKindAmount,
+//                donationCategory,
+//                donationDate,
+//                donorId,
+//                doneeId
+//        );
+//    }
     public String inputDonationName() {
         System.out.print("Please enter donation name: ");
         return sc.nextLine().trim();
@@ -98,7 +97,7 @@ public class DonationManagementUI {
         return input;
     }
 
-    public String inputDonationType() {
+    public int inputDonationType() {
         System.out.println("===========================");
         System.out.println("        Donation type      ");
         System.out.println("===========================");
@@ -110,20 +109,10 @@ public class DonationManagementUI {
         int input = sc.nextInt();
         sc.nextLine();
 
-        switch (input) {
-            case 1 -> {
-                return "Cash";
-            }
-            case 2 -> {
-                return "In-Kind";
-            }
-            default -> {
-                return "Both";
-            }
-        }
+        return input;
     }
 
-    public String inputDonationCategory() {
+    public int inputDonationCategory() {
         System.out.println("===========================");
         System.out.println("      Donation Category    ");
         System.out.println("===========================");
@@ -133,15 +122,8 @@ public class DonationManagementUI {
         System.out.print("Your Selection > ");
         int input = sc.nextInt();
         sc.nextLine();
-
-        switch (input) {
-            case 1 -> {
-                return "Education";
-            }
-            default -> {
-                return "Health";
-            }
-        }
+        
+        return input;
     }
 
     public double inputCashAmount() {
@@ -176,12 +158,6 @@ public class DonationManagementUI {
         return todayDate.format(formatter);
     }
 
-    public String generateDonationID() {
-        String prefix = "DT";
-        int randomNumber = (int) (Math.random() * 9000) + 1000;
-        return prefix + randomNumber;
-    }
-
     public void displaySuccessAddDonationMessage() {
         System.out.println("New donation detail has been successfully added!");
     }
@@ -189,10 +165,15 @@ public class DonationManagementUI {
     public void displayErrorDonationIdMessage() {
         System.out.println("The Donation ID cannot be found!");
     }
-    
-    public void displaySuccessRemoveDonationMessage(){
+
+    public void displaySuccessRemoveDonationMessage() {
         System.out.println("The donation detail has been successfully removed!");
     }
+
+    public void displayErrorInputMessage() {
+        System.out.println("Invalid Input. Please try again!");
+    }
+    
 
     public void printDonationDetails(Donation donation) {
         System.out.println("======================================");
@@ -201,7 +182,7 @@ public class DonationManagementUI {
         System.out.println("ID            : " + donation.getDonationId());
         System.out.println("Name          : " + donation.getDonationName());
         System.out.println("Type          : " + donation.getDonationType());
-        System.out.println("Cash Amount   : RM " + donation.getCashAmount());
+        System.out.println("Cash Amount   : RM " + String.format("%.2f", donation.getCashAmount()));
         System.out.println("In-Kind Amount: " + donation.getInKindAmount());
         System.out.println("Category      : " + donation.getDonationCategory());
         System.out.println("Date          : " + donation.getDonationDate());

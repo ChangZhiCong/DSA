@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.Date;
-
 /**
  *
  * @author ACER
@@ -118,18 +116,18 @@ public class Donation {
         this.doneeId = doneeId;
     }
 
-//    @Override
-//    public String toString() {
-//        return "ID: " + getDonationId() + "\n"
-//                + "Name: " + getDonationName() + "\n"
-//                + "Type: " + getDonationType() + "\n"
-//                + "Cash Amount: RM " + getCashAmount() + "\n"
-//                + "In-Kind Amount: " + getInKindAmount() + "\n"
-//                + "Category: " + getDonationCategory() + "\n"
-//                + "Date: " + getDonationDate() + "\n"
-//                + "Donor ID: " + getDonorId() + "\n"
-//                + "Donee ID: " + getDoneeId();
-//    }
+    @Override
+    public String toString() {
+        return "Donation ID   : " + getDonationId() + "\n"
+                + "Name          : " + getDonationName() + "\n"
+                + "Type          : " + getDonationType() + "\n"
+                + "Cash Amount   : RM " + getCashAmount() + "\n"
+                + "In-Kind Amount: " + getInKindAmount() + "\n"
+                + "Category      : " + getDonationCategory() + "\n"
+                + "Date          : " + getDonationDate() + "\n"
+                + "Donor ID      : " + getDonorId() + "\n"
+                + "Donee ID      : " + getDoneeId() + "\n";
+    }
 
     public String toCsvString() {
         return donationId + ","
