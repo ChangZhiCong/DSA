@@ -8,7 +8,9 @@ import adt.LinkedHashMap;
 import adt.MapEntryInterface;
 import adt.MapInterface;
 import boundary.DonorManagementUI;
+import dao.DonationDAO;
 import dao.DonorDAO;
+import entity.Donation;
 import entity.Donor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +24,9 @@ import utility.MessageUI;
 public class DonorManagement {
 
     private MapInterface<String, Donor> donorList = new LinkedHashMap();
+    private MapInterface<String, Donation> donationList = new LinkedHashMap<>();
     private final DonorDAO donorDAO = new DonorDAO("donor.txt");
+    private final DonationDAO donationDAO = new DonationDAO("donation.txt");
     private Donor donor = new Donor();
     private final DonorManagementUI donorUI = new DonorManagementUI();
 
@@ -36,6 +40,7 @@ public class DonorManagement {
         do {
             donorUI.getDonorLogo();
             donorList = donorDAO.retrieveFromFile();
+            donationList = donationDAO.retrieveFromFile();
             choice = donorUI.getDonorMenu();
             switch (choice) {
                 case 1 ->
@@ -46,6 +51,8 @@ public class DonorManagement {
                     updateDonor();
                 case 4 ->
                     searchDonor();
+                case 5 ->
+                    listDonor();
                 case 6 ->
                     filterDonor();
                 case 7 ->
@@ -212,6 +219,47 @@ public class DonorManagement {
     }
 
     //5. List donors with all donations made
+    public void listDonor() {
+        donorUI.getListDonorDonationHeader();
+        int totalDonor = 0, totalDonation = 0;
+
+        for (MapEntryInterface<String, Donor> entryDonor : donorList.entrySet()) {
+            totalDonor++;
+            int donationAmount = 0; //0 - no donation, 1 - only one donation, 2 - more than one donations   
+            String donationName = "";
+            String donationCategory = "";
+            String donationType = "";
+
+            double cashAmount = 0.0;
+            int inKindAmount = 0;
+            for (MapEntryInterface<String, Donation> entryDonation : donationList.entrySet()) {
+                if (entryDonor.getValue().getDonorId().equals(entryDonation.getValue().getDonorId())) {
+                    totalDonation++;
+                    donationAmount++;
+                    donationName = entryDonation.getValue().getDonationName();
+                    donationCategory = entryDonation.getValue().getDonationCategory();
+                    donationType = entryDonation.getValue().getDonationType();
+                    cashAmount = entryDonation.getValue().getCashAmount();
+                    inKindAmount = entryDonation.getValue().getInKindAmount();
+                    if (donationAmount == 1) {
+                        donorUI.printAllDonorWithDonation(entryDonor.getValue(), donationName, donationType, cashAmount, inKindAmount, donationCategory);
+                    } else {
+                        donorUI.printAllDonorWithManyDonation(donationName, donationType, cashAmount, inKindAmount, donationCategory);
+                    }
+                }
+
+            }
+
+            if (donationAmount == 0) {
+                donorUI.printAllDonorWithNoDonation(entryDonor.getValue());
+            }
+        }
+
+        donorUI.printAllDonorWithDonationFooter(totalDonor, totalDonation);
+
+        MessageUI.systemPause();
+    }
+
     //6. Filter donor based on criteria
     public void filterDonor() {
         int choice;
@@ -235,7 +283,7 @@ public class DonorManagement {
                     donorUI.getListIdentityDonorHeader(donorIdentity);
                     listDonor(donorIdentity);
                 }
-                
+
                 case 3 -> {
                     int donorTypeChoice = donorUI.selectDonorType();
                     String donorType;
@@ -292,18 +340,24 @@ public class DonorManagement {
     }
 
     public void listDonor(String donorData) {
+        int totalResult = 0;
         for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
             String donorIdentityType = entry.getValue().getDonorIdentity() + " Identity and " + entry.getValue().getDonorType() + " Type";
             if (donorIdentityType.equals(donorData)) {
+                totalResult++;
                 donorUI.printCertainIdentityTypeDonor(entry.getValue());
             } else if (entry.getValue().getDonorIdentity().equals(donorData)) { // for filter identity
+                totalResult++;
                 donorUI.printCertainIdentityDonor(entry.getValue());
             } else if (entry.getValue().getDonorType().equals(donorData)) { // for filter type
+                totalResult++;
                 donorUI.printCertainTypeDonor(entry.getValue());
             } else if (stringContains(entry.getValue().getDonorName(), donorData)) { //For filter donor names
+                totalResult++;
                 donorUI.printAllDonor(entry.getValue());
             }
         }
+        donorUI.getFilterListFooter(totalResult);
     }
 
     public boolean stringContains(String container, String contained) {
@@ -341,28 +395,35 @@ public class DonorManagement {
     //7. Categorise donors (type: government, private, public)
     public void categoriseDonor() {
         String choice;
+        int totalGovernment = 0, totalPrivate = 0, totalPublic = 0;
         donorUI.getListCategorisedDonorHeader();
         donorUI.getGovernmentTypeHeader();
         for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
-            if (entry.getValue().getDonorType().equals("Government")) { 
+            if (entry.getValue().getDonorType().equals("Government")) {
                 donorUI.printCertainTypeDonor(entry.getValue());
+                totalGovernment++;
             }
         }
+        donorUI.getGovernmentTypeFooter(totalGovernment);
         donorUI.getPrivateTypeHeader();
         for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
-            if (entry.getValue().getDonorType().equals("Private")) { 
+            if (entry.getValue().getDonorType().equals("Private")) {
                 donorUI.printCertainTypeDonor(entry.getValue());
+                totalPrivate++;
             }
         }
+        donorUI.getPrivateTypeFooter(totalPrivate);
         donorUI.getPublicTypeHeader();
         for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
-            if (entry.getValue().getDonorType().equals("Public")) { 
+            if (entry.getValue().getDonorType().equals("Public")) {
                 donorUI.printCertainTypeDonor(entry.getValue());
+                totalPublic++;
             }
         }
-
+        donorUI.getPublicTypeFooter(totalPublic);
+        donorUI.getTypeFooter(totalGovernment + totalPrivate + totalPublic);
         MessageUI.systemPause();
-        
+
     }
 
     //8. Generate summary reports

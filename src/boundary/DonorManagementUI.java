@@ -89,16 +89,7 @@ public class DonorManagementUI {
         return choice;
     }
 
-//    public Donor inputDonorDetails() {
-//        String donorName = inputDonorName();
-//        String donorContactNo = inputDonorContactNo();
-//        String donorEmail = inputDonorEmail();
-//        int donorIdentityChoice = selectDonorIdentity();
-//        int donorTypeChoice = selectDonorType();
-//        System.out.println();
-//        return new Donor(donorName, donorContactNo, donorEmail, donorIdentityChoice, donorTypeChoice);
-//    }
-    //Enter donorID
+    //2, 4. Enter donorID
     public String inputDonorID() {
         System.out.print("Enter a donor ID (eg: DRXXXX) : ");
         String donorId = sc.nextLine().toUpperCase().trim();
@@ -134,13 +125,25 @@ public class DonorManagementUI {
 
     //5. List donors with all the donations made
     public void getListDonorDonationHeader() {
-        System.out.println("                                                                 Donor List with All Donations Made ");
-        System.out.println("===================================================================================================================================================================================");
-        System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s %-20s %-20s\n", "ID", "Name", "Identity", "Type", "Contact Number", "Email", "Registered Date", "Donation Category", "Donation Type");
+        System.out.println("                                                                                       Donor List with All Donations Made ");
+        System.out.println("=========================================================================================================================================================================================================");
+        System.out.printf("%-8s %-15s %-15s %-10s %-15s %-25s %-15s %-25s %-15s %-15s %-15s %-15s\n", "ID", "Name", "Identity", "Type", "Contact Number", "Email", "Registered Date", "Donation Name", "Donation Type", "Cash Amount", "In-kind Amount", "Donation Category");
     }
 
-    public void printAllDoneeWithDonation(Donor donor) {
-        System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s %-20s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorIdentity(), donor.getDonorType(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate(), "Health", "Food");
+    public void printAllDonorWithDonation(Donor donor, String donationName, String donationType, double cashAmount, int inKindAmount, String donationCategory) {
+        System.out.printf("%-8s %-15s %-15s %-10s %-15s %-25s %-15s %-25s %-15s %-15.2f %-15d %-15s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorIdentity(), donor.getDonorType(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate(), donationName, donationType, cashAmount, inKindAmount, donationCategory);
+    }
+
+    public void printAllDonorWithManyDonation(String donationName, String donationType, double cashAmount, int inKindAmount, String donationCategory) {
+        System.out.printf("%-8s %-15s %-15s %-10s %-15s %-25s %-15s %-25s %-15s %-15.2f %-15d %-15s\n", "", "", "", "", "", "", "", donationName, donationType, cashAmount, inKindAmount, donationCategory);
+    }
+
+    public void printAllDonorWithNoDonation(Donor donor) {
+        System.out.printf("%-8s %-15s %-15s %-10s %-15s %-25s %-15s %-25s %-15s %-15s %-15s %-15s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorIdentity(), donor.getDonorType(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate(), "(No Donations Made)", "-", "-", "-", "-");
+    }
+
+    public void printAllDonorWithDonationFooter(int totalDonor, int totalDonation) {
+        System.out.println("\nTotal donor(s) listed: " + totalDonor + ", Total donation(s) listed: " + totalDonation);
     }
 
     //6. Filter donor based on criteria
@@ -172,17 +175,17 @@ public class DonorManagementUI {
     }
 
     public void getListNameContainsHeader(String name) {
-        System.out.printf("\n                                 Donor List of Names that Contains \"%s\"\n", name);
+        System.out.printf("\n                                                 Donor List of Names that Contains \"%s\"\n", name);
         System.out.println("===========================================================================================================================================");
         System.out.printf("%-8s %-20s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Donor Identity", "Donor Type", "Contact Number", "Email", "Registered Date");
     }
 
     public void getListIdentityDonorHeader(String donorIdentity) {
-        System.out.printf("\n                                         Donor List of %s Identity\n", donorIdentity);
+        System.out.printf("\n                                            Donor List of %s Identity\n", donorIdentity);
         System.out.println("=========================================================================================================================");
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Donor Type", "Email", "Registered Date");
     }
-    
+
     public void getListTypeDonorHeader(String donorType) {
         System.out.printf("\n                                          Donor List of %s Type\n", donorType);
         System.out.println("=========================================================================================================================");
@@ -198,7 +201,7 @@ public class DonorManagementUI {
     public void printCertainIdentityDonor(Donor donor) {
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorContactNo(), donor.getDonorType(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
     }
-    
+
     public void printCertainTypeDonor(Donor donor) {
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorContactNo(), donor.getDonorIdentity(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
     }
@@ -207,36 +210,56 @@ public class DonorManagementUI {
         System.out.printf("%-8s %-20s %-20s %-30s %-20s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate());
     }
 
+    public void getFilterListFooter(int totalResult) {
+        System.out.println("\nTotal donor(s) found: " + totalResult);
+    }
+
     //7. Categorise donors (type: government, private, public)
     public void getListCategorisedDonorHeader() {
         System.out.println("\n                                Categorised Donor List Based on Donor Type");
-        System.out.println("=========================================================================================================================");    
+        System.out.println("======================================================================================================================");
     }
-    
-    public void getGovernmentTypeHeader(){
+
+    public void getGovernmentTypeHeader() {
         System.out.println("\nGOVERNMENT");
         System.out.println("==========\n");
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Donor Identity", "Email", "Registered Date");
     }
-    
-    public void getPrivateTypeHeader(){
+
+    public void getGovernmentTypeFooter(int totalGovernment) {
+        System.out.println("\nTotal government typed donor(s): " + totalGovernment);
+    }
+
+    public void getPrivateTypeHeader() {
         System.out.println("\nPRIVATE");
         System.out.println("=======\n");
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Donor Identity", "Email", "Registered Date");
     }
-    
-    public void getPublicTypeHeader(){
+
+    public void getPrivateTypeFooter(int totalPrivate) {
+        System.out.println("\nTotal private typed donor(s): " + totalPrivate);
+    }
+
+    public void getPublicTypeHeader() {
         System.out.println("\nPUBLIC");
         System.out.println("======\n");
         System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", "ID", "Name", "Contact Number", "Donor Identity", "Email", "Registered Date");
+    }
+
+    public void getPublicTypeFooter(int totalPublic) {
+        System.out.println("\nTotal public typed donor(s): " + totalPublic);
+    }
+
+    public void getTypeFooter(int total) {
+        System.out.println("\nTotal donor(s) listed: " + total);
     }
 
     //8. Generate summary reports
     public int getReportMenuChoice() {
         System.out.println("              Report Menu");
         System.out.println("========================================");
-        System.out.println("1. Donor Category Summary Report");
-        System.out.println("2. Donor Acitvity Report");
+        System.out.println("1. Donors Category Summary Report");
+        System.out.println("2. New Donors Report");
         System.out.println("========================================");
         System.out.println("3. Exit the function");
         System.out.println("========================================");
@@ -248,7 +271,7 @@ public class DonorManagementUI {
     }
 
     public void getCategoryReport(Donor donor) {
-        System.out.println("                 Donor Category Summary Report");
+        System.out.println("                Donors Category Summary Report");
         System.out.println("============================================================");
         System.out.println("| Identity \\\\ Type | Private | Public | Government | Total |");
         System.out.println("============================================================");
@@ -278,7 +301,7 @@ public class DonorManagementUI {
     }
 
     public void displayActivityReport(Donor donor) {
-        System.out.println("\nTotal number of donor(s) joined within the specific date : " + Donor.getTotalDonor() + "\n");
+        System.out.println("\nTotal number of donor(s) joined within the specific date: " + Donor.getTotalDonor() + "\n");
     }
 
     //Common Messages
