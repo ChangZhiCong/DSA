@@ -108,13 +108,13 @@ public class DonorManagementUI {
         System.out.println("");
         System.out.println("       Update Donor Details Menu");
         System.out.println("========================================");
-        System.out.println("1. Update donor name");
-        System.out.println("2. Update donor contact number");
-        System.out.println("3. Update donor email");
-        System.out.println("4. Change donor identity");
-        System.out.println("5. Change donor type");
+        System.out.println("1. Name");
+        System.out.println("2. Contact Number");
+        System.out.println("3. Email");
+        System.out.println("4. Donor Identity");
+        System.out.println("5. Donor Type");
         System.out.println("========================================");
-        System.out.println("6. Save and exit.");
+        System.out.println("6. Save and Exit");
         System.out.println("========================================");
         System.out.print("\nSelect an option: ");
         int choice = sc.nextInt();
@@ -127,15 +127,15 @@ public class DonorManagementUI {
     public void getListDonorDonationHeader() {
         System.out.println("                                                                                       Donor List with All Donations Made ");
         System.out.println("=========================================================================================================================================================================================================");
-        System.out.printf("%-8s %-15s %-15s %-10s %-15s %-25s %-15s %-25s %-15s %-15s %-15s %-15s\n", "ID", "Name", "Identity", "Type", "Contact Number", "Email", "Registered Date", "Donation Name", "Donation Type", "Cash Amount", "In-kind Amount", "Donation Category");
+        System.out.printf("%-8s %-15s %-15s %-10s %-15s %-25s %-15s %-25s %-15s %-15s %-15s %-15s\n", "ID", "Name", "Identity", "Type", "Contact Number", "Email", "Registered Date", "In-Kind Item", "Donation Type", "Cash Amount", "In-kind Amount", "Donation Category");
     }
 
-    public void printAllDonorWithDonation(Donor donor, String donationName, String donationType, double cashAmount, int inKindAmount, String donationCategory) {
-        System.out.printf("%-8s %-15s %-15s %-10s %-15s %-25s %-15s %-25s %-15s %-15.2f %-15d %-15s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorIdentity(), donor.getDonorType(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate(), donationName, donationType, cashAmount, inKindAmount, donationCategory);
+    public void printAllDonorWithDonation(Donor donor, String inKindItem, String donationType, double cashAmount, int inKindAmount, String donationCategory) {
+        System.out.printf("%-8s %-15s %-15s %-10s %-15s %-25s %-15s %-25s %-15s %-15.2f %-15d %-15s\n", donor.getDonorId(), donor.getDonorName(), donor.getDonorIdentity(), donor.getDonorType(), donor.getDonorContactNo(), donor.getDonorEmail(), donor.getFormattedDonorRegDate(), inKindItem, donationType, cashAmount, inKindAmount, donationCategory);
     }
 
-    public void printAllDonorWithManyDonation(String donationName, String donationType, double cashAmount, int inKindAmount, String donationCategory) {
-        System.out.printf("%-8s %-15s %-15s %-10s %-15s %-25s %-15s %-25s %-15s %-15.2f %-15d %-15s\n", "", "", "", "", "", "", "", donationName, donationType, cashAmount, inKindAmount, donationCategory);
+    public void printAllDonorWithManyDonation(String inKindItem, String donationType, double cashAmount, int inKindAmount, String donationCategory) {
+        System.out.printf("%-8s %-15s %-15s %-10s %-15s %-25s %-15s %-25s %-15s %-15.2f %-15d %-15s\n", "", "", "", "", "", "", "", inKindItem, donationType, cashAmount, inKindAmount, donationCategory);
     }
 
     public void printAllDonorWithNoDonation(Donor donor) {
