@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import entity.*;
+import java.time.format.DateTimeParseException;
 
 /**
  *
@@ -12,29 +13,32 @@ import entity.*;
 public class DonationManagementUI {
 
     private static final Scanner sc = new Scanner(System.in);
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static int donationManagementMenu() {
 
         System.out.println("=============================================");
         System.out.println("         Donation Management System");
         System.out.println("=============================================");
-        System.out.println("1. Add New Donation");
-        System.out.println("2. Remove Donation");
-        System.out.println("3. Modify Donation Detail");
-        System.out.println("4. Search Donation");
-        System.out.println("5. List All Donations");
-        System.out.println("6. Generate Reports");
-        System.out.println("7. Exit");
+        System.out.println(" 1. Add New Donation");
+        System.out.println(" 2. Remove Donation");
+        System.out.println(" 3. Modify Donation Detail");
+        System.out.println(" 4. Search Donation");
+        System.out.println(" 5. Track Donated Items");
+        System.out.println(" 6. List Donation by Different Donor");
+        System.out.println(" 7. List All Donations");
+        System.out.println(" 8. Filter donation by Date");
+        System.out.println(" 9. Generate Reports");
+        System.out.println("10. Exit");
         System.out.println("=============================================");
-        System.out.print("Choices (1-7): ");
+        System.out.print("Choices (1-10): ");
 
         int choice = sc.nextInt();
         sc.nextLine();
         return choice;
     }
 
-    public void getListDoneeDonationHeader() {
-        System.out.println("                                                  Donation List                                                             ");
+    public void getListDonationHeader() {
         System.out.println("============================================================================================================================");
         System.out.println("ID       Name                          Donation     Cash Amount    No. of       Donation      Date of       Donor     Donee ");
         System.out.println("                                         Type          (RM)        In-Kind      Category      Donation       ID        ID   ");
@@ -57,8 +61,8 @@ public class DonationManagementUI {
         System.out.printf(
                 "%-8s %-25s %10s %14.2f %10d %15s %15s %9s %9s\n",
                 donation.getDonationId(),
-                donation.getDonationName(),
                 donation.getDonationType(),
+                donation.getInKindItem(),
                 donation.getCashAmount(),
                 donation.getInKindAmount(),
                 donation.getDonationCategory(),
@@ -89,9 +93,23 @@ public class DonationManagementUI {
 //                doneeId
 //        );
 //    }
-    public String inputDonationName() {
-        System.out.print("Please enter donation name: ");
-        return sc.nextLine().trim();
+    public int inputInKindItem() {
+        System.out.println("===========================");
+        System.out.println("        In-Kind Item       ");
+        System.out.println("===========================");
+        System.out.println("(1) Clothing");
+        System.out.println("(2) Food");
+        System.out.println("(3) School Supplies");
+        System.out.println("(4) Household Items");
+        System.out.println("(5) Medical Supplies");
+        System.out.println("(6) Personal Care Items");
+        System.out.println("===========================");
+        System.out.print("Your Selection > ");
+        int input = sc.nextInt();
+        sc.nextLine();
+
+        return input;
+
     }
 
     public String inputDonationId() {
@@ -158,12 +176,6 @@ public class DonationManagementUI {
         return sc.nextLine().toUpperCase().trim();
     }
 
-    public String getCurrentDate() {
-        LocalDate todayDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return todayDate.format(formatter);
-    }
-
     public void displaySuccessAddDonationMessage() {
         System.out.println("New donation detail has been successfully added!");
     }
@@ -184,13 +196,17 @@ public class DonationManagementUI {
         System.out.println("Donation details has been updated successfully!");
     }
 
+    public void displayNoDonationEntityDateRangeMessage() {
+        System.out.println("No donations found within the specified date range.");
+    }
+
     public void printDonationDetails(Donation donation) {
         System.out.println("======================================");
         System.out.println("             Donation Detail          ");
         System.out.println("======================================");
         System.out.println("ID            : " + donation.getDonationId());
-        System.out.println("Name          : " + donation.getDonationName());
         System.out.println("Type          : " + donation.getDonationType());
+        System.out.println("In-Kind Item  : " + donation.getInKindItem());
         System.out.println("Cash Amount   : RM " + String.format("%.2f", donation.getCashAmount()));
         System.out.println("In-Kind Amount: " + donation.getInKindAmount());
         System.out.println("Category      : " + donation.getDonationCategory());
@@ -204,10 +220,13 @@ public class DonationManagementUI {
         System.out.println("===================================");
         System.out.println("Select the data you want to modify:");
         System.out.println("===================================");
-        System.out.println("(1) Donation Name");
+        System.out.println("(1) In-Kind Item");
         System.out.println("(2) Donation Type");
         System.out.println("(3) Donation Category");
-        System.out.println("(4) Exit");
+        System.out.println("(4) Donation Date");
+        System.out.println("(5) Cash Amount");
+        System.out.println("(6) In-Kind Amount");
+        System.out.println("(7) Exit");
         System.out.println("===================================");
         System.out.print("Enter your choice > ");
 
@@ -215,6 +234,47 @@ public class DonationManagementUI {
         sc.nextLine();
 
         return input;
+    }
+
+    public void displayTrackItemsHeader() {
+        System.out.println("=============================================");
+        System.out.println("       Track Donated Items by Category");
+        System.out.println("=============================================");
+        System.out.printf("%-20s %-20s %-20s\n", "Category", "Total Cash", "Total In-Kind Items");
+        System.out.println("=============================================");
+    }
+
+    public void displayCategoryTracking(String category, DonationTracking tracking) {
+        System.out.printf("%-20s %-20.2f %-20d\n", category, tracking.getTotalCash(), tracking.getTotalInKindItems());
+    }
+
+    public LocalDate inputDate(String prompt) {
+        while (true) {
+            System.out.print(prompt + " (dd/MM/yyyy): ");
+            String input = sc.nextLine().trim();
+            try {
+                return LocalDate.parse(input, DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use dd/MM/yyyy.");
+            }
+        }
+    }
+
+    public void displayReportHeader() {
+        System.out.println("=======================================");
+        System.out.println("          Donation Summary Report       ");
+        System.out.println("=======================================");
+    }
+
+    public void displayFilterTitle(LocalDate startDate, LocalDate endDate) {
+        System.out.println("                                              Donation Entities between "
+                + startDate.format(DATE_FORMATTER)
+                + " and "
+                + endDate.format(DATE_FORMATTER));
+    }
+
+    public void displayAllDonationTitle() {
+        System.out.println("                                                  Donation List                                                             ");
     }
 
 }

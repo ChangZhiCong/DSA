@@ -1,5 +1,8 @@
 package entity;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author user : Cheong Wei Zhe
@@ -7,23 +10,22 @@ package entity;
 public class Donation {
 
     private String donationId;
-    private String donationName;
     private String donationType;
+    private String inKindItem;
     private double cashAmount;
     private int inKindAmount;
     private String donationCategory;
-    private String donationDate;
+    private LocalDate donationDate;
     private String donorId;
     private String doneeId;
-    
-    public Donation() {
 
+    public Donation() {
     }
 
-    public Donation(String donationId, String donationName, String donationType, double cashAmount, int inKindAmount, String donationCategory, String donationDate, String donorId, String doneeId) {
+    public Donation(String donationId, String donationType, String inKindItem, double cashAmount, int inKindAmount, String donationCategory, LocalDate donationDate, String donorId, String doneeId) {
         this.donationId = donationId;
-        this.donationName = donationName;
         this.donationType = donationType;
+        this.inKindItem = inKindItem;
         this.cashAmount = cashAmount;
         this.inKindAmount = inKindAmount;
         this.donationCategory = donationCategory;
@@ -32,14 +34,16 @@ public class Donation {
         this.doneeId = doneeId;
     }
 
-    public Donation(String[] parts) throws Exception {
+    public Donation(String[] parts) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         this.donationId = parts[0];
-        this.donationName = parts[1];
-        this.donationType = parts[2];
+        this.donationType = parts[1];
+        this.inKindItem = parts[2];
         this.cashAmount = Double.parseDouble(parts[3]);
         this.inKindAmount = Integer.parseInt(parts[4]);
         this.donationCategory = parts[5];
-        this.donationDate = parts[6];
+        this.donationDate = LocalDate.parse(parts[6], formatter);
         this.donorId = parts[7];
         this.doneeId = parts[8];
     }
@@ -52,20 +56,20 @@ public class Donation {
         this.donationId = donationId;
     }
 
-    public String getDonationName() {
-        return donationName;
-    }
-
-    public void setDonationName(String donationName) {
-        this.donationName = donationName;
-    }
-
     public String getDonationType() {
         return donationType;
     }
 
     public void setDonationType(String donationType) {
         this.donationType = donationType;
+    }
+
+    public String getInKindItem() {
+        return inKindItem;
+    }
+
+    public void setInKindItem(String inKindItem) {
+        this.inKindItem = inKindItem;
     }
 
     public double getCashAmount() {
@@ -92,11 +96,11 @@ public class Donation {
         this.donationCategory = donationCategory;
     }
 
-    public String getDonationDate() {
+    public LocalDate getDonationDate() {
         return donationDate;
     }
 
-    public void setDonationDate(String donationDate) {
+    public void setDonationDate(LocalDate donationDate) {
         this.donationDate = donationDate;
     }
 
@@ -118,27 +122,28 @@ public class Donation {
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return "Donation ID   : " + getDonationId() + "\n"
-                + "Name          : " + getDonationName() + "\n"
                 + "Type          : " + getDonationType() + "\n"
+                + "In-Kind Item  : " + getInKindItem() + "\n"
                 + "Cash Amount   : RM " + getCashAmount() + "\n"
                 + "In-Kind Amount: " + getInKindAmount() + "\n"
                 + "Category      : " + getDonationCategory() + "\n"
-                + "Date          : " + getDonationDate() + "\n"
+                + "Date          : " + getDonationDate().format(formatter) + "\n"
                 + "Donor ID      : " + getDonorId() + "\n"
                 + "Donee ID      : " + getDoneeId() + "\n";
     }
 
     public String toCsvString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return donationId + ","
-                + donationName + ","
                 + donationType + ","
+                + inKindItem + ","
                 + cashAmount + ","
                 + inKindAmount + ","
                 + donationCategory + ","
-                + donationDate + ","
+                + donationDate.format(formatter) + ","
                 + donorId + ","
                 + doneeId;
     }
-
 }

@@ -4,6 +4,7 @@ import adt.*;
 import boundary.DonationManagementUI;
 import dao.*;
 import entity.*;
+import java.time.LocalDate;
 import utility.MessageUI;
 
 /**
@@ -33,7 +34,6 @@ public class DonationManagement {
         int choice;
 
         while (cont) {
-            // Read every file to ensure data is up-to-date
             donationList = donationDAO.retrieveFromFile();
             donorList = donorDAO.retrieveFromFile();
             doneeList = doneeDAO.retrieveFromFile();
@@ -49,12 +49,18 @@ public class DonationManagement {
                 case 3 ->
                     modifyDonation();
                 case 4 ->
-                    searchDonations();
+                    searchDonation();
                 case 5 ->
-                    listAllDonations();
+                    trackDonatedItemsByCategory();
                 case 6 ->
+                    System.out.println("None");
+                case 7 ->
+                    listAllDonations();
+                case 8 ->
+                    filterDonation();
+                case 9 ->
                     generateReports();
-                case 7 -> {
+                case 10 -> {
                     System.out.println("Thank you for using the Donation Management System.");
                     System.exit(0);
                 }
@@ -64,40 +70,64 @@ public class DonationManagement {
         }
     }
 
+    public void trackDonatedItemsByCategory() {
+        // Map to store category-wise donation tracking
+        MapInterface<String, DonationTracking> categoryTrackingMap = new LinkedHashMap<>();
+
+        for (MapEntryInterface<String, Donation> entry : donationList.entrySet()) {
+            Donation donation = entry.getValue();
+            String category = donation.getDonationCategory();
+
+            // If the category is already present in the map, update the existing entry
+            if (categoryTrackingMap.containsKey(category)) {
+                DonationTracking existingTracking = categoryTrackingMap.get(category);
+                existingTracking.addDonation(donation);
+            } else {
+                // Create a new entry for this category if not present
+                DonationTracking newTracking = new DonationTracking();
+                newTracking.addDonation(donation);
+                categoryTrackingMap.put(category, newTracking);
+            }
+        }
+
+        // Display the results
+        donationUI.displayTrackItemsHeader();
+        for (MapEntryInterface<String, DonationTracking> entry : categoryTrackingMap.entrySet()) {
+            String category = entry.getKey();
+            DonationTracking tracking = entry.getValue();
+            donationUI.displayCategoryTracking(category, tracking);
+        }
+
+        MessageUI.systemPause();
+    }
+
 //    public void listDonationsByDonor() {
-//        // Initialize a LinkedHashMap to group donations by donor ID
 //        MapInterface<String, ListInterface<Donation>> donationsByDonor = new LinkedHashMap<>();
 //
-//        // Iterate over all donations in the donationList
 //        for (MapEntryInterface<String, Donation> entry : donationList.entrySet()) {
 //            Donation donation = entry.getValue();
 //            String donorId = donation.getDonorId();
 //
-//            // If the donorId is already in the map, add the donation to the list
 //            if (donationsByDonor.containsKey(donorId)) {
 //                donationsByDonor.get(donorId).add(donation);
 //            } else {
-//                // If the donorId is not in the map, create a new list and add the donation
-//                ListInterface<Donation> donorDonations = new ArrayList<>();
+//                ListInterface<Donation> donorDonations = new ArrayList<>(); // Ensure ListInterface is correctly implemented
 //                donorDonations.add(donation);
 //                donationsByDonor.put(donorId, donorDonations);
 //            }
 //        }
 //
-//        // Display the grouped donations
 //        for (MapEntryInterface<String, ListInterface<Donation>> entry : donationsByDonor.entrySet()) {
 //            String donorId = entry.getKey();
 //            ListInterface<Donation> donorDonations = entry.getValue();
 //
-//            // Display donor details (you may want to fetch donor details from donorList)
 //            System.out.println("Donor ID: " + donorId);
 //            donationUI.getListDoneeDonationHeader();
 //
-//            // Display all donations for the current donor
 //            for (Donation donation : donorDonations) {
 //                donationUI.printAllDonationList(donation);
 //            }
-//            System.out.println(); // Print a newline for better readability
+//            System.out.println();
 //        }
 //    }
     public void addDonation() {
@@ -118,37 +148,55 @@ public class DonationManagement {
     }
 
     public Donation inputDonationDetail() {
-        // Generate and gather essential details
-        String donationID = generateDonationID();
-        String donationName = donationUI.inputDonationName();
-        String donationType = isValidDonationType();
+        try {
+            // Generate and gather essential details
+            String donationID = generateDonationID();
+            String donationType = isValidDonationType(); // Ensure this method returns a valid donation type
+            String inKindItem = "None"; // Default to "None" for in-kind items if not applicable
+            double cashAmount = 0.0;
+            int inKindAmount = 0;
 
-        // Determine donation amounts based on donation type
-        double cashAmount = (donationType.equals("Cash") || donationType.equals("Both"))
-                ? isValidDonationCashAmount()
-                : 0.0;
-        int inKindAmount = (donationType.equals("In-Kind") || donationType.equals("Both"))
-                ? isValidDonationInKindAmount()
-                : 0;
+            switch (donationType) {
+                case "Cash" -> {
+                    cashAmount = isValidDonationCashAmount();
+                }
+                case "In-Kind" -> {
+                    inKindItem = isValidInKindItem();
+                    inKindAmount = isValidDonationInKindAmount();
+                }
+                case "Both" -> {
+                    cashAmount = isValidDonationCashAmount();
+                    inKindItem = isValidInKindItem();
+                    inKindAmount = isValidDonationInKindAmount();
+                }
+                default -> {
+                    System.out.println("Invalid donation type selected. Please try again.");
+                    return null;
+                }
+            }
 
-        // Gather additional details
-        String donationCategory = isValidDonationCategory();
-        String donorId = isValidDonorDetail();
-        String doneeId = isValidDoneeDetail();
-        String donationDate = donationUI.getCurrentDate();
+            String donationCategory = isValidDonationCategory();
+            String donorId = isValidDonorDetail();
+            String doneeId = isValidDoneeDetail();
+            LocalDate donationDate = getCurrentDate();
 
-        // Create and return a Donation object with all gathered information
-        return new Donation(
-                donationID,
-                donationName,
-                donationType,
-                cashAmount,
-                inKindAmount,
-                donationCategory,
-                donationDate,
-                donorId,
-                doneeId
-        );
+            // Create and return a Donation object with all gathered information
+            return new Donation(
+                    donationID,
+                    donationType,
+                    inKindItem,
+                    cashAmount,
+                    inKindAmount,
+                    donationCategory,
+                    donationDate,
+                    donorId,
+                    doneeId
+            );
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void removeDonation() {
@@ -164,44 +212,111 @@ public class DonationManagement {
         MessageUI.systemPause();
     }
 
+//    public void modifyDonation() {
+//        String donationId = donationUI.inputDonationId();
+//        boolean found = donationList.containsKey(donationId);
+//
+//        if (found) {
+//
+//            Donation existingDonation = donationList.get(donationId);
+//
+//            boolean continueModifying = true;
+//            while (continueModifying) {
+//
+//                int choice = donationUI.displayModificationMenu();
+//
+//                switch (choice) {
+//                    case 1 -> {
+//                        String newinKindItem = isValidInKindItem();
+//                        existingDonation.setInKindItem(newinKindItem);
+//                    }
+//                    case 2 -> {
+//                        String newDonationType = isValidDonationType();
+//                        existingDonation.setDonationType(newDonationType);
+//                    }
+//                    case 3 -> {
+//                        String newDonationCategory = isValidDonationCategory();
+//                        existingDonation.setDonationCategory(newDonationCategory);
+//                    }
+//                    case 4 ->
+//                        continueModifying = false;
+//                    default ->
+//                        donationUI.displayErrorInputMessage();
+//                }
+//            }
+//
+//            donationList.put(donationId, existingDonation);
+//            donationDAO.saveToFile(donationList);
+//
+//            donationUI.displaySuccessModifyDonationMessage();
+//            donationUI.printDonationDetails(existingDonation);
+//        } else {
+//            donationUI.displayErrorDonationIdMessage();
+//        }
+//        MessageUI.systemPause();
+//    }
     public void modifyDonation() {
         String donationId = donationUI.inputDonationId();
         boolean found = donationList.containsKey(donationId);
 
         if (found) {
-            // Retrieve the existing donation
             Donation existingDonation = donationList.get(donationId);
-
             boolean continueModifying = true;
+            
+            donationUI.printDonationDetails(existingDonation);
+
             while (continueModifying) {
-                // Display modification menu
                 int choice = donationUI.displayModificationMenu();
 
                 switch (choice) {
                     case 1 -> {
-                        String newDonationName = donationUI.inputDonationName();
-                        existingDonation.setDonationName(newDonationName);
+                        String newInKindItem = isValidInKindItem();
+                        existingDonation.setInKindItem(newInKindItem);
                     }
                     case 2 -> {
                         String newDonationType = isValidDonationType();
                         existingDonation.setDonationType(newDonationType);
+
+                        // Adjusting amounts based on new donation type
+                        if (newDonationType.equals("Cash")) {
+                            existingDonation.setInKindItem("None");
+                            existingDonation.setInKindAmount(0);
+                        } else if (newDonationType.equals("In-Kind")) {
+                            existingDonation.setCashAmount(0.0);
+                            existingDonation.setInKindAmount(existingDonation.getInKindAmount());
+                        } else if (newDonationType.equals("Both")) {
+                            existingDonation.setCashAmount(existingDonation.getCashAmount());
+                            existingDonation.setInKindItem(existingDonation.getInKindItem());
+                        }
                     }
                     case 3 -> {
                         String newDonationCategory = isValidDonationCategory();
                         existingDonation.setDonationCategory(newDonationCategory);
                     }
-                    case 4 ->
+                    case 4 -> {
+                        LocalDate newDonationDate = donationUI.inputDate("Enter new donation date");
+                        existingDonation.setDonationDate(newDonationDate);
+                    }
+                    case 5 -> {
+                        double newCashAmount = donationUI.inputCashAmount();
+                        existingDonation.setCashAmount(newCashAmount);
+                    }
+                    case 6 -> {
+                        int newInKindAmount = donationUI.inputInKindAmount();
+                        existingDonation.setInKindAmount(newInKindAmount);
+                    }
+                    case 7 -> {
                         continueModifying = false;
-                    default ->
+                    }
+                    default -> {
                         donationUI.displayErrorInputMessage();
+                    }
                 }
             }
 
-            // Save the updated donation list to the text file
             donationList.put(donationId, existingDonation);
             donationDAO.saveToFile(donationList);
 
-            // Display success message and print updated donation details
             donationUI.displaySuccessModifyDonationMessage();
             donationUI.printDonationDetails(existingDonation);
         } else {
@@ -210,7 +325,7 @@ public class DonationManagement {
         MessageUI.systemPause();
     }
 
-    public void searchDonations() {
+    public void searchDonation() {
         String searchDonationId = donationUI.inputDonationId();
         boolean found = donationList.containsKey(searchDonationId);
 
@@ -224,15 +339,85 @@ public class DonationManagement {
 
     }
 
+    public void filterDonation() {
+        LocalDate startDate = donationUI.inputDate("Enter the start date");
+        LocalDate endDate = donationUI.inputDate("Enter the end date");
+
+        boolean haveEntity = false;
+
+        for (MapEntryInterface<String, Donation> entry : donationList.entrySet()) {
+            Donation donation = entry.getValue();
+            LocalDate donationDate = donation.getDonationDate();
+
+            if ((donationDate.isEqual(startDate) || donationDate.isAfter(startDate))
+                    && (donationDate.isEqual(endDate) || donationDate.isBefore(endDate))) {
+                if (!haveEntity) {
+                    donationUI.displayFilterTitle(startDate, endDate);
+                    donationUI.getListDonationHeader();
+                    haveEntity = true;
+                }
+                donationUI.printAllDonationList(donation);
+            }
+        }
+
+        if (!haveEntity) {
+            System.out.println("");
+            donationUI.displayNoDonationEntityDateRangeMessage();
+        }
+
+        MessageUI.systemPause();
+    }
+
     public void listAllDonations() {
-        donationUI.getListDoneeDonationHeader();
+        donationUI.displayAllDonationTitle();
+        donationUI.getListDonationHeader();
         for (MapEntryInterface<String, Donation> entry : donationList.entrySet()) {
             donationUI.printAllDonationList(entry.getValue());
         }
+        MessageUI.systemPause();
     }
 
     public void generateReports() {
+//        Map<String, Integer> categoryReport = new LinkedHashMap<>();
+//
+//        for (MapEntryInterface<String, Donation> entry : donationList.entrySet()) {
+//            Donation donation = entry.getValue();
+//            String category = donation.getDonationCategory();
+//
+//            categoryReport.put(category, categoryReport.getOrDefault(category, 0) + 1);
+//        }
+//
+//        donationUI.displayReportHeader();
+//        for (Map.Entry<String, Integer> reportEntry : categoryReport.entrySet()) {
+//            System.out.printf("%-20s : %d donations\n", reportEntry.getKey(), reportEntry.getValue());
+//        }
+//        MessageUI.systemPause();
+    }
 
+    public String isValidInKindItem() {
+        String selection;
+        do {
+            switch (donationUI.inputInKindItem()) {
+                case 1 ->
+                    selection = "Clothing";
+                case 2 ->
+                    selection = "Food";
+                case 3 ->
+                    selection = "School Supplies";
+                case 4 ->
+                    selection = "Household Items";
+                case 5 ->
+                    selection = "Medical Supplies";
+                case 6 ->
+                    selection = "Personal Care Items";
+                default -> {
+                    donationUI.displayErrorInputMessage();
+                    selection = null;
+                }
+            }
+        } while (selection == null);
+
+        return selection;
     }
 
     public String isValidDonationType() {
@@ -322,6 +507,10 @@ public class DonationManagement {
                 donationUI.displayErrorInputMessage();
             }
         } while (true);
+    }
+
+    public LocalDate getCurrentDate() {
+        return LocalDate.now();
     }
 
     public String generateDonationID() {

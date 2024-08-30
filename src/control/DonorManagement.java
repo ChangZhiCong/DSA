@@ -236,7 +236,7 @@ public class DonorManagement {
                 if (entryDonor.getValue().getDonorId().equals(entryDonation.getValue().getDonorId())) {
                     totalDonation++;
                     donationAmount++;
-                    donationName = entryDonation.getValue().getDonationName();
+                    donationName = entryDonation.getValue().getInKindItem();
                     donationCategory = entryDonation.getValue().getDonationCategory();
                     donationType = entryDonation.getValue().getDonationType();
                     cashAmount = entryDonation.getValue().getCashAmount();
