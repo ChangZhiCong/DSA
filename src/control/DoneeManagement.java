@@ -185,7 +185,8 @@ public class DoneeManagement {
 
             StringBuilder donationCategory = new StringBuilder();
             StringBuilder donationType = new StringBuilder();
-
+            StringBuilder inKindItems = new StringBuilder();
+            
             double cashAmount = 0.0;
             int inKindAmount = 0;
 
@@ -194,13 +195,14 @@ public class DoneeManagement {
                     hasDonation = true;
                     donationCategory.append(entryDonation.getValue().getDonationCategory()).append(" ");
                     donationType.append(entryDonation.getValue().getDonationType()).append(" ");
+                    inKindItems.append(entryDonation.getValue().getInKindItem()).append(" ");
                     cashAmount += entryDonation.getValue().getCashAmount();
                     inKindAmount += entryDonation.getValue().getInKindAmount();
                 }
             }
 
             if (hasDonation) {
-                doneeUI.printAllDoneeWithDonation(entryDonee.getValue(), donationCategory.toString(), donationType.toString(), cashAmount, inKindAmount);
+                doneeUI.printAllDoneeWithDonation(entryDonee.getValue(), donationCategory.toString(), donationType.toString(), inKindItems.toString(), cashAmount, inKindAmount);
             }
         }
     }
