@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author leewa
+ * @author Lee Wai Xian
  */
 public class DonorManagementUI {
 

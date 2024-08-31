@@ -1,12 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package adt;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ *
+ * @author Cheong Wei Zhe
+ * @author Chang Zhi Cong
+ * @author Lee Wai Xian
+ *
+ */
 public class LinkedHashMap<K, V> implements MapInterface<K, V> {
 
     private Entry<K, V>[] buckets;
@@ -65,10 +68,10 @@ public class LinkedHashMap<K, V> implements MapInterface<K, V> {
             size++;
         } else {
             while (existing != null) {
-              if (existing.key.equals(key)) {
-                  existing.value = value; // Update the value if the key exists
-                  return;
-              }
+                if (existing.key.equals(key)) {
+                    existing.value = value; // Update the value if the key exists
+                    return;
+                }
                 if (existing.next == null) {
                     Entry<K, V> newEntry = new Entry<>(key, value);
                     existing.next = newEntry;
@@ -99,11 +102,11 @@ public class LinkedHashMap<K, V> implements MapInterface<K, V> {
         int bucketIndex = getBucketIndex(key);
         Entry<K, V> current = buckets[bucketIndex];
         Entry<K, V> previous = null;
-        
+
         // Shift Forward after removing the entity
         while (current != null) {
             if (current.key.equals(key)) {
-                
+
                 // If the remove element is the first element inside the bucket
                 if (previous == null) {
                     buckets[bucketIndex] = current.next;
@@ -219,7 +222,6 @@ public class LinkedHashMap<K, V> implements MapInterface<K, V> {
 //            updateTail();
 //        }
 //    }
-
     private void addEntryToOrderList(Entry<K, V> newEntry) {
         if (head == null) {
             head = tail = newEntry;
@@ -322,7 +324,6 @@ public class LinkedHashMap<K, V> implements MapInterface<K, V> {
 //            tail = tail.nextOrder;
 //        }
 //    }
-
     private class LinkedHashMapIterator implements Iterator<MapEntryInterface<K, V>> {
 
         private Entry<K, V> current;

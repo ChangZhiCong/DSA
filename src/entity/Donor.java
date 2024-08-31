@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author leewa
+ * @author Lee Wai Xian
  */
 public class Donor {
 

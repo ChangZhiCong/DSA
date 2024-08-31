@@ -19,7 +19,7 @@ import utility.MessageUI;
 
 /**
  *
- * @author leewa
+ * @author Lee Wai Xian
  */
 public class DonorManagement {
 

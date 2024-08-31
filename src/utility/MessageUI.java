@@ -1,12 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package utility;
 
 /**
  *
- * @author user
+ * @author Cheong Wei Zhe
+ * @author Chang Zhi Cong
+ * @author Lee Wai Xian
+ * 
  */
 public class MessageUI {
     public static void displayExitSubSystemMessage() {

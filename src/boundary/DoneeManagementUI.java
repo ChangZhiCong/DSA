@@ -160,7 +160,7 @@ public class DoneeManagementUI {
     public void displaySummaryReport(Donee donee) {
         System.out.println("\nTotal number of donee : " + Donee.getTotalDonee() + "\n");
     }
-    
+
     public String inputStartDate() {
         System.out.print("Enter the start date (eg. 14/08/2024) : ");
         String str = sc.nextLine();
@@ -201,21 +201,20 @@ public class DoneeManagementUI {
     }
 
     public void printAllDonee(Donee donee) {
-        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donee.getDoneeId(), donee.getDoneeName(), 
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s %-20s\n", donee.getDoneeId(), donee.getDoneeName(),
                 donee.getDoneeIdentity(), donee.getDoneeContactNo(), donee.getDoneeEmail(), donee.getFormattedDoneeRegDate());
     }
-    
+
     public void printAllDoneeWithoutDate(Donee donee) {
-        System.out.printf("%-8s %-20s %-20s %-20s %-30s\n", donee.getDoneeId(), donee.getDoneeName(), 
+        System.out.printf("%-8s %-20s %-20s %-20s %-30s\n", donee.getDoneeId(), donee.getDoneeName(),
                 donee.getDoneeIdentity(), donee.getDoneeContactNo(), donee.getDoneeEmail());
     }
-    
+
 //    public void printAllDoneeWithDonationQty(Donee donee, double cashAmount, int inKindAmount) {
 //        System.out.printf("%-8s %-20s %-20s %-20s %-30s %25.2f %28d\n", donee.getDoneeId(), 
 //                donee.getDoneeName(), donee.getDoneeIdentity(), donee.getDoneeContactNo(), 
 //                donee.getDoneeEmail(), cashAmount, inKindAmount);
 //    }
-
     public void displaySucessAddDoneeMessage() {
         System.out.println("You have successfully add a new donee !\n");
     }

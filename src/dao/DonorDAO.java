@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 
 /**
  *
- * @author leewa
+ * @author Lee Wai Xian
  */
 public class DonorDAO {
     private String fileName;
