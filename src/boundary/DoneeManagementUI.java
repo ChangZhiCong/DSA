@@ -151,14 +151,14 @@ public class DoneeManagementUI {
     }
 
     public void displayCategoryReport(Donee donee) {
-        System.out.println("Total number of individual   : " + Donee.getTotalIndividual());
-        System.out.println("Total number of family       : " + Donee.getTotalFamily());
-        System.out.println("Total number of organisation : " + Donee.getTotalOrganisation() + "\n");
-        System.out.println("Total number of donee        : " + Donee.getTotalDonee());
+        System.out.println("Total number of individual    : " + Donee.getTotalIndividual());
+        System.out.println("Total number of family        : " + Donee.getTotalFamily());
+        System.out.println("Total number of organisation  : " + Donee.getTotalOrganisation() + "\n");
+        System.out.println("Total number of donee         : " + Donee.getTotalDonee());
     }
 
     public void displaySummaryReport(Donee donee) {
-        System.out.println("\nTotal number of donee : " + Donee.getTotalDonee() + "\n");
+        System.out.println("\nTotal number of donee(s) registered within the specific date range : " + Donee.getTotalDonee() + "\n");
     }
 
     public String inputStartDate() {
@@ -192,10 +192,10 @@ public class DoneeManagementUI {
 
     public void printAllDoneeWithDonation(Donee donee, String category, String type, String inKindItems, double cashAmount, int inKindAmount) {
         System.out.printf("%s", donee);
-        System.out.printf("Donation Category : %s\n", category);
-        System.out.printf("Donation Type : %s\n", type);
-        System.out.printf("Donation In-Kind Items : %s\n", inKindItems);
-        System.out.printf("Cash Amount Received(RM) : %.2f\n", cashAmount);
+        System.out.printf("Donation Category            : %s\n", category);
+        System.out.printf("Donation Type                : %s\n", type);
+        System.out.printf("Donation In-Kind Items       : %s\n", inKindItems);
+        System.out.printf("Cash Amount Received(RM)     : %.2f\n", cashAmount);
         System.out.printf("In-Kind Amount Received(Qty) : %d\n\n", inKindAmount);
         System.out.println("==========================================================================================");
     }

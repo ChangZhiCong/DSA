@@ -465,9 +465,19 @@ public class DonorManagement {
     public boolean removeFromFile(String id) {
         boolean isRemoved = donorList.remove(id);
         if (isRemoved) {
+            removeDonation(id);
+            donationDAO.saveToFile(donationList);
             donorDAO.saveToFile(donorList);
         }
         return isRemoved;
+    }
+
+    public void removeDonation(String id) {
+        for (MapEntryInterface<String, Donation> entry : donationList.entrySet()) {
+            if (entry.getValue().getDonorId().equals(id)) {
+                donationList.remove(entry.getKey());
+            }
+        }
     }
 
     public void increaseTotal() {

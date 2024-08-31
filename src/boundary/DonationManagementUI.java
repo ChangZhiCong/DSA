@@ -22,11 +22,11 @@ public class DonationManagementUI {
     public int donationManagementMenu() {
 
         System.out.println("=============================================");
-        System.out.println("           Donation Management System        ");
+        System.out.println("        Donation Management SubSystem        ");
         System.out.println("=============================================");
         System.out.println(" (1)  Add New Donation");
         System.out.println(" (2)  Remove Donation");
-        System.out.println(" (3)  Modify Donation Detail");
+        System.out.println(" (3)  Amend Donation Detail");
         System.out.println(" (4)  Search Donation");
         System.out.println(" (5)  Track Donations by Category");
         System.out.println(" (6)  List Donation by Different Donor");
