@@ -307,7 +307,7 @@ public class DonationManagementUI {
         System.out.println("=============================================");
         System.out.println("         Total Donation Summary Report       ");
         System.out.println("=============================================");
-        System.out.println("Total Cash Donations Received : RM " + totalCash);
+        System.out.printf("Total Cash Donations Received : RM %.2f\n", totalCash);
         System.out.println("Total In-Kind Items Donated   : " + totalInKind);
         System.out.println("=============================================");
     }

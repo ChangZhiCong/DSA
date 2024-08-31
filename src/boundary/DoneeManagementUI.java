@@ -44,12 +44,33 @@ public class DoneeManagementUI {
         String doneeEmail = sc.nextLine().trim();
         return doneeEmail;
     }
+    
+    public String inputStartDate() {
+        System.out.print("Enter the start date (eg. 14/08/2024) : ");
+        String str = sc.nextLine();
+        return str;
+    }
+
+    public String inputEndDate() {
+        System.out.print("Enter the end date (eg. 14/08/2024) : ");
+        String str = sc.nextLine();
+        return str;
+    }
+    
+    public Donee inputDoneeDetails() {
+        String doneeName = inputDoneeName();
+        String doneeContactNo = inputDoneeContactNo();
+        String doneeIdentity = inputDoneeIdentity();
+        String doneeEmail = inputDoneeEmail();
+        System.out.println();
+        return new Donee(doneeName, doneeContactNo, doneeEmail, doneeIdentity);
+    }
 
     public void getDoneeLogo() {
         System.out.println("     _____                        ");
         System.out.println("    |  __ \\                       ");
         System.out.println("    | |  | | ___  _ __   ___  ___ ");
-        System.out.println("    | |  | |/ _ \\| '_ \\ / _ \\/ _ \\");
+        System.out.println("    | |  | |/ _ \\|  _ \\ / _ \\/ _ \\");
         System.out.println("    | |__| | (_) | | | |  __/  __/");
         System.out.println("    |_____/ \\___/|_| |_|\\___|\\___|");
         System.out.println("========================================");
@@ -84,15 +105,6 @@ public class DoneeManagementUI {
         sc.nextLine();
         System.out.println();
         return choice;
-    }
-
-    public Donee inputDoneeDetails() {
-        String doneeName = inputDoneeName();
-        String doneeContactNo = inputDoneeContactNo();
-        String doneeIdentity = inputDoneeIdentity();
-        String doneeEmail = inputDoneeEmail();
-        System.out.println();
-        return new Donee(doneeName, doneeContactNo, doneeEmail, doneeIdentity);
     }
 
     public int getUpdateDoneeChoice() {
@@ -161,18 +173,6 @@ public class DoneeManagementUI {
         System.out.println("\nTotal number of donee(s) registered within the specific date range : " + Donee.getTotalDonee() + "\n");
     }
 
-    public String inputStartDate() {
-        System.out.print("Enter the start date (eg. 14/08/2024) : ");
-        String str = sc.nextLine();
-        return str;
-    }
-
-    public String inputEndDate() {
-        System.out.print("Enter the end date (eg. 14/08/2024) : ");
-        String str = sc.nextLine();
-        return str;
-    }
-
     public void printDoneeDetails(Donee donee) {
         System.out.println("\nDonee Details");
         System.out.println("=================");
@@ -209,12 +209,7 @@ public class DoneeManagementUI {
         System.out.printf("%-8s %-20s %-20s %-20s %-30s\n", donee.getDoneeId(), donee.getDoneeName(),
                 donee.getDoneeIdentity(), donee.getDoneeContactNo(), donee.getDoneeEmail());
     }
-
-//    public void printAllDoneeWithDonationQty(Donee donee, double cashAmount, int inKindAmount) {
-//        System.out.printf("%-8s %-20s %-20s %-20s %-30s %25.2f %28d\n", donee.getDoneeId(), 
-//                donee.getDoneeName(), donee.getDoneeIdentity(), donee.getDoneeContactNo(), 
-//                donee.getDoneeEmail(), cashAmount, inKindAmount);
-//    }
+    
     public void displaySucessAddDoneeMessage() {
         System.out.println("You have successfully add a new donee !\n");
     }

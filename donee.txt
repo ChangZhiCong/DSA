@@ -10,4 +10,4 @@ DE7463,Zheng,011-16256789,zheng123@gmail.com,family,17/08/2024
 DE7410,Yang,011-23828858,yang007@gmail.com,family,26/08/2024
 DE5804,Xin,011-23828845,xin123@gmail.com,family,26/08/2024
 DE1902,Ja,012-3923454,ja12@gmail.com,family,26/08/2024
-DE8856,Chan,011-12345678,chan123@gmail.com,family,28/08/2024
+DE8856,Chan,011-12345678,chan12@gmail.com,individual,28/08/2024

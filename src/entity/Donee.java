@@ -127,7 +127,12 @@ public class Donee {
 
     @Override
     public String toString() {
-        return "Donee ID : " + doneeId + "\nDonee Name : " + doneeName + "\nDonee Contact No : " + doneeContactNo + "\nDonee Email : " + doneeEmail + "\nDonee Identity : " + doneeIdentity + "\nDonee Registration Date : " + getFormattedDoneeRegDate() + "\n";
+        return "Donee ID                     : " + doneeId + 
+             "\nDonee Name                   : " + doneeName + 
+             "\nDonee Contact No             : " + doneeContactNo + 
+             "\nDonee Email                  : " + doneeEmail + 
+             "\nDonee Identity               : " + doneeIdentity + 
+             "\nDonee Registration Date      : " + getFormattedDoneeRegDate() + "\n";
     }
 
     public String toCsvString() {
