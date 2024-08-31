@@ -187,8 +187,7 @@ public class DoneeManagement {
             StringBuilder donationType = new StringBuilder();
             StringBuilder inKindItems = new StringBuilder();
             
-            double cashAmount = 0.0;
-            int inKindAmount = 0;
+            DonationTracking donationTrack = new DonationTracking();
 
             for (MapEntryInterface<String, Donation> entryDonation : donationList.entrySet()) {
                 if (entryDonee.getValue().getDoneeId().equals(entryDonation.getValue().getDoneeId())) {
@@ -196,13 +195,12 @@ public class DoneeManagement {
                     donationCategory.append(entryDonation.getValue().getDonationCategory()).append(" ");
                     donationType.append(entryDonation.getValue().getDonationType()).append(" ");
                     inKindItems.append(entryDonation.getValue().getInKindItem()).append(" ");
-                    cashAmount += entryDonation.getValue().getCashAmount();
-                    inKindAmount += entryDonation.getValue().getInKindAmount();
+                    donationTrack.addDonation(entryDonation.getValue());
                 }
             }
 
             if (hasDonation) {
-                doneeUI.printAllDoneeWithDonation(entryDonee.getValue(), donationCategory.toString(), donationType.toString(), inKindItems.toString(), cashAmount, inKindAmount);
+                doneeUI.printAllDoneeWithDonation(entryDonee.getValue(), donationCategory.toString(), donationType.toString(), inKindItems.toString(), donationTrack.getTotalCash(), donationTrack.getTotalInKindItems());
             }
         }
     }
