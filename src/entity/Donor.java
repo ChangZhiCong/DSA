@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import java.text.SimpleDateFormat;
@@ -18,7 +14,6 @@ public class Donor {
     private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private static int totalDonor = 0, totalIndividualGovernment = 0, totalIndividualPrivate = 0, totalIndividualPublic = 0, totalOrganisationGovernment = 0, totalOrganisationPrivate = 0, totalOrganisationPublic = 0;
 
-    //Constructor
     public Donor() {
     }
 
@@ -43,7 +38,6 @@ public class Donor {
         this.donorRegDate = formatter.parse(parts[6]);
     }
 
-    //Getter
     public String getDonorId() {
         return donorId;
     }
@@ -100,7 +94,6 @@ public class Donor {
         return totalOrganisationPublic;
     }
 
-    //Setter
     public void setDonorName(String donorName) {
         this.donorName = donorName;
     }
@@ -121,12 +114,10 @@ public class Donor {
         this.donorType = donorType;
     }
 
-//Return data type is String as format the donorRegDate 
     public String getFormattedDonorRegDate() {
         return formatter.format(donorRegDate);
     }
 
-//Increment
     public static void increaseTotalDonor() {
         totalDonor++;
     }
@@ -155,7 +146,6 @@ public class Donor {
         totalOrganisationPublic++;
     }
 
-//Reset
     public static void resetTotal() {
         totalDonor = 0;
         totalIndividualGovernment = 0;
@@ -166,7 +156,6 @@ public class Donor {
         totalOrganisationPublic = 0;
     }
 
-//toString
     @Override
     public String toString() {
         return "Donor ID : " + donorId

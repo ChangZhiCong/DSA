@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package boundary;
 
 import entity.Donee;
@@ -44,7 +40,7 @@ public class DoneeManagementUI {
         String doneeEmail = sc.nextLine().trim();
         return doneeEmail;
     }
-    
+
     public String inputStartDate() {
         System.out.print("Enter the start date (eg. 14/08/2024) : ");
         String str = sc.nextLine();
@@ -56,7 +52,7 @@ public class DoneeManagementUI {
         String str = sc.nextLine();
         return str;
     }
-    
+
     public Donee inputDoneeDetails() {
         String doneeName = inputDoneeName();
         String doneeContactNo = inputDoneeContactNo();
@@ -209,7 +205,7 @@ public class DoneeManagementUI {
         System.out.printf("%-8s %-20s %-20s %-20s %-30s\n", donee.getDoneeId(), donee.getDoneeName(),
                 donee.getDoneeIdentity(), donee.getDoneeContactNo(), donee.getDoneeEmail());
     }
-    
+
     public void displaySucessAddDoneeMessage() {
         System.out.println("You have successfully add a new donee !\n");
     }

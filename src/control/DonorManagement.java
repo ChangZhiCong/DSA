@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package control;
 
 import adt.LinkedHashMap;
@@ -67,7 +63,6 @@ public class DonorManagement {
         } while (choice != 9);
     }
 
-    //1. Add a new donor
     public void addDonor() {
         donor = inputDonorDetails();
         donorList.put(donor.getDonorId(), donor);
@@ -110,7 +105,6 @@ public class DonorManagement {
         };
     }
 
-    //2. Remove a donor
     public void removeDonor() {
         String removeDonorID = donorUI.inputDonorID();
         boolean validRemove = removeFromFile(removeDonorID);
@@ -123,7 +117,6 @@ public class DonorManagement {
         }
     }
 
-    //3. Update donors details
     public void updateDonor() {
         int choice;
         String updateDonorID = donorUI.inputDonorID();
@@ -202,7 +195,6 @@ public class DonorManagement {
         }
     }
 
-    //4. Search donor details
     public void searchDonor() {
         String searchDonorID = donorUI.inputDonorID();
         boolean validSearchDonor = donorList.containsKey(searchDonorID);
@@ -218,7 +210,6 @@ public class DonorManagement {
         }
     }
 
-    //5. List donors with all donations made
     public void listDonor() {
         donorUI.getListDonorDonationHeader();
         int totalDonor = 0, totalDonation = 0;
@@ -260,7 +251,6 @@ public class DonorManagement {
         MessageUI.systemPause();
     }
 
-    //6. Filter donor based on criteria
     public void filterDonor() {
         int choice;
         do {
@@ -346,13 +336,13 @@ public class DonorManagement {
             if (donorIdentityType.equals(donorData)) {
                 totalResult++;
                 donorUI.printCertainIdentityTypeDonor(entry.getValue());
-            } else if (entry.getValue().getDonorIdentity().equals(donorData)) { // for filter identity
+            } else if (entry.getValue().getDonorIdentity().equals(donorData)) {
                 totalResult++;
                 donorUI.printCertainIdentityDonor(entry.getValue());
-            } else if (entry.getValue().getDonorType().equals(donorData)) { // for filter type
+            } else if (entry.getValue().getDonorType().equals(donorData)) {
                 totalResult++;
                 donorUI.printCertainTypeDonor(entry.getValue());
-            } else if (stringContains(entry.getValue().getDonorName(), donorData)) { //For filter donor names
+            } else if (stringContains(entry.getValue().getDonorName(), donorData)) {
                 totalResult++;
                 donorUI.printAllDonor(entry.getValue());
             }
@@ -361,7 +351,7 @@ public class DonorManagement {
     }
 
     public boolean stringContains(String container, String contained) {
-        // Edge case handling
+
         if (contained == null || container == null) {
             return false;
         }
@@ -369,21 +359,17 @@ public class DonorManagement {
             return true;
         }
 
-        // Create arrays to count occurrences of each character
         int[] containerCharCount = new int[256];
         int[] containedCharCount = new int[256];
 
-        // Count frequency of each character in the container string
         for (int i = 0; i < container.length(); i++) {
             containerCharCount[container.charAt(i)]++;
         }
 
-        // Count frequency of each character in the contained string
         for (int i = 0; i < contained.length(); i++) {
             containedCharCount[contained.charAt(i)]++;
         }
 
-        // Check if container has all characters of contained with sufficient frequency
         for (int i = 0; i < 256; i++) {
             if (containedCharCount[i] > containerCharCount[i]) {
                 return false;
@@ -392,7 +378,6 @@ public class DonorManagement {
         return true;
     }
 
-    //7. Categorise donors (type: government, private, public)
     public void categoriseDonor() {
         String choice;
         int totalGovernment = 0, totalPrivate = 0, totalPublic = 0;
@@ -426,7 +411,6 @@ public class DonorManagement {
 
     }
 
-    //8. Generate summary reports
     public void generateDonorReport() {
         int choice;
         do {
@@ -515,7 +499,6 @@ public class DonorManagement {
             for (MapEntryInterface<String, Donor> entry : donorList.entrySet()) {
                 Date originalDate = entry.getValue().getDonorRegDate();
 
-                // compare the original Donor date with the new input date & display
                 if (originalDate.compareTo(formattedStartDate) >= 0 && originalDate.compareTo(formattedEndDate) <= 0) {
                     donorUI.printAllDonor(entry.getValue());
                     Donor.increaseTotalDonor();

@@ -48,7 +48,7 @@ public class DonationManagement {
                 case 2 ->
                     removeDonation();
                 case 3 ->
-                    modifyDonation();
+                    amendDonation();
                 case 4 ->
                     searchDonation();
                 case 5 ->
@@ -97,7 +97,7 @@ public class DonationManagement {
         }
     }
 
-    public void modifyDonation() {
+    public void amendDonation() {
         String donationId = donationUI.inputDonationId();
         boolean found = donationList.containsKey(donationId);
 

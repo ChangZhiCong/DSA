@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package adt;
 
 /**
@@ -11,9 +7,9 @@ package adt;
  * @author Lee Wai Xian
  * @param <K>
  * @param <V>
- * 
+ *
  */
-public interface MapInterface<K, V>{
+public interface MapInterface<K, V> {
 
     void put(K key, V value);
 
@@ -28,16 +24,12 @@ public interface MapInterface<K, V>{
     boolean containsValue(V value);
 
     K[] keySet();
-    
+
     V[] values();
-        
-//    void sortByAscending();
-//
-//    void sortByDescending();
-    
+
     void clear();
-    
+
     int getSize();
-    
+
     Iterable<MapEntryInterface<K, V>> entrySet();
 }

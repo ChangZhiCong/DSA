@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import java.util.Date;
@@ -117,7 +113,7 @@ public class Donee {
     public static void increaseTotalOrganisation() {
         totalOrganisation++;
     }
-    
+
     public static void resetTotal() {
         totalDonee = 0;
         totalIndividual = 0;
@@ -127,12 +123,12 @@ public class Donee {
 
     @Override
     public String toString() {
-        return "Donee ID                      : " + doneeId + 
-             "\nDonee Name                    : " + doneeName + 
-             "\nDonee Contact Number          : " + doneeContactNo + 
-             "\nDonee Email                   : " + doneeEmail + 
-             "\nDonee Identity                : " + doneeIdentity + 
-             "\nDonee Registration Date       : " + getFormattedDoneeRegDate() + "\n";
+        return "Donee ID                      : " + doneeId
+                + "\nDonee Name                    : " + doneeName
+                + "\nDonee Contact Number          : " + doneeContactNo
+                + "\nDonee Email                   : " + doneeEmail
+                + "\nDonee Identity                : " + doneeIdentity
+                + "\nDonee Registration Date       : " + getFormattedDoneeRegDate() + "\n";
     }
 
     public String toCsvString() {

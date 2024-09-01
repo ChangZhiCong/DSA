@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package control;
 
 import adt.LinkedHashMap;
@@ -22,7 +18,8 @@ import utility.MessageUI;
  *
  * @author user : Chang Zhi Cong
  */
-public class DoneeManagement {                
+public class DoneeManagement {
+
     private MapInterface<String, Donee> doneeList = new LinkedHashMap();
     private MapInterface<String, Donation> donationList = new LinkedHashMap();
 
@@ -85,7 +82,7 @@ public class DoneeManagement {
         if (!validRemove) {
             doneeUI.displayInvalidIDMessgae();
         } else {
-            // cascade deletion 
+
             removeDonation(removeDoneeID);
 
             doneeDAO.saveToFile(doneeList);
@@ -191,7 +188,7 @@ public class DoneeManagement {
             StringBuilder donationCategory = new StringBuilder();
             StringBuilder donationType = new StringBuilder();
             StringBuilder inKindItems = new StringBuilder();
-            
+
             DonationTracking donationTrack = new DonationTracking();
 
             for (MapEntryInterface<String, Donation> entryDonation : donationList.entrySet()) {
@@ -308,7 +305,7 @@ public class DoneeManagement {
             ex.printStackTrace();
         }
     }
-    
+
     public String generateDoneeID() {
         String prefix = "DE";
         String newDoneeId;

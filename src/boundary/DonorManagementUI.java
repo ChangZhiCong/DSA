@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package boundary;
 
 import entity.Donor;
@@ -13,10 +9,8 @@ import java.util.Scanner;
  */
 public class DonorManagementUI {
 
-    //Scanner
     Scanner sc = new Scanner(System.in);
 
-    //Display Donor logo
     public void getDonorLogo() {
         System.out.println("                                                                      ");
         System.out.println("                  ,----..             ,--.     ,----..                ");
@@ -37,7 +31,6 @@ public class DonorManagementUI {
         System.out.println("========================================");
     }
 
-    //Display Donor menu
     public int getDonorMenu() {
         System.out.println("                Menu");
         System.out.println("========================================");
@@ -58,7 +51,6 @@ public class DonorManagementUI {
         return choice;
     }
 
-    //1. Add a new donor
     public String inputDonorName() {
         System.out.print("Enter donor name : ");
         String donorName = sc.nextLine().trim();
@@ -89,21 +81,18 @@ public class DonorManagementUI {
         return choice;
     }
 
-    //2, 4. Enter donorID
     public String inputDonorID() {
         System.out.print("Enter a donor ID (eg: DRXXXX) : ");
         String donorId = sc.nextLine().toUpperCase().trim();
         return donorId;
     }
 
-    //Display donor details
     public void printDonorDetails(Donor donor) {
         System.out.println("\nDonor Details");
         System.out.println("=================");
         System.out.println(donor);
     }
 
-    //3. Update donors details
     public int getUpdateDonorChoice() {
         System.out.println("");
         System.out.println("       Update Donor Details Menu");
@@ -123,7 +112,6 @@ public class DonorManagementUI {
         return choice;
     }
 
-    //5. List donors with all the donations made
     public void getListDonorDonationHeader() {
         System.out.println("                                                                                       Donor List with All Donations Made ");
         System.out.println("=========================================================================================================================================================================================================");
@@ -146,7 +134,6 @@ public class DonorManagementUI {
         System.out.println("\nTotal donor(s) listed: " + totalDonor + ", Total donation(s) listed: " + totalDonation);
     }
 
-    //6. Filter donor based on criteria
     public int getDonorFilterChoice() {
         System.out.println("          Donor Filter Menu");
         System.out.println("========================================");
@@ -214,7 +201,6 @@ public class DonorManagementUI {
         System.out.println("\nTotal donor(s) found: " + totalResult);
     }
 
-    //7. Categorise donors (type: government, private, public)
     public void getListCategorisedDonorHeader() {
         System.out.println("\n                                Categorised Donor List Based on Donor Type");
         System.out.println("======================================================================================================================");
@@ -254,7 +240,6 @@ public class DonorManagementUI {
         System.out.println("\nTotal donor(s) listed: " + total);
     }
 
-    //8. Generate summary reports
     public int getReportMenuChoice() {
         System.out.println("              Report Menu");
         System.out.println("========================================");
@@ -304,7 +289,6 @@ public class DonorManagementUI {
         System.out.println("\nTotal number of donor(s) joined within the specific date: " + Donor.getTotalDonor() + "\n");
     }
 
-    //Common Messages
     public void displaySucessAddDonorMessage() {
         System.out.println("You have added a new donor successfully !\n");
     }
