@@ -1,8 +1,3 @@
-/**
- *
- * @author user : Cheong Wei Zhe
- */
-
 package dao;
 
 import adt.LinkedHashMap;
@@ -16,7 +11,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ *
+ * @author user : Cheong Wei Zhe
+ */
 public class DonationDAO {
+
     private String fileName;
 
     public DonationDAO() {
@@ -55,17 +55,6 @@ public class DonationDAO {
             System.out.println("Cannot read from file !");
         } finally {
             return donationList;
-        }
-    }
-    
-    public void appendToFile(MapInterface<String, Donation> donationList) {
-        File file = new File(fileName);
-        try (PrintWriter writer = new PrintWriter(new FileWriter(file, true))) {
-            for (MapEntryInterface<String, Donation> entry : donationList.entrySet()) {
-                writer.println(entry.getValue().toCsvString());
-            }
-        } catch (IOException ex) {
-            System.out.println("Cannot append to file!");
         }
     }
 }
