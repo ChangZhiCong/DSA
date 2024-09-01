@@ -197,9 +197,9 @@ public class DoneeManagement {
             for (MapEntryInterface<String, Donation> entryDonation : donationList.entrySet()) {
                 if (entryDonee.getValue().getDoneeId().equals(entryDonation.getValue().getDoneeId())) {
                     hasDonation = true;
-                    donationCategory.append(entryDonation.getValue().getDonationCategory()).append(" ");
-                    donationType.append(entryDonation.getValue().getDonationType()).append(" ");
-                    inKindItems.append(entryDonation.getValue().getInKindItem()).append(" ");
+                    donationCategory.append(entryDonation.getValue().getDonationCategory()).append("  ");
+                    donationType.append(entryDonation.getValue().getDonationType()).append("  ");
+                    inKindItems.append(entryDonation.getValue().getInKindItem()).append("  ");
                     donationTrack.addDonation(entryDonation.getValue());
                 }
             }

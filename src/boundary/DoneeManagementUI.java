@@ -16,7 +16,7 @@ public class DoneeManagementUI {
     Scanner sc = new Scanner(System.in);
 
     public String inputDoneeID() {
-        System.out.print("Enter donee id (eg: DEXXXX) : ");
+        System.out.print("Enter donee id (DEXXXX) : ");
         String doneeId = sc.nextLine().toUpperCase().trim();
         return doneeId;
     }
@@ -192,11 +192,11 @@ public class DoneeManagementUI {
 
     public void printAllDoneeWithDonation(Donee donee, String category, String type, String inKindItems, double cashAmount, int inKindAmount) {
         System.out.printf("%s", donee);
-        System.out.printf("Donation Category            : %s\n", category);
-        System.out.printf("Donation Type                : %s\n", type);
-        System.out.printf("Donation In-Kind Items       : %s\n", inKindItems);
-        System.out.printf("Cash Amount Received(RM)     : %.2f\n", cashAmount);
-        System.out.printf("In-Kind Amount Received(Qty) : %d\n\n", inKindAmount);
+        System.out.printf("Donation Category             : %s\n", category);
+        System.out.printf("Donation Type                 : %s\n", type);
+        System.out.printf("Donation In-Kind Items        : %s\n", inKindItems);
+        System.out.printf("Cash Amount Received (RM)     : %.2f\n", cashAmount);
+        System.out.printf("In-Kind Amount Received (Qty) : %d\n\n", inKindAmount);
         System.out.println("==========================================================================================");
     }
 
