@@ -187,8 +187,10 @@ public class DonorManagement {
                             MessageUI.systemPause();
                         }
                     }
-                    default ->
+                    default -> {
                         donorUI.displayInvalidMenuMessage();
+                        MessageUI.systemPause();
+                    }
                 }
 
             } while (choice != 6);

@@ -31,13 +31,13 @@ public class DoneeManagementUI {
 
     public String inputDoneeIdentity() {
         System.out.print("Enter donee identity (organisation, individual, family) : ");
-        String doneeType = sc.nextLine().trim();
+        String doneeType = sc.nextLine().toLowerCase().trim();
         return doneeType;
     }
 
     public String inputDoneeEmail() {
         System.out.print("Enter donee email : ");
-        String doneeEmail = sc.nextLine().trim();
+        String doneeEmail = sc.nextLine().toLowerCase().trim();
         return doneeEmail;
     }
 

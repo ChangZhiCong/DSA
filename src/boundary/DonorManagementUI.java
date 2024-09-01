@@ -65,7 +65,7 @@ public class DonorManagementUI {
 
     public String inputDonorEmail() {
         System.out.print("Enter donor email : ");
-        String donorEmail = sc.nextLine().trim();
+        String donorEmail = sc.nextLine().toLowerCase().trim();
         return donorEmail;
     }
 

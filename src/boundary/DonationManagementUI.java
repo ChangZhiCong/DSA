@@ -194,7 +194,7 @@ public class DonationManagementUI {
         System.out.println("(3) School Supplies");
         System.out.println("(4) Household");
         System.out.println("(5) Medical Supplies");
-        System.out.println("(6) Personal");
+        System.out.println("(6) Personal Care");
         System.out.println("===========================");
         System.out.print("Your Selection > ");
         int input = sc.nextInt();

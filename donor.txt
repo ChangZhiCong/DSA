@@ -1,8 +1,6 @@
 DR8398,Alvin,012-33445566,leewx123@gmail.com,Individual,Private,25/08/2024
 DR2496,ABCCompany,04-3883664,abccompany@gmail.com,Organisation,Public,27/08/2024
 DR8919,Bryan,013-44493321,bryan321@gmail.com,Individual,Private,27/08/2024
-DR2868,AbadGov,04-33332844,abadgov123@gmail.com,Organisation,Government,27/08/2024
-DR8866,Wan,012-3994211,wan474625@gmail.com,Individual,Government,27/08/2024
 DR0806,Cecilia,012-34424633,cecilia3647@gmail.com,Organisation,Public,27/08/2024
 DR5136,LikeCompany,04-88343262,likecompany@gmail.com,Organisation,Private,27/08/2024
 DR4258,Damian,012-33426721,damian8276@gmail.com,Individual,Public,27/08/2024
@@ -11,5 +9,5 @@ DR7541,Mohd Arul,013-23345332,mohdarul@gmail.com,Individual,Private,28/08/2024
 DR7041,POPGov,04-31333113,popgovmy@gmail.com,Organisation,Government,28/08/2024
 DR4415,Feyd,012-13333122,feyd8377@gmail.com,Individual,Private,28/08/2024
 DR4260,Grace,04-133334211,gracehouse@gmail.com,Organisation,Public,28/08/2024
-DR2217,Phillips,04-93133421,phillips32@gmail.com,Organisation,Private,28/08/2024
 DR1956,cha,012-34758392,cc12@gmail.com,Organisation,Government,31/08/2024
+DR6316,ABCCompany,019-3239234,tarumt@gmail.com,Individual,Government,01/09/2024
