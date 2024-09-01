@@ -8,6 +8,8 @@ import java.util.NoSuchElementException;
  * @author Cheong Wei Zhe
  * @author Chang Zhi Cong
  * @author Lee Wai Xian
+ * @param <K>
+ * @param <V>
  *
  */
 public class LinkedHashMap<K, V> implements MapInterface<K, V> {
