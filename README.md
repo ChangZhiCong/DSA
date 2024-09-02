@@ -8,6 +8,6 @@ Basically, our assignment is to create a charity centre management system which 
 
 2. When u successfully open the project, navigate to the control package.
    
-3. Right click the "" java file and select "Run the File" to execute the project.
+3. Right click any of the java file and select "Run the File" to execute the project.
 
 That's all from us. We hope u can enjoy our assignment.
